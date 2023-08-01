@@ -7,10 +7,6 @@ const nextConfig = {
     images: {
         domains: ['admin.fastrest.com.tr', 'dummyimage.com', 'cdn.fastrest.com.tr'],
     },
-    server: {
-    port: 5000,
-  },
 };
 
 module.exports = nextConfig
-
