@@ -117,7 +117,6 @@ const ProductType3Modal = ({
     total_price += parseFloat(prod.product_price);
     prod.total_price = total_price * piece; //.toFixed(2);
 
-    console.log("totalPrice  & product in ProductType3Modal: ", productState);
 
     setProductState(prod);
   };

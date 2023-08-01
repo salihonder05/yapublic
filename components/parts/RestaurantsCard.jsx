@@ -3,20 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function RestaurantsCard({ restaurant, key }) {
-  console.log("restaurant: ", restaurant);
+export default function RestaurantsCard({ restaurant }) {
   const restaurantDetail = (restaurant) => {
     // console.log("object: ", restaurant);
     localStorage.setItem("accountId", restaurant?.point_account?.id);
   };
   return (
-    <div key={key}>
+    <div key={restaurant?.id}>
       <div className="relative">
         <div className="relative w-full overflow-hidden rounded-lg h-72">
           <Image
             src={restaurant?.point_account?.brand?.brand_banner}
             width={100}
             height={100}
+            priority 
             alt={restaurant?.point_account?.account_title}
             className="object-cover object-center w-full h-full"
           />

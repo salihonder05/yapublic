@@ -15,7 +15,6 @@ import store from "@/app/Redux/store";
 import { cartActions } from "@/app/Redux/features/cart-slice";
 import Notification from "../parts/Notification";
 import { authActions } from "@/app/Redux/features/auth-slice";
-import Link from "next/link";
 import Image from "next/image";
 
 const products = {
@@ -52,8 +51,6 @@ export default function SinglProduct() {
   const product = useSelector(({ product }) => product.product);
   const openCart = useSelector(({ cart }) => cart.openCart);
   const openNotification = useSelector(({ auth }) => auth.openNotification);
-
-  console.log("product: ", product);
 
   const addToCart = () => {
     let cartProductsList =
@@ -197,13 +194,17 @@ export default function SinglProduct() {
         {/* Products image */}
         <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
           <div className="overflow-hidden rounded-lg aspect-h-1 aspect-w-1">
-            <Image
-              width={100}
-              height={100}
-              src={product?.img_url}
-              alt={product?.img_url}
-              className="object-cover object-center w-full h-full"
-            />
+            {product?.img_url ? (
+              <Image
+                width={100}
+                height={100}
+                src={product?.img_url}
+                alt={"img_url"}
+                className="object-cover object-center w-full h-full"
+              />
+            ) : (
+              <span>yükleniyor...</span>
+            )}
           </div>
         </div>
 
@@ -269,36 +270,36 @@ export default function SinglProduct() {
                   </div>
                 </RadioGroup>
               </div>
-              <div className="mt-4">
+              {/* <div className="mt-4">
                 <Link
                   href="#"
                   className="inline-flex text-sm text-gray-500 group hover:text-gray-700"
                 >
-                  <span>What size should I buy?</span>
+                  <span>Hangi Boy almalıyım??</span>
                   <QuestionMarkCircleIcon
                     className="flex-shrink-0 w-5 h-5 ml-2 text-gray-400 group-hover:text-gray-500"
                     aria-hidden="true"
                   />
                 </Link>
-              </div>
+              </div> */}
               <div className="mt-10">
                 <ButtonBlockPrimary handleOnClick={addToCart}>
                   Sepete Ekle
                 </ButtonBlockPrimary>
               </div>
               <div className="mt-6 text-center">
-                <Link
+                {/* <Link
                   href="#"
                   className="inline-flex text-base font-medium group"
-                >
-                  <ShieldCheckIcon
-                    className="flex-shrink-0 w-6 h-6 mr-2 text-gray-400 group-hover:text-gray-500"
-                    aria-hidden="true"
-                  />
-                  <span className="text-gray-500 hover:text-gray-700">
-                    Yemekarena Güvencesiyle
-                  </span>
-                </Link>
+                > */}
+                <ShieldCheckIcon
+                  className="flex-shrink-0 w-6 h-6 mr-2 text-gray-400 group-hover:text-gray-500"
+                  aria-hidden="true"
+                />
+                <span className="text-gray-500 hover:text-gray-700">
+                  Yemekarena Güvencesiyle
+                </span>
+                {/* </Link> */}
               </div>
             </form>
           </section>

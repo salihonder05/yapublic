@@ -32,7 +32,7 @@ export default function Home() {
           </div> */}
           <div className="grid grid-cols-1 mt-8 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
             {restaurants?.map((restaurant, index) => (
-              <RestaurantsCard restaurant={restaurant} key={index} />
+              <RestaurantsCard restaurant={restaurant} key={restaurant?.id} />
             ))}
           </div>
         </div>

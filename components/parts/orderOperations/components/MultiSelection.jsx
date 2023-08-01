@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import MultiSceneButtonList from "./MultiSceneButtonList";
 import OrderSelectionButtonList from "./OrderSelectionButtonList";
 import OrderSelectionCheckboxList from "./OrderSelectionCheckboxList";
-import OrderSelectionProductHeader from "./OrderSelectionProductHEader";
+import OrderSelectionProductHeader from "./OrderSelectionProductHeader";
 
 const MultiSelection = ({
   setOrderType,

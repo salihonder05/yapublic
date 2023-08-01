@@ -127,7 +127,6 @@ export default function RestaurantProducts({ restaurantsProducts }) {
 
   useEffect(() => {
     const accountId = localStorage.getItem("accountId");
-    console.log("restaurantsProducts: ", restaurantsProducts);
     getRestaurantsProducts(accountId);
   }, []);
 

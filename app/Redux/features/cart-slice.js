@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: { openCart: false, cartProducts: [],cartTotalPrice:0 },
+  initialState: { openCart: false, cartProducts: [], cartTotalPrice: 0, shopCart: [], badge: 0 ,shopCardAccountID:0},
   reducers: {
     updateState(state, action) {
       const params = action.payload;

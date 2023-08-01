@@ -63,6 +63,7 @@ export default function CityRestourantCard() {
                   src={product?.brand?.brand_banner}
                   alt={product?.account_title}
                   className="object-cover object-center"
+                  priority 
                 />
                 <div
                   className="flex items-end p-4 opacity-0 group-hover:opacity-100"

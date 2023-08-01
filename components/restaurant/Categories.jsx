@@ -5,7 +5,6 @@ export default function Categories({ setCurrentTab }) {
   const restaurantsProducts = useSelector(
     ({ restaurants }) => restaurants.restaurantsProducts
   );
-  console.log("restaurantsProducts: ", restaurantsProducts);
   const goToCategory = (category) => {
     setCurrentTab("MENÜ");
   };

@@ -24,6 +24,7 @@ const OrderSelectionProductHeader = ({ product }) => {
           width="300"
           height="300"
           alt={`${"review.author"}.`}
+          priority 
           className="rounded-md"
         />
 

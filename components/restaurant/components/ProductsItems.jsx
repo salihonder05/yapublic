@@ -99,6 +99,7 @@ const ProductsItems = ({ product }) => {
           height={100}
           src={product?.img_url}
           alt={product?.product_name}
+          priority 
           className="object-cover object-center w-full h-full"
         />
       </div>

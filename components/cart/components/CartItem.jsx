@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 let cartProductsList = JSON.parse(localStorage.getItem("cartProducts"));
-const CartItem = (product, index) => {
+const CartItem = (product, key, index) => {
   const openCart = useSelector(({ cart }) => cart.openCart);
   const cartProducts = useSelector(({ cart }) => cart.cartProducts);
   const cartTotalPrice = useSelector(({ cart }) => cart.cartTotalPrice);
@@ -92,6 +92,7 @@ const CartItem = (product, index) => {
           height={100}
           src={product?.product?.img}
           alt={product?.product?.img}
+          priority
           className="object-cover object-center w-full h-full"
         />
       </div>

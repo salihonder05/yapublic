@@ -14,6 +14,7 @@ const KitchensCard = ({ kitchen, key }) => {
           height={100}
           src={kitchen.image}
           alt={kitchen.name}
+          priority 
           className="object-cover object-center"
           style={{ width: "100%", height: "100px" }}
         />

@@ -22,6 +22,7 @@ const OrderCardHader = ({ product }) => {
         <Image
           src={product?.img_url}
           width="300"
+          priority 
           height="400"
           alt={`${"review.author"}.`}
           className="rounded-md"

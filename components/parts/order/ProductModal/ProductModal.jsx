@@ -19,6 +19,7 @@ import ProductType3Modal from "../ProductType3Modal/ProductType3Modal";
 import CheckBoxLineButton from "../components/CheckBoxLineButton";
 import Image from "next/image";
 import CloseHeader from "../components/CloseHeader";
+import { addRowShopCart, updateBadge } from "../orderFunctions";
 
 export default function ProductModal({ open, setOpen, product }) {
   const [productCount, setProductCount] = useState(1);
@@ -31,6 +32,7 @@ export default function ProductModal({ open, setOpen, product }) {
   const [menu_in_menu, setMenu_in_menu] = useState([]);
   const [last_products, setLast_products] = useState([]);
   const [type3ModalStates, setType3ModalStates] = useState();
+  const shopCart = useSelector(({ cart }) => cart.shopCart);
   const [productState, setProductState] = useState({
     id: 0,
     product_name: "",
@@ -44,8 +46,6 @@ export default function ProductModal({ open, setOpen, product }) {
     product_menus: [],
     selected: [],
   });
-
-  console.log("product: ", product);
 
   const getProductStateValues = async () => {
     // this.item = this.props.navigation.getParam('item');
@@ -475,7 +475,7 @@ export default function ProductModal({ open, setOpen, product }) {
     const ListOfProduct = product?.product_menu?.map((item, index) => {
       return (
         // <GrayView headText={item.menu_name}>
-        <>
+        <div key={item?.id}>
           {
             // Tekli ürün seçimi
             item.menu_type == 1 && pType1(item, index)
@@ -503,7 +503,7 @@ export default function ProductModal({ open, setOpen, product }) {
             //Menü seçimi tekli seçime çevir
             item.menu_type == 5 && pType5(item, index)
           }
-        </>
+        </div>
         // </GrayView>
       );
     });
@@ -536,19 +536,31 @@ export default function ProductModal({ open, setOpen, product }) {
       selected: productState.selected,
       img_url: productState.img_url,
     };
+
     if (selectedControl === 0) {
-      setOpen(false);
-      // await this.props.ShopCartStore.addRowShopCart(add_product);
+      // await addRowShopCart(add_product, shopCart);
       // this.props.navigation.goBack();
+      setOpen(false);
     } else {
       // Toast.show({
       //     text: selectEmptyText+' boş olamaz',
       //     buttonText: 'Okay',
       //     duration:1000
       // })
-      alert("YEMEKARENA", selectEmptyText + " boş olamaz");
-      setOpen(false);
+      // alert("YEMEKARENA", selectEmptyText + " boş olamaz");
     }
+    // await updateBadge(shopCart);
+
+    // if (selectedControl === 0) {
+    //   // this.props.navigation.goBack();
+    // } else {
+    //   // Toast.show({
+    //   //     text: selectEmptyText+' boş olamaz',
+    //   //     buttonText: 'Okay',
+    //   //     duration:1000
+    //   // })
+    //   alert("YEMEKARENA", selectEmptyText + " boş olamaz");
+    // }
     // await this.props.ShopCartStore.updateBadge();
   };
 
@@ -583,6 +595,8 @@ export default function ProductModal({ open, setOpen, product }) {
                   className="bg-white rounded-md"
                   width={"100"}
                   height={"100"}
+                  priority
+                  alt="Image"
                   resizeMode="cover"
                 />
               )}
@@ -686,7 +700,6 @@ export default function ProductModal({ open, setOpen, product }) {
                     </div>
                   </div>
                 </div>
-
                 {productList()}
                 {
                   <div>

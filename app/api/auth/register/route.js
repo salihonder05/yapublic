@@ -27,8 +27,7 @@ export async function POST(req) {
 
         if (response.ok) {
             
-            var token = { "token": data }; 
-            // localStorage.setItem("deneme",token)
+            var token = { "token": data };  
             return new Response(JSON.stringify(token), {
                 headers: { "Content-Type": "application/json" },
                 status: 200,

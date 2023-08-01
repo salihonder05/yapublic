@@ -144,35 +144,4 @@ export default function Informations() {
     </div>
   );
 }
-
-/*
-<ul role="list" className="divide-y divide-gray-100">
-      <li className="flex justify-between py-5 gap-x-6">
-        <div className="flex gap-x-4">
-          <Image
-            className="flex-none w-24 h-24 rounded-full bg-gray-50"
-            src={singleAccount?.brand?.brand_banner}
-            alt=""
-          />
-          <div className="grid items-center min-w-0 bg-slate-200">
-            <p className="text-sm font-semibold leading-6 text-gray-900">
-            {singleAccount?.account_title}
-            </p>
-            <p className="mt-1 text-xs leading-5 text-gray-500 truncate">
-              {singleAccount?.address?.town?.name}
-              {" ("}
-              {singleAccount?.address?.neighborhood?.name}
-              {")"}
-            </p>
-            {/* <p className="mt-1 text-xs leading-5 text-gray-500 truncate">
-              <ClockIcon className="w-6 h-6" />
-            </p> 
-            {/* <p className="mt-1 text-xs leading-5 text-gray-500 truncate">
-              {singleAccount?.address?.address_text}{" "}
-              {singleAccount?.address?.neighborhood?.name} {" / "}{" "}
-              {singleAccount?.address?.citiy?.name}
-            </p> 
-        //     </div>
-        //     </div>
-        //   </li>
-        // </ul> */
+ 

@@ -62,6 +62,7 @@ export default function SingleAccount() {
               <Image
                 width={100}
                 height={100}
+                priority 
                 src={singleAccount?.brand?.brand_banner}
                 alt={singleAccount?.account_title}
                 className="object-cover object-center"

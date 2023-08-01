@@ -204,6 +204,7 @@ const OrderCard = ({ order }) => {
                 height={100}
                   src={orderDetail?.img_url}
                   alt={orderDetail?.img_url}
+                  priority 
                   className="object-cover object-center w-full h-full"
                 />
               </div>

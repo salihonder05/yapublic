@@ -1,4 +1,4 @@
-const ChooseCard = ({ state, key, setState, setOpenSelect }) => {
+const ChooseCard = ({ state, setState, setOpenSelect }) => {
   const choosenCity = () => {
     setState(state?.id);
     setOpenSelect(false);
@@ -6,7 +6,7 @@ const ChooseCard = ({ state, key, setState, setOpenSelect }) => {
   return (
     <div
       onClick={choosenCity}
-      key={key}
+      key={state?.id}
       className="p-2 m-2 rounded-md bg-ya-dark-white-1 hover:bg-ya-dark-white-2"
       style={{ cursor: "pointer" }}
     >

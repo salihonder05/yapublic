@@ -67,8 +67,7 @@ export default function AddressCard({
       <div className="flex space-x-3">
         <div className="flex-shrink-0">
           <div
-            className="flex items-center justify-center w-10 h-10 bg-white rounded-full"
-            // src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            className="flex items-center justify-center w-10 h-10 bg-white rounded-full" 
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

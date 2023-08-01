@@ -156,6 +156,7 @@ export default function Header() {
                       height={100}
                       className="w-10 h-10 rounded-full"
                       src={user.imageUrl}
+                      priority 
                       alt=""
                     />
                   </div>

@@ -2,11 +2,12 @@
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getAccountDetail } from "../data/query/query";
 import ButtonPrimary from "../parts/buttons/ButtonPrimary";
 import ButtonPrimaryIcon from "../parts/buttons/ButtonPrimaryIcon";
+import Logo from "../parts/Logo";
 
 const profile = {
   name: "Ricardo Cooper",
@@ -62,6 +63,11 @@ export default function RestaurantHeader() {
   const singleAccount = useSelector(
     ({ restaurants }) => restaurants.singleAccount
   );
+  const [banner, setBanner] = useState();
+
+  useEffect(() => {
+    setBanner(singleAccount?.brand?.brand_banner);
+  }, [singleAccount?.brand?.brand_banner]);
 
   useEffect(() => {
     const accountId = localStorage.getItem("accountId");
@@ -80,20 +86,25 @@ export default function RestaurantHeader() {
       name: "Restorandayım",
       status: singleAccount?.account_eatin === true ? trueIcon : falseIcon,
     },
-  ]; 
+  ];
   return (
     <>
       <div className="mt-10 md:flex md:items-center md:justify-between md:space-x-5">
         <div className="flex items-start space-x-5">
           <div className="flex-shrink-0">
             <div className="relative">
-              <Image
-                width={100}
-                height={100}
-                className="w-24 h-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                src={singleAccount?.brand?.brand_banner}
-                alt=""
-              />
+              {banner ? (
+                <Image
+                  width={100}
+                  height={100}
+                  className="w-24 h-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                  src={banner}
+                  alt="brand_banner"
+                  priority 
+                />
+              ) : (
+                <span>Logo yükleniyor...</span>
+              )}
               <span
                 className="absolute inset-0 rounded-full shadow-inner"
                 aria-hidden="true"
