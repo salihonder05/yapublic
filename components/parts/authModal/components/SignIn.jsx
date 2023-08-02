@@ -29,7 +29,7 @@ const SignIn = ({ openSignUpHandler, closeModal }) => {
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch("http://yapublic.vercel.app/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

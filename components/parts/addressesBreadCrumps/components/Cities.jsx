@@ -16,7 +16,7 @@ export default function CitiesSelectMenu({ setCity, city }) {
 
   const getCities = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/cities", {
+      const response = await fetch("http://yapublic.vercel.app/api/cities", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

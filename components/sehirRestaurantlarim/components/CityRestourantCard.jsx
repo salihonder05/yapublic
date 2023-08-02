@@ -24,7 +24,7 @@ export default function CityRestourantCard() {
 
   const getCitiesRestaurants = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/cityrestaurant", {
+      const response = await fetch("http://yapublic.vercel.app/api/cityrestaurant", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

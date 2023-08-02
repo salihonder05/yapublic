@@ -27,7 +27,7 @@ export default function NeighborhoodSelectMenu({
 
   // const getNeighbourhoods = async () => {
   //   try {
-  //     const response = await fetch("http://localhost:3000/api/neighborhoodsx", {
+  //     const response = await fetch("http://yapublic.vercel.app/api/neighborhoodsx", {
   //       method: "POST",
   //       headers: {
   //         "Content-Type": "application/json",

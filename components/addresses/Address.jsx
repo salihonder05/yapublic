@@ -26,7 +26,7 @@ const Address = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/user/useraddresses",
+        "http://yapublic.vercel.app/api/user/useraddresses",
         {
           method: "POST",
           headers: {

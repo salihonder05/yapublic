@@ -8,7 +8,7 @@ const Kitchens = () => {
 
   const getKitchens = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/kitchens", {
+      const response = await fetch("http://yapublic.vercel.app/api/kitchens", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
