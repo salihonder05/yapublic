@@ -29,7 +29,7 @@ export default function SingleAccount() {
 
   // const getAccountDetail = async () => {
   //   try {
-  //     const response = await fetch("http://yapublic.vercel.app/api/singleaccount", {
+  //     const response = await fetch("https://yapublic.vercel.app/api/singleaccount", {
   //       method: "POST",
   //       headers: {
   //         "Content-Type": "application/json",

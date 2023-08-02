@@ -12,7 +12,7 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://yapublic.vercel.app](http://yapublic.vercel.app) with your browser to see the result.
+Open [https://yapublic.vercel.app](https://yapublic.vercel.app) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 

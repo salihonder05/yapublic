@@ -26,7 +26,7 @@ const SignUp = ({ openSignUpHandler, closeModal }) => {
   const signUpHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://yapublic.vercel.app/api/auth/register", {
+      const response = await fetch("https://yapublic.vercel.app/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

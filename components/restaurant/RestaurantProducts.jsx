@@ -103,7 +103,7 @@ export default function RestaurantProducts({ restaurantsProducts }) {
   // const getRestaurantsProducts = async (accountId) => {
   //   try {
   //     const response = await fetch(
-  //       "http://yapublic.vercel.app/api/accountproducts",
+  //       "https://yapublic.vercel.app/api/accountproducts",
   //       {
   //         method: "POST",
   //         headers: {

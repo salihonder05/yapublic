@@ -45,7 +45,7 @@ export default function Content() {
 
     try {
       const response = await fetch(
-        "http://yapublic.vercel.app/api/auth/updateuser",
+        "https://yapublic.vercel.app/api/auth/updateuser",
         {
           method: "POST",
           headers: {
