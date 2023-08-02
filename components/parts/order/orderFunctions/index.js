@@ -1,10 +1,12 @@
+"use client"
+
 const { cartActions } = require("@/app/Redux/features/cart-slice");
 const { default: store } = require("@/app/Redux/store");
 
 const addRowShopCart = async (row, shopCart) => {
-    // await localStorage.removeItem('shop_cart');
-    let shop_cart = localStorage.getItem('shop_cart');
-    let current_account = localStorage.getItem('current_account');
+    // await window.localStorage.removeItem('shop_cart');
+    let shop_cart = window.localStorage.getItem('shop_cart');
+    let current_account = window.localStorage.getItem('current_account');
 
     let active_shop_card_account = 0;
     let new_card = [];
@@ -18,24 +20,24 @@ const addRowShopCart = async (row, shopCart) => {
     console.log("shop_cart:  ", shop_cart);
     if (new_card.length === 0) {
         console.log("new_card.length === 0:  ", new_card.length === 0);
-        let ChoseeType = await localStorage.getItem("ChoseeType")
-        await localStorage.setItem("ShopType", ChoseeType)
-        await localStorage.setItem('active_shop_card_account', current_account);
+        let ChoseeType = await window.localStorage.getItem("ChoseeType")
+        await window.localStorage.setItem("ShopType", ChoseeType)
+        await window.localStorage.setItem('active_shop_card_account', current_account);
         active_shop_card_account = current_account;
         new_card.push(row);
-        await localStorage.setItem('shop_cart', JSON.stringify(new_card));
+        await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
         // runInAction(() => {
         store.dispatch(cartActions.updateState({ shopCart: new_card }));
         // })
     }
     else {
-        let shopType = await localStorage.getItem("ShopType");
-        let ChoseeType = await localStorage.getItem("ChoseeType")
+        let shopType = await window.localStorage.getItem("ShopType");
+        let ChoseeType = await window.localStorage.getItem("ChoseeType")
 
         console.log("shopTypeChoseeType: ", shopType, ChoseeType);
 
         if (!shopType) {
-            await localStorage.setItem("ShopType", ChoseeType)
+            await window.localStorage.setItem("ShopType", ChoseeType)
             console.log("yanlış: ", shopType, ChoseeType);
 
         } else {
@@ -47,13 +49,13 @@ const addRowShopCart = async (row, shopCart) => {
             }
         }
 
-        active_shop_card_account = await localStorage.getItem(
+        active_shop_card_account = await window.localStorage.getItem(
             'active_shop_card_account',
         );
 
         if (active_shop_card_account === current_account) {
             new_card.push(row);
-            await localStorage.setItem('shop_cart', JSON.stringify(new_card));
+            await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
             // runInAction(() => {
             await store.dispatch(cartActions.updateState({ shopCart: new_card }));
             // })
@@ -62,13 +64,13 @@ const addRowShopCart = async (row, shopCart) => {
             //     {
             //         text: "SEPETİ SİL",
             //         onclick: async () => {
-            //             await localStorage.removeItem('shop_cart');
+            //             await window.localStorage.removeItem('shop_cart');
 
-            //             await localStorage.setItem('active_shop_card_account', current_account);
+            //             await window.localStorage.setItem('active_shop_card_account', current_account);
             //             active_shop_card_account = current_account;
             //             new_card = [];
             //             new_card.push(row);
-            //             await localStorage.setItem('shop_cart', JSON.stringify(new_card));
+            //             await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
             //             store.dispatch(cartActions.updateState({ shopCart: new_card }));
             //         }
             //     },
@@ -110,7 +112,7 @@ const updateRowShopCart = async (shopCart) => {
 }
 
 const deleteRowShopCart = async (id, shopCart) => {
-    let shop_cart = await localStorage.getItem('shop_cart');
+    let shop_cart = await window.localStorage.getItem('shop_cart');
     let new_card = [];
     if (!shop_cart) {
         shop_cart = [];
@@ -119,7 +121,7 @@ const deleteRowShopCart = async (id, shopCart) => {
     }
 
     new_card.splice(id, 1);
-    await localStorage.setItem('shop_cart', JSON.stringify(new_card));
+    await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
     // runInAction(() => {
     // this.shopCart = new_card;
     // })
@@ -128,8 +130,8 @@ const deleteRowShopCart = async (id, shopCart) => {
 }
 
 const getShopCart = async (shopCart) => {
-    //await localStorage.removeItem('shop_cart');
-    let shop_cart = await localStorage.getItem('shop_cart');
+    //await window.localStorage.removeItem('shop_cart');
+    let shop_cart = await window.localStorage.getItem('shop_cart');
     let new_card = [];
     if (!shop_cart) {
         shop_cart = [];
@@ -137,7 +139,7 @@ const getShopCart = async (shopCart) => {
         new_card = JSON.parse(shop_cart);
     }
     //console.log(JSON.stringify(new_card))
-    let sca = await localStorage.getItem('active_shop_card_account');
+    let sca = await window.localStorage.getItem('active_shop_card_account');
 
     // runInAction(() => {
     store.dispatch(cartActions.updateState({ shopCart: new_card }));

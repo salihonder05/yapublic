@@ -19,7 +19,7 @@ const Restaurant = () => {
   );
 
   useEffect(() => {
-    const accountId = localStorage.getItem("accountId");
+    const accountId = window.localStorage.getItem("accountId");
     getRestaurantsProducts(accountId);
   }, []);
 

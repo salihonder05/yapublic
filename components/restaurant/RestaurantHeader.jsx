@@ -70,7 +70,7 @@ export default function RestaurantHeader() {
   }, [singleAccount?.brand?.brand_banner]);
 
   useEffect(() => {
-    const accountId = localStorage.getItem("accountId");
+    const accountId = window.localStorage.getItem("accountId");
     getAccountDetail(accountId);
   }, []);
   const stats = [

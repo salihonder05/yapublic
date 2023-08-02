@@ -44,7 +44,7 @@ export default function CitiesSelectMenu({ setCity, city }) {
   }, []);
 
   const cityHandler = (city) => {
-    localStorage.setItem("selectedCity", JSON.stringify(city));
+    window.localStorage.setItem("selectedCity", JSON.stringify(city));
     getCityRestaurants();
     // console.log("object:", city);
   };

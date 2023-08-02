@@ -1,6 +1,4 @@
-"use client";
-import { getNeighbourhoods } from "@/components/data/query/query";
-import { useEffect } from "react";
+"use client"; 
 import { useSelector } from "react-redux";
 import NeighborhoodItem from "./NeighborhoodItem";
 

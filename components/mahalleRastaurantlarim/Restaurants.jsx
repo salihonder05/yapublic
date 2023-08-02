@@ -1,8 +1,6 @@
 "use client";
 
-import { restaurantsActions } from "@/app/Redux/features/restaurants-slice";
-import store from "@/app/Redux/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   getNeighborhoodRestaurants,
@@ -82,7 +80,9 @@ const products = [
   // More products...
 ];
 
-const selectedNeighbourhood = localStorage?.getItem("selectedNeighbourhood");
+const selectedNeighbourhood = window.localStorage?.getItem(
+  "selectedNeighbourhood"
+);
 
 export default function Restaurants() {
   // const [restaurants, setRestaurants] = useState();

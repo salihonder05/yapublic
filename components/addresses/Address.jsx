@@ -1,13 +1,14 @@
 "use client";
 import ButtonBlockPrimary from "../parts/buttons/ButtonBlockPrimary";
-import AddressCard from "./components/AddressCard";
-import { redirect } from "next/navigation";
+import AddressCard from "./components/AddressCard"; 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AddAddress from "./components/addAddress/AddAddress";
 import Cart from "../cart/Cart";
 
-let lSelectedNeighbourhood = localStorage.getItem("selectedNeighbourhood");
+let lSelectedNeighbourhood = window.localStorage.getItem(
+  "selectedNeighbourhood"
+);
 
 const Address = () => {
   const user = useSelector(({ auth }) => auth.user);
@@ -40,7 +41,7 @@ const Address = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setAddress(data.data.data.customer_addresses); 
+        setAddress(data.data.data.customer_addresses);
       } else {
         console.error("Error fetching customer list:", response.status);
       }
@@ -57,23 +58,27 @@ const Address = () => {
   const selectedAdressHandler = (address) => {
     location.href = "/mahalleRastaurantlarim";
     setSelectedAddressId(address?.neighborhood?.id);
-    localStorage.setItem(
+    window.localStorage.setItem(
       "selectedNeighbourhood",
       JSON.stringify(address?.neighborhood?.id)
     );
-    localStorage.setItem(
+    window.localStorage.setItem(
       "selectedCity",
       JSON.stringify({ id: address?.citiy?.id, name: address?.citiy?.name })
     );
-    lSelectedNeighbourhood = localStorage.getItem("selectedNeighbourhood");
+    lSelectedNeighbourhood = window.localStorage.getItem(
+      "selectedNeighbourhood"
+    );
   };
 
   useEffect(() => {
     if (user?.user?.id > 0) {
       fetchUserAddresses();
     }
-    lSelectedNeighbourhood = localStorage.getItem("selectedNeighbourhood");
-  }, [user, selectedAddressId]);
+    lSelectedNeighbourhood = window.localStorage.getItem(
+      "selectedNeighbourhood"
+    );
+  }, [user, selectedAddressId, fetchUserAddresses]);
 
   if (loading) {
     return <div>Loading...</div>;

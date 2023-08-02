@@ -2,18 +2,9 @@
 
 import ButtonPrimary from "@/components/parts/buttons/ButtonPrimary";
 import ButtonSecondary from "@/components/parts/buttons/ButtonSecondary";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DeleteAddress from "./DeleteAddress";
-import EditAddress from "./editAddress/EditAddress";
-
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import {
-  CodeBracketIcon,
-  EllipsisVerticalIcon,
-  FlagIcon,
-  StarIcon,
-} from "@heroicons/react/20/solid";
+import EditAddress from "./editAddress/EditAddress"; 
 import Link from "next/link";
 
 function classNames(...classes) {
@@ -66,9 +57,7 @@ export default function AddressCard({
     >
       <div className="flex space-x-3">
         <div className="flex-shrink-0">
-          <div
-            className="flex items-center justify-center w-10 h-10 bg-white rounded-full" 
-          >
+          <div className="flex items-center justify-center w-10 h-10 bg-white rounded-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -91,7 +80,7 @@ export default function AddressCard({
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold ">
-            <Link  href="#" className="hover:underline">
+            <Link href="#" className="hover:underline">
               {address?.address_name}
             </Link>
           </p>
@@ -104,19 +93,19 @@ export default function AddressCard({
             onClick={() => selectedAdressHandler(address)}
             style={{ cursor: "pointer" }}
           >
-            <Link  href="#" className="hover:underline">
+            <Link href="#" className="hover:underline">
               {address?.address_text + " / "}
             </Link>
-            <Link  href="#" className="hover:underline">
+            <Link href="#" className="hover:underline">
               {"  " + address?.citiy?.name + " / "}
             </Link>
-            <Link  href="#" className="hover:underline">
+            <Link href="#" className="hover:underline">
               {"  " + address?.town?.name + " / "}
             </Link>
-            <Link  href="#" className="hover:underline">
+            <Link href="#" className="hover:underline">
               {"  " + address?.district?.name + " / "}
             </Link>
-            <Link  href="#" className="hover:underline">
+            <Link href="#" className="hover:underline">
               {"  " + address?.neighborhood?.name}
             </Link>
           </p>

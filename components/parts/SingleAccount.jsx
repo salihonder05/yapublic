@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getAccountDetail } from "../data/query/query";
 
@@ -62,7 +62,7 @@ export default function SingleAccount() {
               <Image
                 width={100}
                 height={100}
-                priority 
+                priority
                 src={singleAccount?.brand?.brand_banner}
                 alt={singleAccount?.account_title}
                 className="object-cover object-center"

@@ -126,7 +126,7 @@ export default function RestaurantProducts({ restaurantsProducts }) {
   // };
 
   useEffect(() => {
-    const accountId = localStorage.getItem("accountId");
+    const accountId = window.localStorage.getItem("accountId");
     getRestaurantsProducts(accountId);
   }, []);
 

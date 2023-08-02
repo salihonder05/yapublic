@@ -1,3 +1,4 @@
+"use client"
 import { ordersActions } from "@/app/Redux/features/orders-slice";
 import { productActions } from "@/app/Redux/features/product-slice";
 import { restaurantsActions } from "@/app/Redux/features/restaurants-slice";
@@ -6,7 +7,7 @@ import store from "@/app/Redux/store";
 
 
 const getCityRestaurants = async () => {
-    const localStorageCity = JSON.parse(localStorage.getItem("selectedCity"));
+    const localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity"));
     try {
         const response = await fetch("http://localhost:3000/api/cityrestaurant", {
             method: "POST",

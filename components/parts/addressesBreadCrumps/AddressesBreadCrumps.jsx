@@ -18,7 +18,7 @@ const AddressesBreadCrumps = () => {
     // setTownId(event?.id);
     // setCities(event);
     // console.log("neighborhood?.id: " ,neighborhood);
-    localStorage.setItem(
+    window.localStorage.setItem(
       "selectedNeighbourhood",
       JSON.stringify(neighborhood?.id)
     );

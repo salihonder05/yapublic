@@ -24,11 +24,11 @@ export default function Auth() {
     let tokenStatus = false;
     let TempToken = "";
 
-    if (!localStorage.getItem("userToken")) {
+    if (!window.localStorage.getItem("userToken")) {
         // console.log("Misafir oturumu açıldı.");
         tokenStatus = false;
     } else {
-        const LocalStorageUserToken = localStorage.getItem("userToken");
+        const LocalStorageUserToken = window.localStorage.getItem("userToken");
         store.dispatch(authActions.updateState({ userToken: LocalStorageUserToken }));
         store.dispatch(authActions.updateState({ isLoggedIn: true }));
         tokenStatus = true;

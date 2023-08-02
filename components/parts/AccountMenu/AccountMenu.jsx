@@ -40,7 +40,7 @@ const AccountMenu = ({ className }) => {
   const logOut = () => {
     dispatch(authActions.updateState({ user: {} }));
     dispatch(authActions.updateState({ isLoggedIn: false }));
-    localStorage.removeItem("userToken");
+    window.localStorage.removeItem("userToken");
   };
 
   return (

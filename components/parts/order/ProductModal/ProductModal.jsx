@@ -201,7 +201,7 @@ export default function ProductModal({ open, setOpen, product }) {
     try {
       const productx = await getSingleProduct(
         value,
-        JSON.parse(localStorage.getItem("accountId"))
+        JSON.parse(window.localStorage.getItem("accountId"))
         // Burada cartProducts parametresini de ekleyebilirsiniz, gerekirse.
       );
 

@@ -1,16 +1,7 @@
 "use client";
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/20/solid";
-import {
-  ArrowPathIcon,
-  BarsArrowUpIcon,
-  CloudArrowUpIcon,
-  FingerPrintIcon,
-  LockClosedIcon,
-} from "@heroicons/react/20/solid";
-import { useEffect, useState } from "react";
+import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import Cart from "../cart/Cart";
-import ButtonBlockPrimary from "../parts/buttons/ButtonBlockPrimary";
 import ButtonPrimary from "../parts/buttons/ButtonPrimary";
 import MailCheckModal from "./components/MailCheckModal";
 

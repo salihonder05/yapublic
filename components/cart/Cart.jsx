@@ -37,7 +37,7 @@ const products = [
   },
   // More products...
 ];
-let cartProductsList = JSON.parse(localStorage.getItem("cartProducts"));
+let cartProductsList = JSON.parse(window.localStorage.getItem("cartProducts"));
 export default function Cart() {
   const openCart = useSelector(({ cart }) => cart.openCart);
   const cartProducts = useSelector(({ cart }) => cart.cartProducts);
@@ -48,7 +48,7 @@ export default function Cart() {
   };
 
   useEffect(() => {
-    cartProductsList = JSON.parse(localStorage.getItem("cartProducts"));
+    cartProductsList = JSON.parse(window.localStorage.getItem("cartProducts"));
   }, [cartProducts]);
 
   return (

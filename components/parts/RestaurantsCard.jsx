@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function RestaurantsCard({ restaurant }) {
   const restaurantDetail = (restaurant) => {
     // console.log("object: ", restaurant);
-    localStorage.setItem("accountId", restaurant?.point_account?.id);
+    window.localStorage.setItem("accountId", restaurant?.point_account?.id);
   };
   return (
     <div key={restaurant?.id}>

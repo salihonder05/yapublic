@@ -10,29 +10,7 @@ import RestaurantsCard from "../parts/RestaurantsCard";
 export default function CitiesRestaurants() {
   // const [restaurants, setRestaurants] = useState();
   const restaurants = useSelector(({ restaurants }) => restaurants.restaurants);
-  const localStorageCity = JSON.parse(localStorage.getItem("selectedCity"));
-  // console.log("localStorageCity: ", localStorageCity);
-  // const getCityRestaurants = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:3000/api/cityrestaurant", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ cityId: localStorageCity?.id }),
-  //     });
-  //     const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
-  //     if (response.ok) {
-  //       const notNullCity = await data.data.data.delivery_point_city.filter(
-  //         (neigh) => neigh.point_account !== null
-  //       );
-  //       setRestaurants(notNullCity);
-  //       console.log("notNullCity: ", notNullCity);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching customer list:", error);
-  //   }
-  // };
+  const localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity")); 
 
   useEffect(() => {
     getCityRestaurants();

@@ -1,3 +1,4 @@
+"use client"
 import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,7 +41,7 @@ const SignUp = ({ openSignUpHandler, closeModal }) => {
       });
 
       const data = await response.json();
-      localStorage.setItem("userToken", data.token.data.createUser.token);
+      window.localStorage.setItem("userToken", data.token.data.createUser.token);
     } catch (error) {
       console.error("Error fetching customer list:", error);
     }

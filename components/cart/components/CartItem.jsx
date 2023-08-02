@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-let cartProductsList = JSON.parse(localStorage.getItem("cartProducts"));
+let cartProductsList = JSON.parse(window.localStorage.getItem("cartProducts"));
 const CartItem = (product, key, index) => {
   const openCart = useSelector(({ cart }) => cart.openCart);
   const cartProducts = useSelector(({ cart }) => cart.cartProducts);
@@ -14,11 +14,11 @@ const CartItem = (product, key, index) => {
   console.log("CartItem product: ", product);
 
   useEffect(() => {
-    cartProductsList = JSON.parse(localStorage.getItem("cartProducts"));
+    cartProductsList = JSON.parse(window.localStorage.getItem("cartProducts"));
   }, [cartProducts]);
 
   const deleteFromCart = (productId) => {
-    const cartProductsList = JSON.parse(localStorage.getItem("cartProducts"));
+    const cartProductsList = JSON.parse(window.localStorage.getItem("cartProducts"));
     let newCart = [];
     let changedProd = [];
 
@@ -40,7 +40,7 @@ const CartItem = (product, key, index) => {
       }
     }
 
-    localStorage.setItem("cartProducts", JSON.stringify(newCart));
+    window.localStorage.setItem("cartProducts", JSON.stringify(newCart));
     store.dispatch(cartActions.updateState({ cartProducts: newCart }));
     changeTotalPrice();
   };
@@ -48,7 +48,7 @@ const CartItem = (product, key, index) => {
   const changeTotalPrice = () => {
     let cartTotalPrice = 0;
 
-    var cartProductsList = JSON.parse(localStorage.getItem("cartProducts"));
+    var cartProductsList = JSON.parse(window.localStorage.getItem("cartProducts"));
     for (let index = 0; index < cartProductsList?.length; index++) {
       const element = cartProductsList[index];
       cartTotalPrice = cartTotalPrice + element?.price;
@@ -57,7 +57,7 @@ const CartItem = (product, key, index) => {
   };
 
   const changeCartProductCount = (productId, event) => {
-    const cartProductsList = JSON.parse(localStorage.getItem("cartProducts"));
+    const cartProductsList = JSON.parse(window.localStorage.getItem("cartProducts"));
     let newCart = [];
     let changedProd = [];
 
@@ -79,7 +79,7 @@ const CartItem = (product, key, index) => {
       }
     }
 
-    localStorage.setItem("cartProducts", JSON.stringify(newCart));
+    window.localStorage.setItem("cartProducts", JSON.stringify(newCart));
     store.dispatch(cartActions.updateState({ cartProducts: newCart }));
     changeTotalPrice();
   };

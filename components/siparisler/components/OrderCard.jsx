@@ -33,18 +33,23 @@ const OrderCard = ({ order }) => {
   const openNotification = useSelector(({ auth }) => auth.openNotification);
 
   const productDetailHandler = (orderDetail) => {
-    localStorage.setItem("selectedProductId", JSON.stringify(orderDetail?.id));
+    window.localStorage.setItem(
+      "selectedProductId",
+      JSON.stringify(orderDetail?.id)
+    );
     location.href = "urunDetayi";
   };
 
   const addToCart = () => {
     for (let index = 0; index < order?.order_json?.length; index++) {
       let cartProductsList =
-        JSON.parse(localStorage.getItem("cartProducts"))?.length > 0
-          ? JSON.parse(localStorage.getItem("cartProducts"))
+        JSON.parse(window.localStorage.getItem("cartProducts"))?.length > 0
+          ? JSON.parse(window.localStorage.getItem("cartProducts"))
           : [];
-      const cartProducts = JSON.parse(localStorage.getItem("cartProducts"));
-      const lAccountId = JSON.parse(localStorage.getItem("accountId"));
+      const cartProducts = JSON.parse(
+        window.localStorage.getItem("cartProducts")
+      );
+      const lAccountId = JSON.parse(window.localStorage.getItem("accountId"));
       let newCart = [];
       const orderElement = order?.order_json[index];
       const sameCartProduct = cartProducts?.filter(
@@ -76,7 +81,7 @@ const OrderCard = ({ order }) => {
           });
         }
         store.dispatch(cartActions.updateState({ cartProducts: newCart }));
-        localStorage.setItem("cartProducts", JSON.stringify(newCart));
+        window.localStorage.setItem("cartProducts", JSON.stringify(newCart));
       } else {
         cartProductsList?.push({
           productId: orderElement?.id,
@@ -87,7 +92,10 @@ const OrderCard = ({ order }) => {
           price: orderElement?.product_price,
           singlePrice: orderElement?.product_price,
         });
-        localStorage.setItem("cartProducts", JSON.stringify(cartProductsList));
+        window.localStorage.setItem(
+          "cartProducts",
+          JSON.stringify(cartProductsList)
+        );
         store.dispatch(
           cartActions.updateState({ cartProducts: cartProductsList })
         );
@@ -200,11 +208,11 @@ const OrderCard = ({ order }) => {
             >
               <div className="flex-shrink-0 w-20 h-20 overflow-hidden bg-gray-200 rounded-lg sm:h-40 sm:w-40">
                 <Image
-                width={100}
-                height={100}
+                  width={100}
+                  height={100}
                   src={orderDetail?.img_url}
                   alt={orderDetail?.img_url}
-                  priority 
+                  priority
                   className="object-cover object-center w-full h-full"
                 />
               </div>

@@ -20,17 +20,17 @@ const ProductsItems = ({ product }) => {
   const openNotification = useSelector(({ auth }) => auth.openNotification);
   const [openProductOrder, setOpenProductOrder] = useState(false);
   const productDetailHandler = () => {
-    localStorage.setItem("selectedProductId", JSON.stringify(product?.id));
+    window.localStorage.setItem("selectedProductId", JSON.stringify(product?.id));
     location.href = "urunDetayi";
   };
 
   const addToCart = () => {
     let cartProductsList =
-      JSON.parse(localStorage.getItem("cartProducts"))?.length > 0
-        ? JSON.parse(localStorage.getItem("cartProducts"))
+      JSON.parse(window.localStorage.getItem("cartProducts"))?.length > 0
+        ? JSON.parse(window.localStorage.getItem("cartProducts"))
         : [];
-    const cartProducts = JSON.parse(localStorage.getItem("cartProducts"));
-    const lAccountId = JSON.parse(localStorage.getItem("accountId"));
+    const cartProducts = JSON.parse(window.localStorage.getItem("cartProducts"));
+    const lAccountId = JSON.parse(window.localStorage.getItem("accountId"));
     let newCart = [];
     const sameCartProduct = cartProducts?.filter(
       (p) => p?.productId === product?.id
@@ -63,7 +63,7 @@ const ProductsItems = ({ product }) => {
         });
       }
       store.dispatch(cartActions.updateState({ cartProducts: newCart }));
-      localStorage.setItem("cartProducts", JSON.stringify(newCart));
+      window.localStorage.setItem("cartProducts", JSON.stringify(newCart));
     } else {
       cartProductsList?.push({
         productId: product?.id,
@@ -74,7 +74,7 @@ const ProductsItems = ({ product }) => {
         price: product?.product_price?.price_value,
         singlePrice: product?.product_price?.price_value,
       });
-      localStorage.setItem("cartProducts", JSON.stringify(cartProductsList));
+      window.localStorage.setItem("cartProducts", JSON.stringify(cartProductsList));
       store.dispatch(
         cartActions.updateState({ cartProducts: cartProductsList })
       );

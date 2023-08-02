@@ -44,9 +44,9 @@ function classNames(...classes) {
 
 export default function SinglProduct() {
   const selectedProductId = JSON.parse(
-    localStorage.getItem("selectedProductId")
+    window.localStorage.getItem("selectedProductId")
   );
-  const accountId = JSON.parse(localStorage.getItem("accountId"));
+  const accountId = JSON.parse(window.localStorage.getItem("accountId"));
   const [selectedSize, setSelectedSize] = useState(products?.sizes[0]);
   const product = useSelector(({ product }) => product.product);
   const openCart = useSelector(({ cart }) => cart.openCart);
@@ -54,11 +54,11 @@ export default function SinglProduct() {
 
   const addToCart = () => {
     let cartProductsList =
-      JSON.parse(localStorage.getItem("cartProducts"))?.length > 0
-        ? JSON.parse(localStorage.getItem("cartProducts"))
+      JSON.parse(window.localStorage.getItem("cartProducts"))?.length > 0
+        ? JSON.parse(window.localStorage.getItem("cartProducts"))
         : [];
-    const cartProducts = JSON.parse(localStorage.getItem("cartProducts"));
-    const lAccountId = JSON.parse(localStorage.getItem("accountId"));
+    const cartProducts = JSON.parse(window.localStorage.getItem("cartProducts"));
+    const lAccountId = JSON.parse(window.localStorage.getItem("accountId"));
     let newCart = [];
     const sameCartProduct = cartProducts?.filter(
       (p) => p?.productId === product?.id
@@ -89,7 +89,7 @@ export default function SinglProduct() {
         });
       }
       store.dispatch(cartActions.updateState({ cartProducts: newCart }));
-      localStorage.setItem("cartProducts", JSON.stringify(newCart));
+      window.localStorage.setItem("cartProducts", JSON.stringify(newCart));
     } else {
       cartProductsList?.push({
         productId: product?.id,
@@ -99,7 +99,7 @@ export default function SinglProduct() {
         img: product?.img_url,
         price: product?.product_price?.price_value,
       });
-      localStorage.setItem("cartProducts", JSON.stringify(cartProductsList));
+      window.localStorage.setItem("cartProducts", JSON.stringify(cartProductsList));
       store.dispatch(
         cartActions.updateState({ cartProducts: cartProductsList })
       );

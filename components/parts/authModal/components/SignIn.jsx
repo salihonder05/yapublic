@@ -1,3 +1,4 @@
+"use client"
 import { authActions } from "@/app/Redux/features/auth-slice";
 import Auth from "@/components/data/Auth";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
@@ -40,7 +41,7 @@ const SignIn = ({ openSignUpHandler, closeModal }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("userToken", data.token.token);
+        window.localStorage.setItem("userToken", data.token.token);
         Auth();
         dispatch(authActions.updateState({ authModalOpen: false }));
       }
