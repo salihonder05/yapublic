@@ -23,19 +23,19 @@ export default function Auth() {
     //const userToken = useSelector(({ auth }) => auth.userToken);
     let tokenStatus = false;
     let TempToken = "";
-
-    if (!window.localStorage.getItem("userToken")) {
-        // console.log("Misafir oturumu açıldı.");
-        tokenStatus = false;
-    } else {
-        const LocalStorageUserToken = window.localStorage.getItem("userToken");
-        store.dispatch(authActions.updateState({ userToken: LocalStorageUserToken }));
-        store.dispatch(authActions.updateState({ isLoggedIn: true }));
-        tokenStatus = true;
-        TempToken = LocalStorageUserToken;
-        // console.log("Token bulundu." + LocalStorageUserToken);
+    if (typeof window !== 'undefined') {
+        if (!window.localStorage.getItem("userToken")) {
+            // console.log("Misafir oturumu açıldı.");
+            tokenStatus = false;
+        } else {
+            const LocalStorageUserToken = window.localStorage.getItem("userToken");
+            store.dispatch(authActions.updateState({ userToken: LocalStorageUserToken }));
+            store.dispatch(authActions.updateState({ isLoggedIn: true }));
+            tokenStatus = true;
+            TempToken = LocalStorageUserToken;
+            // console.log("Token bulundu." + LocalStorageUserToken);
+        }
     }
-
     if (tokenStatus) {
         // console.log("En son gönderdiğimiz temp token:  " + TempToken);
         fetchUser(TempToken);

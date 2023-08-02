@@ -18,10 +18,12 @@ const AddressesBreadCrumps = () => {
     // setTownId(event?.id);
     // setCities(event);
     // console.log("neighborhood?.id: " ,neighborhood);
-    window.localStorage.setItem(
-      "selectedNeighbourhood",
-      JSON.stringify(neighborhood?.id)
-    );
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(
+        "selectedNeighbourhood",
+        JSON.stringify(neighborhood?.id)
+      );
+    }
     getNeighborhoodRestaurants(neighborhood?.id);
     // window.location.href = "/mahalleRastaurantlarim";
   };

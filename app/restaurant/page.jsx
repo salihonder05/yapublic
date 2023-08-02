@@ -19,7 +19,9 @@ const Restaurant = () => {
   );
 
   useEffect(() => {
-    const accountId = window.localStorage.getItem("accountId");
+    if (typeof window !== "undefined") {
+      var accountId = window.localStorage.getItem("accountId");
+    }
     getRestaurantsProducts(accountId);
   }, []);
 

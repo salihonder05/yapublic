@@ -12,7 +12,9 @@ export default function Home() {
   // const [restaurants, setRestaurants] = useState();
   const restaurants = useSelector(({ restaurants }) => restaurants.restaurants);
   const openCart = useSelector(({ cart }) => cart.openCart);
-  const localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity"));
+  if (typeof window !== 'undefined') {
+    var localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity"));
+  }
 
   useEffect(() => {
     getCityRestaurants();

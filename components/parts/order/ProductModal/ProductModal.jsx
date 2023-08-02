@@ -199,11 +199,13 @@ export default function ProductModal({ open, setOpen, product }) {
 
   const onValueChange3 = async (index, value, price = 0, type = 3) => {
     try {
-      const productx = await getSingleProduct(
-        value,
-        JSON.parse(window.localStorage.getItem("accountId"))
-        // Burada cartProducts parametresini de ekleyebilirsiniz, gerekirse.
-      );
+      if (typeof window !== "undefined") {
+        var productx = await getSingleProduct(
+          value,
+          JSON.parse(window.localStorage.getItem("accountId"))
+          // Burada cartProducts parametresini de ekleyebilirsiniz, gerekirse.
+        );
+      }
 
       let productS = productState;
 

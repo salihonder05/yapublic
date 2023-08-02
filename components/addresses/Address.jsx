@@ -1,15 +1,15 @@
 "use client";
 import ButtonBlockPrimary from "../parts/buttons/ButtonBlockPrimary";
-import AddressCard from "./components/AddressCard"; 
+import AddressCard from "./components/AddressCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AddAddress from "./components/addAddress/AddAddress";
 import Cart from "../cart/Cart";
-
-let lSelectedNeighbourhood = window.localStorage.getItem(
-  "selectedNeighbourhood"
-);
-
+if (typeof window !== "undefined") {
+  var lSelectedNeighbourhood = window.localStorage.getItem(
+    "selectedNeighbourhood"
+  );
+}
 const Address = () => {
   const user = useSelector(({ auth }) => auth.user);
   const userToken = useSelector(({ auth }) => auth.userToken);
@@ -58,26 +58,31 @@ const Address = () => {
   const selectedAdressHandler = (address) => {
     location.href = "/mahalleRastaurantlarim";
     setSelectedAddressId(address?.neighborhood?.id);
-    window.localStorage.setItem(
-      "selectedNeighbourhood",
-      JSON.stringify(address?.neighborhood?.id)
-    );
-    window.localStorage.setItem(
-      "selectedCity",
-      JSON.stringify({ id: address?.citiy?.id, name: address?.citiy?.name })
-    );
-    lSelectedNeighbourhood = window.localStorage.getItem(
-      "selectedNeighbourhood"
-    );
+
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(
+        "selectedNeighbourhood",
+        JSON.stringify(address?.neighborhood?.id)
+      );
+      window.localStorage.setItem(
+        "selectedCity",
+        JSON.stringify({ id: address?.citiy?.id, name: address?.citiy?.name })
+      );
+      lSelectedNeighbourhood = window.localStorage.getItem(
+        "selectedNeighbourhood"
+      );
+    }
   };
 
   useEffect(() => {
     if (user?.user?.id > 0) {
       fetchUserAddresses();
     }
-    lSelectedNeighbourhood = window.localStorage.getItem(
-      "selectedNeighbourhood"
-    );
+    if (typeof window !== "undefined") {
+      lSelectedNeighbourhood = window.localStorage.getItem(
+        "selectedNeighbourhood"
+      );
+    }
   }, [user, selectedAddressId, fetchUserAddresses]);
 
   if (loading) {

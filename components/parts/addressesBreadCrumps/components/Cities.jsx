@@ -23,7 +23,7 @@ export default function CitiesSelectMenu({ setCity, city }) {
         },
       });
       const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
-      if (response.ok) { 
+      if (response.ok) {
         setCities(data.data.data.cities);
       }
     } catch (error) {
@@ -44,7 +44,9 @@ export default function CitiesSelectMenu({ setCity, city }) {
   }, []);
 
   const cityHandler = (city) => {
-    window.localStorage.setItem("selectedCity", JSON.stringify(city));
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("selectedCity", JSON.stringify(city));
+    }
     getCityRestaurants();
     // console.log("object:", city);
   };

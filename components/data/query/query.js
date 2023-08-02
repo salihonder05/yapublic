@@ -7,7 +7,9 @@ import store from "@/app/Redux/store";
 
 
 const getCityRestaurants = async () => {
-    const localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity"));
+    if (typeof window !== 'undefined') {
+        var localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity"));
+    }
     try {
         const response = await fetch("http://localhost:3000/api/cityrestaurant", {
             method: "POST",
@@ -216,40 +218,40 @@ const getNeighborhoodRestaurants = async (selectedNeighbourhood) => {
 };
 const getSingleProduct = async (productId, accountId, cartProducts) => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/singleproduct",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            productId: productId,
-            accountId: accountId
-          }),
+        const response = await fetch(
+            "http://localhost:3000/api/singleproduct",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    accountId: accountId
+                }),
+            }
+        );
+        const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
+        if (response.ok) {
+            cartProducts?.push(data?.data?.data?.product);
+            // const notNullNeighborhood =
+            //     await data.data.data.product.filter(
+            //         (neigh) => neigh.point_account !== null
+            //     );
+            // setRestaurants(notNullNeighborhood);
+            store.dispatch(productActions.updateState({ product: data?.data?.data?.product }));
+
+            // console.log("notNullNeighborhood: ", notNullNeighborhood);
+
+            // Auth();
+            // dispatch(authActions.updateState({ authModalOpen: false }));
+
+            return data?.data?.data?.product; // Response'u return ediyoruz
         }
-      );
-      const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
-      if (response.ok) {
-        cartProducts?.push(data?.data?.data?.product);
-        // const notNullNeighborhood =
-        //     await data.data.data.product.filter(
-        //         (neigh) => neigh.point_account !== null
-        //     );
-        // setRestaurants(notNullNeighborhood);
-        store.dispatch(productActions.updateState({ product: data?.data?.data?.product }));
-  
-        // console.log("notNullNeighborhood: ", notNullNeighborhood);
-  
-        // Auth();
-        // dispatch(authActions.updateState({ authModalOpen: false }));
-  
-        return data?.data?.data?.product; // Response'u return ediyoruz
-      }
     } catch (error) {
-      console.error("Error fetching customer list:", error);
-      throw error; // Hata oluşursa error'ı yeniden fırlatıyoruz
+        console.error("Error fetching customer list:", error);
+        throw error; // Hata oluşursa error'ı yeniden fırlatıyoruz
     }
-  };
-  
+};
+
 export { getCityRestaurants, getRestaurantsProducts, getAccountDetail, getProductMenus, getNeighbourhoods, getNeighborhoodRestaurants, getUserOrders, getSingleOrder, getSingleProduct };

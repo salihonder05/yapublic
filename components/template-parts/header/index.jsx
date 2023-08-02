@@ -54,9 +54,11 @@ export default function Header() {
   const openCartHandler = () => {
     let cartTotalPrice = 0;
 
-    var cartProductsList = JSON.parse(
-      window.localStorage.getItem("cartProducts")
-    );
+    if (typeof window !== "undefined") {
+      var cartProductsList = JSON.parse(
+        window.localStorage.getItem("cartProducts")
+      );
+    }
     for (let index = 0; index < cartProductsList?.length; index++) {
       const element = cartProductsList[index];
       cartTotalPrice = cartTotalPrice + element?.price;

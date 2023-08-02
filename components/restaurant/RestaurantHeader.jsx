@@ -70,7 +70,9 @@ export default function RestaurantHeader() {
   }, [singleAccount?.brand?.brand_banner]);
 
   useEffect(() => {
-    const accountId = window.localStorage.getItem("accountId");
+    if (typeof window !== "undefined") {
+      var accountId = window.localStorage.getItem("accountId");
+    }
     getAccountDetail(accountId);
   }, []);
   const stats = [
@@ -100,7 +102,7 @@ export default function RestaurantHeader() {
                   className="w-24 h-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
                   src={banner}
                   alt="brand_banner"
-                  priority 
+                  priority
                 />
               ) : (
                 <span>Logo yükleniyor...</span>

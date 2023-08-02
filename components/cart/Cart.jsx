@@ -37,7 +37,11 @@ const products = [
   },
   // More products...
 ];
-let cartProductsList = JSON.parse(window.localStorage.getItem("cartProducts"));
+if (typeof window !== "undefined") {
+  var cartProductsList = JSON.parse(
+    window.localStorage.getItem("cartProducts")
+  );
+}
 export default function Cart() {
   const openCart = useSelector(({ cart }) => cart.openCart);
   const cartProducts = useSelector(({ cart }) => cart.cartProducts);
@@ -48,7 +52,11 @@ export default function Cart() {
   };
 
   useEffect(() => {
-    cartProductsList = JSON.parse(window.localStorage.getItem("cartProducts"));
+    if (typeof window !== "undefined") {
+      cartProductsList = JSON.parse(
+        window.localStorage.getItem("cartProducts")
+      );
+    }
   }, [cartProducts]);
 
   return (

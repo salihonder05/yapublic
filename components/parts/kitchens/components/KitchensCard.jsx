@@ -3,7 +3,9 @@ import Link from "next/link";
 
 const KitchensCard = ({ kitchen, key }) => {
   const kitchensPageHandler = () => {
-    window.location.href = "/kitchen";
+    if (typeof window !== "undefined") {
+      window.location.href = "/kitchen";
+    }
   };
 
   return (
@@ -14,7 +16,7 @@ const KitchensCard = ({ kitchen, key }) => {
           height={100}
           src={kitchen.image}
           alt={kitchen.name}
-          priority 
+          priority
           className="object-cover object-center"
           style={{ width: "100%", height: "100px" }}
         />

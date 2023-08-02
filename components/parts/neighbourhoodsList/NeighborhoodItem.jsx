@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { getNeighborhoodRestaurants } from "@/components/data/query/query";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -11,10 +11,12 @@ let arr = ["bg-ya-red", "bg-ya-green", "bg-ya-yellow", "bg-ya-gray"];
 
 const NeighborhoodItem = ({ neighbourhood, key }) => {
   const changeNeighbourhood = () => {
-    window.localStorage.setItem(
-      "selectedNeighbourhood",
-      JSON.stringify(neighbourhood?.id)
-    );
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(
+        "selectedNeighbourhood",
+        JSON.stringify(neighbourhood?.id)
+      );
+    }
     getNeighborhoodRestaurants(neighbourhood?.id);
     // console.log("neighbourhood?.id: ", neighbourhood?.id);
   };

@@ -40,7 +40,9 @@ const AccountMenu = ({ className }) => {
   const logOut = () => {
     dispatch(authActions.updateState({ user: {} }));
     dispatch(authActions.updateState({ isLoggedIn: false }));
-    window.localStorage.removeItem("userToken");
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem("userToken");
+    }
   };
 
   return (
@@ -109,7 +111,7 @@ const AccountMenu = ({ className }) => {
                   </Link>
                 ))}
                 <span
-                style={{cursor:"pointer"}}
+                  style={{ cursor: "pointer" }}
                   // href={item?.href}
                   onClick={logOut}
                   className="block p-2 hover:text-ya-dark-red"

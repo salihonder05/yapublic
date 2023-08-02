@@ -79,11 +79,11 @@ const products = [
   },
   // More products...
 ];
-
-const selectedNeighbourhood = window.localStorage?.getItem(
-  "selectedNeighbourhood"
-);
-
+if (typeof window !== "undefined") {
+  var selectedNeighbourhood = window.localStorage?.getItem(
+    "selectedNeighbourhood"
+  );
+}
 export default function Restaurants() {
   // const [restaurants, setRestaurants] = useState();
   const restaurants = useSelector(({ restaurants }) => restaurants.restaurants);

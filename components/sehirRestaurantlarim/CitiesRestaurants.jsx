@@ -10,7 +10,11 @@ import RestaurantsCard from "../parts/RestaurantsCard";
 export default function CitiesRestaurants() {
   // const [restaurants, setRestaurants] = useState();
   const restaurants = useSelector(({ restaurants }) => restaurants.restaurants);
-  const localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity")); 
+  if (typeof window !== "undefined") {
+    var localStorageCity = JSON.parse(
+      window.localStorage.getItem("selectedCity")
+    );
+  }
 
   useEffect(() => {
     getCityRestaurants();

@@ -6,7 +6,9 @@ import Link from "next/link";
 export default function RestaurantsCard({ restaurant }) {
   const restaurantDetail = (restaurant) => {
     // console.log("object: ", restaurant);
-    window.localStorage.setItem("accountId", restaurant?.point_account?.id);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("accountId", restaurant?.point_account?.id);
+    }
   };
   return (
     <div key={restaurant?.id}>
@@ -16,7 +18,7 @@ export default function RestaurantsCard({ restaurant }) {
             src={restaurant?.point_account?.brand?.brand_banner}
             width={100}
             height={100}
-            priority 
+            priority
             alt={restaurant?.point_account?.account_title}
             className="object-cover object-center w-full h-full"
           />

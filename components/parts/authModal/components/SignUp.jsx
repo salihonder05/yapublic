@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,8 +9,6 @@ import Logo from "../../Logo";
 const SignUp = ({ openSignUpHandler, closeModal }) => {
   const userToken = useSelector(({ auth }) => auth.userToken);
   const dispatch = useDispatch();
- 
- 
 
   const [registerState, setRegisterState] = useState({
     name: "",
@@ -26,7 +24,7 @@ const SignUp = ({ openSignUpHandler, closeModal }) => {
   };
 
   const signUpHandler = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
       const response = await fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
@@ -41,7 +39,12 @@ const SignUp = ({ openSignUpHandler, closeModal }) => {
       });
 
       const data = await response.json();
-      window.localStorage.setItem("userToken", data.token.data.createUser.token);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(
+          "userToken",
+          data.token.data.createUser.token
+        );
+      }
     } catch (error) {
       console.error("Error fetching customer list:", error);
     }

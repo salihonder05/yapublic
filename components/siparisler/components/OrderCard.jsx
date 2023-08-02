@@ -33,79 +33,85 @@ const OrderCard = ({ order }) => {
   const openNotification = useSelector(({ auth }) => auth.openNotification);
 
   const productDetailHandler = (orderDetail) => {
-    window.localStorage.setItem(
-      "selectedProductId",
-      JSON.stringify(orderDetail?.id)
-    );
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(
+        "selectedProductId",
+        JSON.stringify(orderDetail?.id)
+      );
+    }
     location.href = "urunDetayi";
   };
 
   const addToCart = () => {
-    for (let index = 0; index < order?.order_json?.length; index++) {
-      let cartProductsList =
-        JSON.parse(window.localStorage.getItem("cartProducts"))?.length > 0
-          ? JSON.parse(window.localStorage.getItem("cartProducts"))
-          : [];
-      const cartProducts = JSON.parse(
-        window.localStorage.getItem("cartProducts")
-      );
-      const lAccountId = JSON.parse(window.localStorage.getItem("accountId"));
-      let newCart = [];
-      const orderElement = order?.order_json[index];
-      const sameCartProduct = cartProducts?.filter(
-        (p) => p?.productId === orderElement?.id
-      );
-      const diffCartProduct = cartProducts?.filter(
-        (p) => p?.productId !== orderElement?.id
-      );
-      if (sameCartProduct?.length > 0) {
-        newCart.push({
-          productId: sameCartProduct[0]?.productId,
-          accountId: sameCartProduct[0]?.accountId,
-          productName: sameCartProduct[0]?.productName,
-          adet: parseInt(sameCartProduct[0]?.adet) + 1,
-          img: sameCartProduct[0]?.img,
-          price: orderElement?.product_price * (sameCartProduct[0]?.adet + 1),
-          singlePrice: orderElement?.product_price,
-        });
-        for (let index = 0; index < diffCartProduct.length; index++) {
-          const element = diffCartProduct[index];
-          newCart.push({
-            productId: element?.productId,
-            accountId: element?.accountId,
-            productName: element?.productName,
-            adet: element?.adet,
-            img: element?.img,
-            price: element?.price,
-            singlePrice: element?.price,
-          });
-        }
-        store.dispatch(cartActions.updateState({ cartProducts: newCart }));
-        window.localStorage.setItem("cartProducts", JSON.stringify(newCart));
-      } else {
-        cartProductsList?.push({
-          productId: orderElement?.id,
-          accountId: lAccountId,
-          productName: orderElement?.product_name,
-          adet: 1,
-          img: orderElement?.img_url,
-          price: orderElement?.product_price,
-          singlePrice: orderElement?.product_price,
-        });
-        window.localStorage.setItem(
-          "cartProducts",
-          JSON.stringify(cartProductsList)
+    if (typeof window !== "undefined") {
+      for (let index = 0; index < order?.order_json?.length; index++) {
+        let cartProductsList =
+          JSON.parse(window.localStorage.getItem("cartProducts"))?.length > 0
+            ? JSON.parse(window.localStorage.getItem("cartProducts"))
+            : [];
+        const cartProducts = JSON.parse(
+          window.localStorage.getItem("cartProducts")
         );
-        store.dispatch(
-          cartActions.updateState({ cartProducts: cartProductsList })
+        const lAccountId = JSON.parse(window.localStorage.getItem("accountId"));
+        let newCart = [];
+        const orderElement = order?.order_json[index];
+        const sameCartProduct = cartProducts?.filter(
+          (p) => p?.productId === orderElement?.id
+        );
+        const diffCartProduct = cartProducts?.filter(
+          (p) => p?.productId !== orderElement?.id
+        );
+        if (sameCartProduct?.length > 0) {
+          newCart.push({
+            productId: sameCartProduct[0]?.productId,
+            accountId: sameCartProduct[0]?.accountId,
+            productName: sameCartProduct[0]?.productName,
+            adet: parseInt(sameCartProduct[0]?.adet) + 1,
+            img: sameCartProduct[0]?.img,
+            price: orderElement?.product_price * (sameCartProduct[0]?.adet + 1),
+            singlePrice: orderElement?.product_price,
+          });
+          for (let index = 0; index < diffCartProduct.length; index++) {
+            const element = diffCartProduct[index];
+            newCart.push({
+              productId: element?.productId,
+              accountId: element?.accountId,
+              productName: element?.productName,
+              adet: element?.adet,
+              img: element?.img,
+              price: element?.price,
+              singlePrice: element?.price,
+            });
+          }
+          store.dispatch(cartActions.updateState({ cartProducts: newCart }));
+          window.localStorage.setItem("cartProducts", JSON.stringify(newCart));
+        } else {
+          cartProductsList?.push({
+            productId: orderElement?.id,
+            accountId: lAccountId,
+            productName: orderElement?.product_name,
+            adet: 1,
+            img: orderElement?.img_url,
+            price: orderElement?.product_price,
+            singlePrice: orderElement?.product_price,
+          });
+          window.localStorage.setItem(
+            "cartProducts",
+            JSON.stringify(cartProductsList)
+          );
+          store.dispatch(
+            cartActions.updateState({ cartProducts: cartProductsList })
+          );
+        }
+        store.dispatch(authActions.updateState({ openNotification: true }));
+        setTimeout(
+          () =>
+            store.dispatch(
+              authActions.updateState({ openNotification: false })
+            ),
+          1000
         );
       }
-      store.dispatch(authActions.updateState({ openNotification: true }));
-      setTimeout(
-        () =>
-          store.dispatch(authActions.updateState({ openNotification: false })),
-        1000
-      );
     }
   };
 
