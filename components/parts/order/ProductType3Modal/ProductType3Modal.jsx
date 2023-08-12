@@ -70,7 +70,7 @@ const ProductType3Modal = ({
       }
       pr.id = item.id;
       pr.selected = selected;
-      pr.name = item.product_name;
+      pr.name = item?.product_name;
       pr.product_number = item.product_number;
       pr.product_type = item.product_type
         ? item.product_type
@@ -116,7 +116,6 @@ const ProductType3Modal = ({
     });
     total_price += parseFloat(prod.product_price);
     prod.total_price = total_price * piece; //.toFixed(2);
-
 
     setProductState(prod);
   };
@@ -208,7 +207,7 @@ const ProductType3Modal = ({
         text={
           !picker[index]
             ? item.menu_name
-            : productState.selected[index].product.product_name
+            : productState?.selected[index]?.product?.product_name
         }
         onChange={(id, value) => {
           onValueChange1(index, id);
@@ -216,7 +215,7 @@ const ProductType3Modal = ({
         data={item.product_items.map((i, index) => {
           return {
             id: i.product.id,
-            name: i.product.product_name,
+            name: i?.product?.product_name,
             textInfo:
               i.item_price > 0 ? i.item_price.toFixed(2) + " TL " : null,
           };
@@ -239,7 +238,7 @@ const ProductType3Modal = ({
           items={item.product_items.map((i, index) => {
             return {
               id: i.product.id,
-              text: i.product.product_name,
+              text: i?.product?.product_name,
               textInfo:
                 i.item_price > 0 ? i.item_price.toFixed(2) + " TL " : null,
               backData: i,
@@ -259,14 +258,14 @@ const ProductType3Modal = ({
         text={
           !picker[index]
             ? item.menu_name
-            : productState.selected[index].selected.product.product_name
+            : productState?.selected[index]?.selected?.product?.product_name
         }
         onChange={async (id, value) => {
           await setPType3PId(id);
           onValueChange3(index, id);
         }}
         data={item.product_items.map((i, index) => {
-          return { id: i.product.id, name: i.product.product_name };
+          return { id: i?.product?.id, name: i?.product?.product_name };
         })}
         value={"id"}
         label={"name"}
@@ -283,7 +282,7 @@ const ProductType3Modal = ({
         items={item.product_items.map((i, index) => {
           return {
             id: i.product.id,
-            text: i.product.product_name,
+            text: i?.product?.product_name,
             textInfo:
               i.item_price > 0 ? i.item_price.toFixed(2) + " TL " : null,
             backData: i,
@@ -322,6 +321,42 @@ const ProductType3Modal = ({
     return ListOfProduct;
   };
 
+  const type3ModalHandler = () => {
+    setOpen(false);
+    console.log("productStateproductState: ", productState);
+  };
+
+  const addCart = () => {
+    //ProductStore.setLastProduct(this.item.id,this.state.product.selected);
+
+    let selectedControl = 0;
+    let selectEmptyText = "";
+    productState.selected.forEach((value) => {
+      if (value.selected) {
+      } else {
+        //console.log(value.selected);
+        selectedControl += 1;
+        selectEmptyText = value.menu_name;
+      }
+      return selectedControl > 0;
+    });
+    let prod = productState;
+    setProductState(prod);
+
+    if (selectedControl === 0) {
+      type3ModalStates.onGoBack(productState, type3ModalStates.type);
+      // this.props.navigation.goBack();
+      setOpen(false);
+    } else {
+      // Toast.show({
+      //     text: selectEmptyText+' boş olamaz',
+      //     buttonText: 'Okay',
+      //     duration:1000
+      // })
+      Alert.alert("YEMEKARENA", selectEmptyText + " boş olamaz");
+    }
+  };
+
   return (
     <div className="my-4">
       <ButtonBlockPrimary handleOnClick={() => setOpen(true)}>
@@ -339,7 +374,7 @@ const ProductType3Modal = ({
           <div>
             <ButtonBlockPrimary
               className={"py-4 !bg-ya-green !rounded-tl-none !rounded-tr-none"}
-              handleOnClick={() => setOpen(false)}
+              handleOnClick={() => addCart()}
               //   onPress={() => {
               //     this._addCart();
               //   }}

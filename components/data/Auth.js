@@ -7,7 +7,7 @@ import store from "@/app/Redux/store";
 
 const fetchUser = async (token) => {
     //console.log("objectsssss: " , token);
-    const response = await fetch("https://yapublic.vercel.app/api/auth/tokencontrol", {
+    const response = await fetch("http://localhost:3000/api/auth/tokencontrol", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -18,6 +18,8 @@ const fetchUser = async (token) => {
     store.dispatch(authActions.updateState({ user: responses }));
     return responses;
 }
+
+
 
 export default function Auth() {
     //const userToken = useSelector(({ auth }) => auth.userToken);

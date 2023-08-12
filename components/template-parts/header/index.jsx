@@ -56,7 +56,7 @@ export default function Header() {
 
     if (typeof window !== "undefined") {
       var cartProductsList = JSON.parse(
-        window.localStorage.getItem("cartProducts")
+        window.localStorage.getItem("shop_cart")
       );
     }
     for (let index = 0; index < cartProductsList?.length; index++) {

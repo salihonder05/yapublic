@@ -11,7 +11,7 @@ const getCityRestaurants = async () => {
         var localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity"));
     }
     try {
-        const response = await fetch("https://yapublic.vercel.app/api/cityrestaurant", {
+        const response = await fetch("http://localhost:3000/api/cityrestaurant", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const getCityRestaurants = async () => {
 const getRestaurantsProducts = async (accountId) => {
     try {
         const response = await fetch(
-            "https://yapublic.vercel.app/api/accountproducts",
+            "http://localhost:3000/api/accountproducts",
             {
                 method: "POST",
                 headers: {
@@ -59,7 +59,7 @@ const getRestaurantsProducts = async (accountId) => {
 };
 const getAccountDetail = async (accountId) => {
     try {
-        const response = await fetch("https://yapublic.vercel.app/api/singleaccount", {
+        const response = await fetch("http://localhost:3000/api/singleaccount", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -105,7 +105,7 @@ const getNeighbourhoods = async (districtId) => {
 const getSingleOrder = async (orderId) => {
     try {
         const response = await fetch(
-            "https://yapublic.vercel.app/api/order",
+            "http://localhost:3000/api/order",
             {
                 method: "POST",
                 headers: {
@@ -131,7 +131,7 @@ const getSingleOrder = async (orderId) => {
 const getProductMenus = async (productId, setProductStatesMenus) => {
     try {
         const response = await fetch(
-            "https://yapublic.vercel.app/api/productmenus",
+            "http://localhost:3000/api/productmenus",
             {
                 method: "POST",
                 headers: {
@@ -159,7 +159,7 @@ const getProductMenus = async (productId, setProductStatesMenus) => {
 const getUserOrders = async (customerId) => {
     try {
         const response = await fetch(
-            "https://yapublic.vercel.app/api/orders",
+            "http://localhost:3000/api/orders",
             {
                 method: "POST",
                 headers: {
@@ -189,7 +189,7 @@ const getUserOrders = async (customerId) => {
 const getNeighborhoodRestaurants = async (selectedNeighbourhood) => {
     try {
         const response = await fetch(
-            "https://yapublic.vercel.app/api/neighborhoodrestaurants",
+            "http://localhost:3000/api/neighborhoodrestaurants",
             {
                 method: "POST",
                 headers: {
@@ -219,7 +219,7 @@ const getNeighborhoodRestaurants = async (selectedNeighbourhood) => {
 const getSingleProduct = async (productId, accountId, cartProducts) => {
     try {
         const response = await fetch(
-            "https://yapublic.vercel.app/api/singleproduct",
+            "http://localhost:3000/api/singleproduct",
             {
                 method: "POST",
                 headers: {

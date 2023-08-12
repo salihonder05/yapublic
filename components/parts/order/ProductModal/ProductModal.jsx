@@ -12,8 +12,7 @@ import {
 } from "@/components/data/query/query";
 import { useSelector } from "react-redux";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { MinusIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import ProductCountAndPrice from "../components/ProductCountAndPrice";
+import { MinusIcon } from "@heroicons/react/20/solid";
 import CheckBoxButton from "../components/CheckBoxButton";
 import ProductType3Modal from "../ProductType3Modal/ProductType3Modal";
 import CheckBoxLineButton from "../components/CheckBoxLineButton";
@@ -32,7 +31,6 @@ export default function ProductModal({ open, setOpen, product }) {
   const [menu_in_menu, setMenu_in_menu] = useState([]);
   const [last_products, setLast_products] = useState([]);
   const [type3ModalStates, setType3ModalStates] = useState();
-  const shopCart = useSelector(({ cart }) => cart.shopCart);
   const [productState, setProductState] = useState({
     id: 0,
     product_name: "",
@@ -244,21 +242,27 @@ export default function ProductModal({ open, setOpen, product }) {
     let lp = last_products;
     lp[i] = item;
     let prod = productState;
-    prod.selected[i].product_price = item.item_price;
-    prod.selected[i].item_price = item.total_price;
-    prod.selected[i].product.product_type = item.product_type;
+    let selectedKlon = { ...prod.selected[i].selected };
+    let productKlon = { ...selectedKlon.product };
+    // if (prod) {
+    selectedKlon.product_price = item?.item_price;
+    selectedKlon.item_price = item?.total_price;
+    productKlon.product_type = item?.product_type;
+    selectedKlon.product = productKlon;
+    prod.selected[i].selected = selectedKlon;
+    // }
     if (type == 3) {
-      prod.selected[i].selected.selected = item.selected;
+      prod.selected[i].selected.selected = item?.selected;
     } else if (type == 5) {
-      prod.selected[i] = {
-        id: item.id,
-        item_price: item.total_price,
-        product_price: item.item_price,
+      prod.selected[i].selected = {
+        id: item?.id,
+        item_price: item?.total_price,
+        product_price: item?.item_price,
         product: {
-          id: item.selected[0].product.id,
-          product_name: item.selected[0].product.product_name,
-          product_number: item.selected[0].product.product_number,
-          product_type: item.selected[0].product.product_type,
+          id: item?.selected[0]?.selected?.product?.id,
+          product_name: item?.selected[0]?.selected?.product?.product_name,
+          product_number: item?.selected[0]?.selected?.product?.product_number,
+          product_type: item?.selected[0]?.selected?.product?.product_type,
         },
       };
     }
@@ -284,7 +288,7 @@ export default function ProductModal({ open, setOpen, product }) {
       product_price: selected_item.item_price,
       product: {
         id: selected_item.product.id,
-        product_name: selected_item.product.product_name,
+        product_name: selected_item?.product?.product_name,
         product_number: selected_item.product.product_number,
         product_type: selected_item.product.product_type,
       },
@@ -301,7 +305,7 @@ export default function ProductModal({ open, setOpen, product }) {
     let items = last_products[index].selected.map((i) => {
       let b = "";
       if (i.menu_type == 1) {
-        b = i.selected != null ? i.selected.product.product_name + " " : " ";
+        b = i.selected != null ? i.selected?.product?.product_name + " " : " ";
       }
       if (i.menu_type == 2 && i.selected.length > 0) {
         b = i.selected.map((s) => {
@@ -341,7 +345,7 @@ export default function ProductModal({ open, setOpen, product }) {
         text={
           !picker[index]
             ? item.menu_name
-            : productState.selected[index].selected.product.product_name
+            : productState?.selected[index]?.selected?.product?.product_name
         }
         onChange={(id, value) => {
           onValueChange1(index, id);
@@ -391,7 +395,7 @@ export default function ProductModal({ open, setOpen, product }) {
           text={
             !picker[index]
               ? item.menu_name
-              : productState.selected[index].selected.product.product_name
+              : productState?.selected[index]?.selected?.product?.product_name
           }
           onChange={(id, value, price) => {
             onValueChange3(index, id, price);
@@ -540,8 +544,7 @@ export default function ProductModal({ open, setOpen, product }) {
     };
 
     if (selectedControl === 0) {
-      // await addRowShopCart(add_product, shopCart);
-      // this.props.navigation.goBack();
+      await addRowShopCart(add_product);
       setOpen(false);
     } else {
       // Toast.show({
@@ -549,21 +552,9 @@ export default function ProductModal({ open, setOpen, product }) {
       //     buttonText: 'Okay',
       //     duration:1000
       // })
-      // alert("YEMEKARENA", selectEmptyText + " boş olamaz");
+      alert("YEMEKARENA", selectEmptyText + " boş olamaz");
     }
     // await updateBadge(shopCart);
-
-    // if (selectedControl === 0) {
-    //   // this.props.navigation.goBack();
-    // } else {
-    //   // Toast.show({
-    //   //     text: selectEmptyText+' boş olamaz',
-    //   //     buttonText: 'Okay',
-    //   //     duration:1000
-    //   // })
-    //   alert("YEMEKARENA", selectEmptyText + " boş olamaz");
-    // }
-    // await this.props.ShopCartStore.updateBadge();
   };
 
   const productHeader = () => {

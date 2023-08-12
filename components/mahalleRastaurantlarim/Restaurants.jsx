@@ -99,7 +99,7 @@ export default function Restaurants() {
   // const getNeighborhoodRestaurants = async () => {
   //   try {
   //     const response = await fetch(
-  //       "https://yapublic.vercel.app/api/neighborhoodrestaurants",
+  //       "http://localhost:3000/api/neighborhoodrestaurants",
   //       {
   //         method: "POST",
   //         headers: {

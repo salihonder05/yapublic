@@ -2,13 +2,17 @@
 
 const { cartActions } = require("@/app/Redux/features/cart-slice");
 const { default: store } = require("@/app/Redux/store");
-
-const addRowShopCart = async (row, shopCart) => {
+const API_BASE = process.env.API_URL;
+if (typeof window !== 'undefined') {
+    var shopCardAccountID = window.localStorage.getItem('accountId');
+}
+const addRowShopCart = async (row) => {
     // await window.localStorage.removeItem('shop_cart');
     if (typeof window !== 'undefined') {
-        let shop_cart = window.localStorage.getItem('shop_cart');
-        let current_account = window.localStorage.getItem('current_account');
+        var shop_cart = window.localStorage.getItem('shop_cart');
+        var accountId = window.localStorage.getItem('accountId');
     }
+    console.log("shop_cartshop_cartshop_cart: ", accountId);
 
     let active_shop_card_account = 0;
     let new_card = [];
@@ -23,8 +27,8 @@ const addRowShopCart = async (row, shopCart) => {
             console.log("new_card.length === 0:  ", new_card.length === 0);
             let ChoseeType = await window.localStorage.getItem("ChoseeType")
             await window.localStorage.setItem("ShopType", ChoseeType)
-            await window.localStorage.setItem('active_shop_card_account', current_account);
-            active_shop_card_account = current_account;
+            await window.localStorage.setItem('active_shop_card_account', accountId);
+            active_shop_card_account = accountId;
             new_card.push(row);
             await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
             // runInAction(() => {
@@ -54,38 +58,91 @@ const addRowShopCart = async (row, shopCart) => {
                 'active_shop_card_account',
             );
 
-            if (active_shop_card_account === current_account) {
+            if (active_shop_card_account === accountId) {
                 new_card.push(row);
                 await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
                 // runInAction(() => {
                 await store.dispatch(cartActions.updateState({ shopCart: new_card }));
+                shop_cart = JSON.stringify(new_card);
+
+                console.log("active_shop_card_account: ", active_shop_card_account);
                 // })
             } else {
-                // alert("YEMEKARENA", "Sepetinde farklı bir restorana ait ürün var. Sepeti sil butonu ile bu ürünleri silip yeni ürünleri ekleyebilirsiniz.", [
-                //     {
-                //         text: "SEPETİ SİL",
-                //         onclick: async () => {
-                //             await window.localStorage.removeItem('shop_cart');
+                alert("YEMEKARENA", "Sepetinde farklı bir restorana ait ürün var. Sepeti sil butonu ile bu ürünleri silip yeni ürünleri ekleyebilirsiniz.", [
+                    {
+                        text: "SEPETİ SİL",
+                        onclick: async () => {
+                            await window.localStorage.removeItem('shop_cart');
 
-                //             await window.localStorage.setItem('active_shop_card_account', current_account);
-                //             active_shop_card_account = current_account;
-                //             new_card = [];
-                //             new_card.push(row);
-                //             await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
-                //             store.dispatch(cartActions.updateState({ shopCart: new_card }));
-                //         }
-                //     },
-                //     {
-                //         text: "VAZGEÇ"
-                //     }
-                // ]
-                // );
+                            await window.localStorage.setItem('active_shop_card_account', accountId);
+                            active_shop_card_account = accountId;
+                            new_card = [];
+                            new_card.push(row);
+                            await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
+                            await store.dispatch(cartActions.updateState({ shopCart: new_card }));
+                            shop_cart = JSON.stringify(new_card);
+                        }
+                    },
+                    {
+                        text: "VAZGEÇ"
+                    }
+                ]
+                );
             }
         }
     }
-    // await updateBadge(shopCart);
+    // await updateBadge(shop_cart);
 }
+const removeShopCard = async () => {
+    if (typeof window !== 'undefined') {
+        await window.localStorage.removeItem('shop_cart');
+        await window.localStorage.removeItem('active_shop_card_account');
+    }
+    // runInAction(() => {
+    store.dispatch(cartActions.updateState({ shopCart: [] }));
+    // this.shopCart = [];
+    // this.shopCardAccountID = 0;
+    // this.shopCardAccount = {
+    //     id:0,
+    //     account_title:'',
+    //     brand:{
+    //         brand_banner:''
+    //     }
+    // }
+    // });
+}
+const checkShopCardStore = async () => {
+    // await AsyncStorage.removeItem('shop_cart');
+    if (typeof window !== 'undefined') {
+        var shop_cart = await window.localStorage.getItem('shop_cart');
+        var current_account = await window.localStorage.getItem('current_account');
+    }
 
+    let active_shop_card_account = 0;
+    let new_card = [];
+
+    if (!shop_cart) {
+        shop_cart = [];
+    } else {
+        new_card = JSON.parse(shop_cart);
+    }
+
+    if (new_card.length === 0) {
+        return true;
+    }
+    else {
+        if (typeof window !== 'undefined') {
+            active_shop_card_account = await window.localStorage.getItem(
+                'active_shop_card_account',
+            );
+        }
+        if (active_shop_card_account === current_account) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 const sipTypes = (id) => {
     id = parseInt(id + "")
     switch (id) {
@@ -99,12 +156,15 @@ const sipTypes = (id) => {
             return "Belirsiz"
     }
 }
+
 const updateBadge = async (shopCart) => {
-    getShopCart(shopCart);
-    updateRowShopCart(shopCart);
-    let shop_cart = shopCart
-    store.dispatch(cartActions.updateState({ badge: shop_cart.length }));
+    console.log("updateBadgeshopCart: ", shopCart);
+    // getShopCart(shopCart);
+    // updateRowShopCart(shopCart);
+    // let shop_cart = shopCart
+    store.dispatch(cartActions.updateState({ badge: shopCart.length }));
 }
+
 const updateRowShopCart = async (shopCart) => {
     try {
         // runInActionstore.ac () => {
@@ -115,7 +175,7 @@ const updateRowShopCart = async (shopCart) => {
 
 const deleteRowShopCart = async (id, shopCart) => {
     if (typeof window !== 'undefined') {
-        let shop_cart = await window.localStorage.getItem('shop_cart');
+        var shop_cart = await window.localStorage.getItem('shop_cart');
     }
     let new_card = [];
     if (!shop_cart) {
@@ -129,7 +189,9 @@ const deleteRowShopCart = async (id, shopCart) => {
         await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
     }
     // runInAction(() => {
-    // this.shopCart = new_card;
+    shopCart = new_card;
+    store.dispatch(cartActions.updateState({ shopCart: new_card }));
+
     // })
     await updateBadge(shopCart);
     return shopCart
@@ -137,14 +199,14 @@ const deleteRowShopCart = async (id, shopCart) => {
 
 const getShopCart = async (shopCart) => {
     //await window.localStorage.removeItem('shop_cart');
-    if (typeof window !== 'undefined') {
-        let shop_cart = await window.localStorage.getItem('shop_cart');
-    }
+    // if (typeof window !== 'undefined') {
+    //     var shop_cart = await window.localStorage.getItem('shop_cart');
+    // }
     let new_card = [];
-    if (!shop_cart) {
-        shop_cart = [];
+    if (!shopCart) {
+        shopCart = [];
     } else {
-        new_card = JSON.parse(shop_cart);
+        new_card = shopCart;
     }
     //console.log(JSON.stringify(new_card))
     if (typeof window !== 'undefined') {
@@ -156,17 +218,150 @@ const getShopCart = async (shopCart) => {
     store.dispatch(cartActions.updateState({ shopCardAccountID: sca }));
 
     // this.shopCardAccountID = sca;
-    // this.shopCart = new_card;
+    shopCart = new_card;
     updateBadge(shopCart);
     // });
     //return this.shopCart;
 }
+const uploadShopCart = async (
+    cart,
+    totalAmount,
+    address,
+    orderType,
+    orderPayRule,
+    orderNote,
+    receiveTime,
+    point
+) => {
+    // this.loading = true;
 
+    try {
+        if (typeof window !== 'undefined') {
+            let current_account = await window.localStorage.getItem(
+                'accountId',
+                // 'active_shop_card_account',
+            );
+        }
+        //alert(current_account)
+        let query = `
+                        mutation{
+                          postOrder(
+                              order:{
+                                account:${current_account}
+                                address:${address}
+                                order_price:${totalAmount}
+                                ordertype:${orderType}
+                                status:${orderPayRule == 3 ? '6' : '1'}
+                                orderpayrule:${orderPayRule}
+                                order_note:"${orderNote}"
+                                ${receiveTime ? 'order_receive_time:"' + receiveTime + '"' : ""}
+                                order_json:${JSON.stringify(cart).replace(/\"([^(\")"]+)\":/g, '$1:',)}
+                              }
+                              point:${point}
+                            ){
+                            id
+                          }
+                        }
+                    `;
+        console.log(query)
+        if (typeof window !== 'undefined') {
+            var token = await window.localStorage.getItem('userToken');
+        }
+        const { data } = await axios({
+            url: `${API_BASE}`,
+            method: 'post',
+            headers: {
+                Authorization: token,
+            },
+            data: {
+                query,
+            },
+        });
 
+        if (data.errors) {
+            // this.loading = false;
+            alert("YEMEKARENA", data.errors[0].message);
+            return false;
+        }
+        // runInAction(() => {
+        // this.loading = false;
+        // this.uploadedCard = data.data.postOrder;
+        return true;
+        // });
+    } catch (e) {
+        console.log(e);
+        // this.loading = false;
+    }
+}
+const getShopCartAccountInfo = async () => {
+    try {
+        const { data } = await axios({
+            url: API_BASE,
+            method: 'post',
+            data: {
+                query: `
+                        {
+                          account(id:${shopCardAccountID}){
+                            id
+                            account_title
+                            brand{
+                              brand_name
+                              brand_banner
+                            }
+                            account_opening
+                            account_closing
+                            address{town{name} neighborhood{name}}
+                          }
+                        }
+                    `,
+            },
+        });
+        if (data.errors) {
+            alert("YEMEKARENA", data.errors[0].message);
+        }
+        //alert(JSON.stringify(data))
+        // runInAction(() => {
+        // shopCardAccount.point_account = data.data.account;
+        // });
+    } catch (e) {
+        console.log(e);
+    }
+}
+const updateRowPiece = async (id, piece) => {
+    if (typeof window !== 'undefined') {
+        var shop_cart = await window.localStorage.getItem('shop_cart');
+    }
+    let new_card = [];
+    if (!shop_cart) {
+        shop_cart = [];
+    } else {
+        new_card = JSON.parse(shop_cart);
+    }
+    let old = new_card[id].piece;
+    let price = new_card[id].total_price / old;
+    piece == 'up' ? old++ : old--;
+    old == 0 ? (old = 1) : (old = old);
+    new_card[id].piece = old;
+    //alert(JSON.stringify(new_card[id]))
+    new_card[id].total = new_card[id].total_price * old; //.toFixed(2);
+    if (typeof window !== 'undefined') {
+        await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
+    }
+    // runInAction(() => {
+    // this.shopCart = new_card;
+    // })
+    // console.log(new_card[id]);
+    return new_card;
+}
 export {
     addRowShopCart,
     updateBadge,
+    removeShopCard,
     updateRowShopCart,
     deleteRowShopCart,
-    getShopCart
+    getShopCart,
+    checkShopCardStore,
+    getShopCartAccountInfo,
+    updateRowPiece,
+    uploadShopCart
 }

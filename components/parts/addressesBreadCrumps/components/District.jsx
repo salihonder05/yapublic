@@ -16,7 +16,7 @@ export default function DistrictSelectMenu({ setDistrict, district, townId }) {
 
   const getDistricts = async () => {
     try {
-      const response = await fetch("https://yapublic.vercel.app/api/districtsx", {
+      const response = await fetch("http://localhost:3000/api/districtsx", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

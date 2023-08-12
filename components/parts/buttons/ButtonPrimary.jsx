@@ -1,3 +1,4 @@
+"use client"
 const ButtonPrimary = ({ children, handleOnClick, className }) => {
   return (
     // <button className="px-2.5 py-1.5 border border-ya-red hover:border-ya-dark-red font-semibold text-white bg-ya-red text-xs rounded-sm hover:bg-ya-dark-red uppercase tracking-wider items-center text-center">

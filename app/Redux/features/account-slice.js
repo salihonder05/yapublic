@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const accountSlice = createSlice({
   name: "account",
-  initialState: { },
+  initialState: { account: {} },
   reducers: {
     updateState(state, action) {
       const params = action.payload;
