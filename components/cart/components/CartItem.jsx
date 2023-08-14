@@ -1,17 +1,19 @@
 "use client";
 import { cartActions } from "@/app/Redux/features/cart-slice";
 import store from "@/app/Redux/store";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 if (typeof window !== "undefined") {
   var cartProductsList = JSON.parse(window.localStorage.getItem("shop_cart"));
 }
-const CartItem = (product, key, index) => {
+const CartItem = (product, key, index, changeTotalPrice) => {
   const openCart = useSelector(({ cart }) => cart.openCart);
   const cartProducts = useSelector(({ cart }) => cart.cartProducts);
   const cartTotalPrice = useSelector(({ cart }) => cart.cartTotalPrice);
+  const [openDetail, setOpenDetail] = useState(false);
 
   useEffect(() => {
     console.log("productproductproduct: ", product);
@@ -47,22 +49,6 @@ const CartItem = (product, key, index) => {
     changeTotalPrice();
   };
 
-  const changeTotalPrice = () => {
-    let cartTotalPrice = 0;
-    console.log("cartTotalPricecartTotalPrice");
-    if (typeof window !== "undefined") {
-      var cartProductsList = JSON.parse(
-        window.localStorage.getItem("shop_cart")
-      );
-    }
-    for (let index = 0; index < cartProductsList?.length; index++) {
-      const element = cartProductsList[index];
-      console.log(" element?.product_price: ", element?.total_price);
-      cartTotalPrice += element?.total_price * element.piece;
-    }
-    store.dispatch(cartActions.updateState({ cartTotalPrice: cartTotalPrice }));
-  };
-
   const changeCartProductCount = (productId, event) => {
     if (typeof window !== "undefined") {
       var cartProductsList = JSON.parse(
@@ -91,73 +77,146 @@ const CartItem = (product, key, index) => {
   };
 
   return (
-    <li key={product?.productId} className="flex py-6">
-      <div className="flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
-        <Image
-          width={100}
-          height={100}
-          src={product?.product?.img_url}
-          alt={product?.product?.img_url}
-          priority
-          className="object-cover object-center w-full h-full"
-        />
-      </div>
-
-      <div className="flex flex-col flex-1 ml-4">
-        <div>
-          <div className="flex justify-between text-base font-medium text-gray-900">
-            <h3>
-              <span>{product?.product?.product_name}</span>
-            </h3>
-            <p className="ml-4">{product?.product?.product_price}</p>
-          </div>
-          {/* <p className="mt-1 text-sm text-gray-500">
+    <li
+      key={product?.productId}
+      className="p-2 my-2 rounded-md shadow-md bg-ya-yellow/10"
+    >
+      <div className="flex">
+        <div className="flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
+          <Image
+            width={100}
+            height={100}
+            src={product?.product?.img_url}
+            alt={product?.product?.img_url}
+            priority
+            className="object-cover object-center w-full h-full"
+          />
+        </div>
+        <div className="flex flex-col flex-1 ml-4">
+          <div>
+            <div className="flex justify-between text-base font-medium text-gray-900">
+              <h3>
+                <span>{product?.product?.product_name}</span>
+              </h3>
+              <p className="ml-4">{product?.product?.product_price}</p>
+            </div>
+            {/* <p className="mt-1 text-sm text-gray-500">
               {product?.product?.product?.product?.color}
             </p> */}
-        </div>
-        <div className="flex items-end justify-between flex-1 text-sm">
-          <p className="text-gray-500">{product?.product?.piece}</p>
-          <p className="text-gray-500">
-            Total Ücret:{" "}
-            {product?.product?.total_price * product?.product?.piece}
-          </p>
+          </div>
+          <div className="flex items-end justify-between flex-1 text-sm text-gray-500">
+            <p>{product?.product?.piece}</p>
+            <p>
+              Total Ücret:{" "}
+              {(
+                product?.product?.total_price * product?.product?.piece
+              ).toFixed(2)}
+            </p>
 
-          <div className="flex">
-            {/* <label htmlFor={`quantity-${index}`} className="sr-only">
+            <div className="flex">
+              {/* <label htmlFor={`quantity-${index}`} className="sr-only">
               Quantity, {product.name}
             </label> */}
-            <select
-              onChange={(event) =>
-                changeCartProductCount(product?.product?.id, event)
-              }
-              id={`quantity-${index}`}
-              name={`quantity-${index}`}
-              className="block max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-            >
-              <option value={product?.product?.piece} selected>
-                {product?.product?.piece}
-              </option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-            </select>
-            <button
-              type="button"
-              className="ml-8 font-medium text-ya-red hover:text-ya-dark-red"
-              onClick={() => deleteFromCart(product?.product?.id)}
-            >
-              Sil
-            </button>
+              <select
+                onChange={(event) =>
+                  changeCartProductCount(product?.product?.id, event)
+                }
+                id={`quantity-${index}`}
+                name={`quantity-${index}`}
+                className="block max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+              >
+                <option value={product?.product?.piece} selected>
+                  {product?.product?.piece}
+                </option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+                <option value={6}>6</option>
+                <option value={7}>7</option>
+                <option value={8}>8</option>
+                <option value={9}>9</option>
+                <option value={10}>10</option>
+              </select>
+              <button
+                type="button"
+                className="ml-8 font-medium text-ya-red hover:text-ya-dark-red"
+                onClick={() => deleteFromCart(product?.product?.id)}
+              >
+                Sil
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      <div
+        className="flex items-center justify-center w-1/5 mx-auto mt-2 text-white rounded-md cursor-pointer bg-ya-yellow"
+        onClick={() => setOpenDetail(!openDetail)}
+      >
+        <span className="ml-1">detay</span>
+        {openDetail ? (
+          <ChevronUpIcon className="w-4 h-4" />
+        ) : (
+          <ChevronDownIcon className="w-4 h-4" />
+        )}
+      </div>
+
+      {openDetail && (
+        <div>
+          {product?.product?.selected?.map((pr, index) => (
+            <div key={index}>
+              <span className="font-semibold text-md">{pr?.menu_name}:</span>
+              {pr?.menu_type === 3 ? (
+                <>
+                  <span className="ml-1 text-sm font-semibold text-ya-dark-yellow">
+                    {pr?.selected?.product?.product_name}
+                  </span>
+                  {pr?.selected?.selected?.map((prS, index) => (
+                    <div className="flex flex-col" key={index}>
+                      <span className="text-sm font-semibold text-ya-red">
+                        {prS.menu_name}:{" "}
+                      </span>
+                      {Array.isArray(prS.selected) ? (
+                        <>
+                          {prS.selected.map((lpr) => (
+                            <div
+                              key={lpr?.id}
+                              className="text-xs font-semibold"
+                            >
+                              {lpr?.product?.product_name}
+                            </div>
+                          ))}
+                        </>
+                      ) : (
+                        <div className="text-xs font-semibold">
+                          {prS?.selected?.product?.product_name}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </>
+              ) : pr?.menu_type === 2 || pr?.menu_type === 4 ? (
+                <>
+                  <div>{pr?.selected?.product?.product_name}</div>
+                  {pr?.selected?.map((prS) => (
+                    <span
+                      key={prS?.id}
+                      className="text-xs font-semibold text-ya-dark-yellow"
+                    >
+                      {prS?.product?.product_name}
+                    </span>
+                  ))}
+                </>
+              ) : (
+                <div className="text-sm font-semibold text-ya-dark-yellow">
+                  {pr?.selected?.product?.product_name}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </li>
   );
 };

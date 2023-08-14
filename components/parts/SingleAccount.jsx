@@ -48,9 +48,9 @@ export default function SingleAccount() {
   //   }
   // };
 
-  useEffect(() => {
-    getAccountDetail(14);
-  }, []);
+  // useEffect(() => {
+  //   getAccountDetail(14);
+  // }, []);
 
   return (
     <div className="bg-white">

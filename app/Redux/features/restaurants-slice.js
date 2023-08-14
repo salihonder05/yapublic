@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const restaurantsSlice = createSlice({
     name: "restaurants",
-    initialState: { restaurants: [], restaurantsProducts: [], singleAccount: [], neighborhoodsx: [], neighborhoodRestaurants: [] },
+    initialState: { restaurants: [], restaurantsProducts: [], singleAccount: [], neighborhoodsx: [], neighborhoodRestaurants: [], activeCardAccount: [] },
     reducers: {
         updateState(state, action) {
             const params = action.payload;

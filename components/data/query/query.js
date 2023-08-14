@@ -57,6 +57,19 @@ const getRestaurantsProducts = async (accountId) => {
         console.error("Error fetching customer list:", error);
     }
 };
+
+// export const getAccountDetail = async (accountId) => {
+//     try {
+//         const response = await axios.post(`http://localhost:3000/api/singleaccount`, {
+//             accountId
+//         });
+//         return { success: true, message: data?.data?.data?.account };
+//     } catch (error) {
+//         // Hata durumunda hata mesajını döndür
+//         return { success: false, message: error.response.data.message };
+//     }
+// };
+
 const getAccountDetail = async (accountId) => {
     try {
         const response = await fetch("http://localhost:3000/api/singleaccount", {
@@ -67,15 +80,22 @@ const getAccountDetail = async (accountId) => {
             body: JSON.stringify({ accountId: accountId }),
         });
         const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
-        if (response.ok) {
-            // setAccount(data.data.data.account);
-            store.dispatch(restaurantsActions.updateState({ singleAccount: data?.data?.data?.account }))
+        return { success: true, message: data?.data?.data?.account };
 
-            // Auth();
-            // dispatch(authActions.updateState({ authModalOpen: false }));
-        }
+        // if (response.ok) {
+        //     // setAccount(data.data.data.account); 
+        //     if (type = "card") {
+        //         store.dispatch(restaurantsActions.updateState({ activeCardAccount: data?.data?.data?.account }))
+        //     } else if (type = "singleAccount") {
+        //         store.dispatch(restaurantsActions.updateState({ singleAccount: data?.data?.data?.account }))
+        //     }
+
+        //     // Auth();
+        //     // dispatch(authActions.updateState({ authModalOpen: false }));
+        // }
     } catch (error) {
         console.error("Error fetching customer list:", error);
+        return { success: false, message: error.response };
     }
 };
 const getNeighbourhoods = async (districtId) => {

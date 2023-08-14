@@ -54,6 +54,9 @@ if (typeof window !== "undefined") {
   );
   var shopCartL = JSON.parse(window.localStorage.getItem("shop_cart"));
   var accountId = JSON.parse(window.localStorage.getItem("accountId"));
+  var active_shop_account_id = JSON.parse(
+    window.localStorage.getItem("active_shop_card_account")
+  );
 }
 export default function Cart() {
   const openCart = useSelector(({ cart }) => cart.openCart);
@@ -61,9 +64,10 @@ export default function Cart() {
   const cartTotalPrice = useSelector(({ cart }) => cart.cartTotalPrice);
   const shopCart = useSelector(({ cart }) => cart.shopCart);
   const addressess = useSelector(({ cart }) => cart.addressess);
-  const singleAccount = useSelector(
-    ({ restaurants }) => restaurants.singleAccount
+  const activeCardAccount = useSelector(
+    ({ restaurants }) => restaurants.activeCardAccount
   );
+  const [accountDetail, setAccountDetail] = useState();
   const badge = useSelector(({ cart }) => cart.badge);
   const user = useSelector(({ auth }) => auth.user);
   let swipeRef = [];
@@ -80,7 +84,8 @@ export default function Cart() {
   };
 
   const fetchSingleAccount = async () => {
-    await getAccountDetail(accountId);
+    const accountD = await getAccountDetail(active_shop_account_id);
+    setAccountDetail(accountD?.message);
   };
 
   useEffect(() => {
@@ -88,7 +93,7 @@ export default function Cart() {
     // await getCart();
     // await getMyAddress( user?.user?.customer?.id);
     setAddresses(addressess);
-  }, []);
+  }, [active_shop_account_id]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -96,7 +101,22 @@ export default function Cart() {
         window.localStorage.getItem("cartProducts")
       );
     }
+    changeTotalPrice();
   }, [cartProducts]);
+
+  const changeTotalPrice = () => {
+    let cartTotalPrice = 0;
+    if (typeof window !== "undefined") {
+      var cartProductsList = JSON.parse(
+        window.localStorage.getItem("shop_cart")
+      );
+    }
+    for (let index = 0; index < cartProductsList?.length; index++) {
+      const element = cartProductsList[index];
+      cartTotalPrice += element?.total_price * element.piece;
+    }
+    store.dispatch(cartActions.updateState({ cartTotalPrice: cartTotalPrice }));
+  };
 
   const onAddressChange1 = (value) => {
     let picker = value;
@@ -474,18 +494,16 @@ export default function Cart() {
                 <Dialog.Panel className="w-screen max-w-md pointer-events-auto">
                   <div className="flex flex-col h-full overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 px-4 py-6 overflow-y-auto sm:px-6">
-                      <CartHeader account={singleAccount} /> 
-                      <div className="p-2">
+                      <CartHeader account={accountDetail} />
+                      <div>
                         <div className="flow-root">
-                          <ul
-                            role="list"
-                            className="-my-6 divide-y divide-gray-200"
-                          >
+                          <ul role="list" className="divide-y divide-gray-200 ">
                             {cartProducts?.map((product, index) => (
                               <CartItem
                                 key={index}
                                 product={product}
                                 index={index}
+                                changeTotalPrice={changeTotalPrice}
                               />
                             ))}
                           </ul>
@@ -493,9 +511,9 @@ export default function Cart() {
                       </div>
                     </div>
                     <div className="px-4 py-6 border-t border-gray-200 sm:px-6">
-                      <div className="flex justify-between text-base font-medium text-gray-900">
-                        <p>Toplam</p>
-                        <p>{cartTotalPrice}₺</p>
+                      <div className="flex justify-between p-2 text-base font-medium rounded-md text-ya-yellow bg-ya-soft-black">
+                        <p>Toplam Tutar</p>
+                        <p>{cartTotalPrice ? cartTotalPrice.toFixed(2) : 0}₺</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         kargo ücreti ödeme sırasında dahil edilecektir
@@ -503,7 +521,7 @@ export default function Cart() {
                       <div className="mt-6">
                         <Link
                           href="/siparisiTamamla"
-                          className="flex items-center justify-center px-6 py-3 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-ya-red hover:bg-ya-dark-red"
+                          className="flex items-center justify-center px-6 py-3 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-ya-green hover:bg-ya-dark-green"
                         >
                           Siparişi tamamla
                         </Link>

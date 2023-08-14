@@ -1,4 +1,5 @@
 "use client"
+import Swal from "sweetalert2";
 
 const { cartActions } = require("@/app/Redux/features/cart-slice");
 const { default: store } = require("@/app/Redux/store");
@@ -39,17 +40,24 @@ const addRowShopCart = async (row) => {
             let shopType = await window.localStorage.getItem("ShopType");
             let ChoseeType = await window.localStorage.getItem("ChoseeType")
 
-            console.log("shopTypeChoseeType: ", shopType, ChoseeType);
-
             if (!shopType) {
                 await window.localStorage.setItem("ShopType", ChoseeType)
-                console.log("yanlış: ", shopType, ChoseeType);
 
             } else {
                 console.log("doğru: ", shopType, ChoseeType);
                 if (shopType != ChoseeType) {
-                    console.log("doğruyanlış: ", shopType, ChoseeType);
-                    alert("YEMEKARENA", `Sepetinde farklı bir Spiariş türüne (${sipTypes(shopType)}) ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz.`);
+                    Swal.fire({
+                        title: "Emin misiniz?",
+                        text: "Sepetinizde farklı bir Spiariş türüne ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz",
+                        icon: "warning",
+                        showCancelButton: true,
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Okay"
+                    }).then(function () {
+                        // Redirect the user
+                        window.localStorage.removeItem("shop_cart")
+                    });
+                    // alert("YEMEKARENA", `Sepetinde farklı bir Spiariş türüne (${sipTypes(shopType)}) ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz.`);
                     return false;
                 }
             }
@@ -68,26 +76,46 @@ const addRowShopCart = async (row) => {
                 console.log("active_shop_card_account: ", active_shop_card_account);
                 // })
             } else {
-                alert("YEMEKARENA", "Sepetinde farklı bir restorana ait ürün var. Sepeti sil butonu ile bu ürünleri silip yeni ürünleri ekleyebilirsiniz.", [
-                    {
-                        text: "SEPETİ SİL",
-                        onclick: async () => {
-                            await window.localStorage.removeItem('shop_cart');
-
-                            await window.localStorage.setItem('active_shop_card_account', accountId);
-                            active_shop_card_account = accountId;
-                            new_card = [];
-                            new_card.push(row);
-                            await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
-                            await store.dispatch(cartActions.updateState({ shopCart: new_card }));
-                            shop_cart = JSON.stringify(new_card);
-                        }
-                    },
-                    {
-                        text: "VAZGEÇ"
+                Swal.fire({
+                    title: "Emin misiniz?",
+                    text: "Sepetinizde farklı bir Spiariş türüne ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz",
+                    icon: "warning",
+                    showCancelButton: true,
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Okay"
+                }).then(async (result) => {
+                    // Redirect the user
+                    if (result.isConfirmed) {
+                        // Onay işlemini gerçekleştir
+                        window.localStorage.removeItem("shop_cart")
+                        await window.localStorage.setItem('shop_cart', JSON.stringify([row]));
+                        Swal.fire(
+                            `Onaylandı!`,
+                            "Seçtiğiniz işlem başarıyla onaylandı.",
+                            "success"
+                        );
                     }
-                ]
-                );
+                });
+                // alert("YEMEKARENA", "Sepetinde farklı bir restorana ait ürün var. Sepeti sil butonu ile bu ürünleri silip yeni ürünleri ekleyebilirsiniz.", [
+                //     {
+                //         text: "SEPETİ SİL",
+                //         onclick: async () => {
+                //             await window.localStorage.removeItem('shop_cart');
+
+                //             await window.localStorage.setItem('active_shop_card_account', accountId);
+                //             active_shop_card_account = accountId;
+                //             new_card = [];
+                //             new_card.push(row);
+                //             await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
+                //             await store.dispatch(cartActions.updateState({ shopCart: new_card }));
+                //             shop_cart = JSON.stringify(new_card);
+                //         }
+                //     },
+                //     {
+                //         text: "VAZGEÇ"
+                //     }
+                // ]
+                // );
             }
         }
     }

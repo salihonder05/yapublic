@@ -1,4 +1,6 @@
 "use client";
+import { restaurantsActions } from "@/app/Redux/features/restaurants-slice";
+import store from "@/app/Redux/store";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +11,8 @@ import ButtonPrimary from "../parts/buttons/ButtonPrimary";
 import ButtonPrimaryIcon from "../parts/buttons/ButtonPrimaryIcon";
 import Logo from "../parts/Logo";
 
+import Lottie from "react-lottie";
+import animationData from "../../components/lotties/plate-animate";
 const profile = {
   name: "Ricardo Cooper",
   email: "ricardo.cooper@example.com",
@@ -64,16 +68,27 @@ export default function RestaurantHeader() {
     ({ restaurants }) => restaurants.singleAccount
   );
   const [banner, setBanner] = useState();
+  const [accountDetail, setAccountDetail] = useState();
 
   useEffect(() => {
     setBanner(singleAccount?.brand?.brand_banner);
   }, [singleAccount?.brand?.brand_banner]);
 
+  const fetchAccountDetail = async (accountId) => {
+    const accountD = await getAccountDetail(accountId);
+    console.log("accountDaccountD: ", accountD);
+    await store.dispatch(
+      restaurantsActions.updateState({
+        singleAccount: accountD?.message,
+      })
+    );
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       var accountId = window.localStorage.getItem("accountId");
     }
-    getAccountDetail(accountId);
+    fetchAccountDetail(accountId);
   }, []);
   const stats = [
     {
@@ -89,6 +104,14 @@ export default function RestaurantHeader() {
       status: singleAccount?.account_eatin === true ? trueIcon : falseIcon,
     },
   ];
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   return (
     <>
       <div className="mt-10 md:flex md:items-center md:justify-between md:space-x-5">
@@ -105,7 +128,9 @@ export default function RestaurantHeader() {
                   priority
                 />
               ) : (
-                <span>Logo yükleniyor...</span>
+                <div>
+                  <Lottie options={defaultOptions} height={100} width={100} />
+                </div>
               )}
               <span
                 className="absolute inset-0 rounded-full shadow-inner"
