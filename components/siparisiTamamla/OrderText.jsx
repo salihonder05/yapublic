@@ -14,7 +14,7 @@
 */
 export default function OrderText() {
   return (
-    <div className="p-2 rounded-md bg-ya-dark-white-2">
+    <div className="p-2 rounded-md bg-ya-dark-white-1">
       <label className="my-2 text-xs font-semibold text-start text-ya-gray">
         SİPARİŞ NOTU
       </label>
@@ -23,7 +23,7 @@ export default function OrderText() {
           rows={4}
           name="comment"
           id="comment"
-          className="block w-full rounded-md border-0 py-1.5 text-ya-soft-black shadow-sm ring-1 ring-inset ring-ya-dark-white-2 placeholder:text-ya-dark-white-2 focus:ring-2 focus:ring-inset focus:ring-ya-green sm:text-sm sm:leading-6"
+          className="block w-full rounded-md border-0 py-1.5 text-ya-soft-black shadow-sm ring-1 ring-inset ring-ya-dark-white-1 placeholder:text-ya-dark-white-1 focus:ring-2 focus:ring-inset focus:ring-ya-green sm:text-sm sm:leading-6"
           defaultValue={""}
         />
       </div>

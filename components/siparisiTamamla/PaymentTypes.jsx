@@ -1,26 +1,70 @@
 "use client";
 
-import { useState } from "react";
-
-const sides = [
-  { id: null, name: "None" },
-  { id: 1, name: "Baked beans" },
-  { id: 2, name: "Coleslaw" },
-  { id: 3, name: "French fries" },
-  { id: 4, name: "Garden salad" },
-  { id: 5, name: "Mashed potatoes" },
-];
+import { useEffect, useState } from "react";
 
 const PaymentTypes = () => {
   const [selectedPayment, setSelectedPayment] = useState();
+  const [payments, setPayments] = useState([]);
+  const [loading, setLoading] = useState(true); // Yeni durum: loading
+
+  async function fetchAccountPayments() {
+    if (typeof window !== "undefined") {
+      var shopAccountId = window.localStorage.getItem(
+        "active_shop_card_account"
+      );
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/accountpayrules",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            accountId: shopAccountId,
+            payruleTypeId: 2,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setPayments(data?.data?.data?.account_payrules);
+      } else {
+        console.error("Error fetching customer list:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching customer list:", error);
+    } finally {
+      setLoading(false); // Yükleme tamamlandığında yüklemeyi durdur
+    }
+  }
+
+  useEffect(() => {
+    fetchAccountPayments();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="p-2 rounded-md bg-ya-dark-white-1">
+        <label className="my-2 text-xs font-semibold text-start text-ya-gray">
+          ÖDEME TİPİ
+        </label>
+        <p>Loading...</p>
+      </div>
+    ); // Yüklenme durumu
+  }
+
   return (
-    <div className="p-2 rounded-md bg-ya-dark-white-2">
+    <div className="p-2 rounded-md bg-ya-dark-white-1">
       <label className="my-2 text-xs font-semibold text-start text-ya-gray">
         ÖDEME TİPİ
       </label>
       <div className="flex flex-col gap-ya-4">
         <div>
-          {sides.map((side, sideIdx) => (
+          {payments?.map((payment, sideIdx) => (
             <div
               key={sideIdx}
               className={`relative flex items-start py-4 mt-2 rounded-md  ${
@@ -29,14 +73,14 @@ const PaymentTypes = () => {
             >
               <div className="flex-1 min-w-0 ml-3 text-sm leading-6">
                 <label
-                  htmlFor={`side-${side.id}`}
+                  htmlFor={`side-${payment?.id}`}
                   className={`font-medium  select-none ${
                     selectedPayment === sideIdx
                       ? "text-ya-white"
                       : "text-gray-900"
                   }`}
                 >
-                  {side.name}
+                  {payment?.orderpayrule?.payrule_name}
                 </label>
               </div>
               <div className="flex items-center h-6 mr-3">
@@ -44,11 +88,11 @@ const PaymentTypes = () => {
                   onChange={() => {
                     setSelectedPayment(sideIdx);
                   }}
-                  id={`side-${side.id}`}
+                  id={`side-${payment?.id}`}
                   name="plan"
                   type="radio"
-                  defaultChecked={side.id === null}
-                  class="w-4 h-4 text-ya-green bg-ya-dark-white-2 border-ya-dark-white-2 focus:ring-ya-green dark:focus:ring-ya-green focus:ring-2 rounded-full"
+                  defaultChecked={payment?.id === null}
+                  className="w-4 h-4 rounded-full text-ya-green bg-ya-dark-white-1 border-ya-dark-white-1 focus:ring-ya-green dark:focus:ring-ya-green focus:ring-2"
                 />
               </div>
             </div>

@@ -42,6 +42,10 @@ const Address = () => {
       if (response.ok) {
         const data = await response.json();
         setAddress(data.data.data.customer_addresses);
+        console.log(
+          "data.data.data.customer_addresses: ",
+          data.data.data.customer_addresses
+        );
       } else {
         console.error("Error fetching customer list:", response.status);
       }
@@ -56,10 +60,14 @@ const Address = () => {
     setaddAdress(true);
   };
   const selectedAdressHandler = (address) => {
-    location.href = "/mahalleRastaurantlarim";
+    window.location.href = "/mahalleRastaurantlarim";
     setSelectedAddressId(address?.neighborhood?.id);
 
     if (typeof window !== "undefined") {
+      window.localStorage.setItem(
+        "selectedAddressId",
+        JSON.stringify(address?.id)
+      );
       window.localStorage.setItem(
         "selectedNeighbourhood",
         JSON.stringify(address?.neighborhood?.id)
@@ -83,7 +91,7 @@ const Address = () => {
         "selectedNeighbourhood"
       );
     }
-  }, [user, selectedAddressId, fetchUserAddresses]);
+  }, [user, selectedAddressId]);
 
   if (loading) {
     return <div>Loading...</div>;
