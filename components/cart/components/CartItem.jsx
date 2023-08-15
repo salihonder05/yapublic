@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 if (typeof window !== "undefined") {
   var cartProductsList = JSON.parse(window.localStorage.getItem("shop_cart"));
 }
-const CartItem = (product, key, index, changeTotalPrice) => {
+const CartItem = (product, key, index) => {
   const openCart = useSelector(({ cart }) => cart.openCart);
   const cartProducts = useSelector(({ cart }) => cart.cartProducts);
   const cartTotalPrice = useSelector(({ cart }) => cart.cartTotalPrice);
@@ -21,6 +21,20 @@ const CartItem = (product, key, index, changeTotalPrice) => {
       cartProductsList = JSON.parse(window.localStorage.getItem("shop_cart"));
     }
   }, [cartProducts]);
+
+  const changeTotalPrice = () => {
+    let cartTotalPrice = 0;
+    if (typeof window !== "undefined") {
+      var cartProductsList = JSON.parse(
+        window.localStorage.getItem("shop_cart")
+      );
+    }
+    for (let index = 0; index < cartProductsList?.length; index++) {
+      const element = cartProductsList[index];
+      cartTotalPrice += element?.total_price * element.piece;
+    }
+    store.dispatch(cartActions.updateState({ cartTotalPrice: cartTotalPrice }));
+  };
 
   const deleteFromCart = (productId) => {
     if (typeof window !== "undefined") {

@@ -502,8 +502,7 @@ export default function Cart() {
                               <CartItem
                                 key={index}
                                 product={product}
-                                index={index}
-                                changeTotalPrice={changeTotalPrice}
+                                index={index} 
                               />
                             ))}
                           </ul>

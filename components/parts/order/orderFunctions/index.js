@@ -1,4 +1,5 @@
 "use client"
+import axios from "axios";
 import Swal from "sweetalert2";
 
 const { cartActions } = require("@/app/Redux/features/cart-slice");
@@ -262,21 +263,30 @@ const uploadShopCart = async (
     point
 ) => {
     // this.loading = true;
+    if (typeof window !== 'undefined') {
+        var current_account = await window.localStorage.getItem(
+            'active_shop_card_account',
+            // 'active_shop_card_account',
+        );
+        var addressId = window.localStorage.getItem("selectedAddressId");
+
+    }
+
+    console.log("uploadShopCart cart: ", cart);
+    console.log("uploadShopCart totalAmount: ", totalAmount);
+    console.log("uploadShopCart address: ", addressId);
+    console.log("uploadShopCart orderType: ", orderType);
+    console.log("uploadShopCart orderPayRule: ", orderPayRule);
+    console.log("uploadShopCart current_account: ", current_account);
 
     try {
-        if (typeof window !== 'undefined') {
-            let current_account = await window.localStorage.getItem(
-                'accountId',
-                // 'active_shop_card_account',
-            );
-        }
         //alert(current_account)
         let query = `
                         mutation{
                           postOrder(
                               order:{
                                 account:${current_account}
-                                address:${address}
+                                address:${addressId}
                                 order_price:${totalAmount}
                                 ordertype:${orderType}
                                 status:${orderPayRule == 3 ? '6' : '1'}
@@ -285,7 +295,7 @@ const uploadShopCart = async (
                                 ${receiveTime ? 'order_receive_time:"' + receiveTime + '"' : ""}
                                 order_json:${JSON.stringify(cart).replace(/\"([^(\")"]+)\":/g, '$1:',)}
                               }
-                              point:${point}
+                              point:${false}
                             ){
                             id
                           }
@@ -306,15 +316,39 @@ const uploadShopCart = async (
             },
         });
 
+        console.log("datadatadata: ", data);
+
+
+
         if (data.errors) {
-            // this.loading = false;
-            alert("YEMEKARENA", data.errors[0].message);
+            // this.loading = false; 
+            Swal.fire({
+                title: `YEMEKARENA`,
+                text: data.errors[0].message,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#A4DB86",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Tamam",
+                // cancelButtonText: "Vazgeç",
+            })
+            // .then((result) => {
+            //     if (result.isConfirmed) {
+            //         // Onay işlemini gerçekleştir
+            //         Swal.fire(
+            //             `${approveDataLabel} Onaylandı!`,
+            //             "Seçtiğiniz öğe başarıyla onaylandı.",
+            //             "success"
+            //         );
+            //     }
+            // });
             return false;
         }
         // runInAction(() => {
         // this.loading = false;
         // this.uploadedCard = data.data.postOrder;
-        return true;
+        // return true; 
+        return { success: true, data: data?.data };
         // });
     } catch (e) {
         console.log(e);
