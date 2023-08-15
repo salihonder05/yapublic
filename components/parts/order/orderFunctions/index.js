@@ -1,4 +1,6 @@
 "use client"
+import { restaurantsActions } from "@/app/Redux/features/restaurants-slice";
+import { getAccountDetail } from "@/components/data/query/query";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -6,7 +8,7 @@ const { cartActions } = require("@/app/Redux/features/cart-slice");
 const { default: store } = require("@/app/Redux/store");
 const API_BASE = process.env.API_URL;
 if (typeof window !== 'undefined') {
-    var shopCardAccountID = window.localStorage.getItem('accountId');
+    var shopCardAccountID = window.localStorage.getItem('active_shop_card_account');
 }
 const addRowShopCart = async (row) => {
     // await window.localStorage.removeItem('shop_cart');
@@ -14,7 +16,6 @@ const addRowShopCart = async (row) => {
         var shop_cart = window.localStorage.getItem('shop_cart');
         var accountId = window.localStorage.getItem('accountId');
     }
-    console.log("shop_cartshop_cartshop_cart: ", accountId);
 
     let active_shop_card_account = 0;
     let new_card = [];
@@ -38,22 +39,25 @@ const addRowShopCart = async (row) => {
             // })
         }
         else {
-            let shopType = await window.localStorage.getItem("ShopType");
-            let ChoseeType = await window.localStorage.getItem("ChoseeType")
-
+            if (typeof window !== 'undefined') {
+                var shopType = await window.localStorage.getItem("ShopType");
+                var ChoseeType = await window.localStorage.getItem("ChoseeType")
+            }
             if (!shopType) {
-                await window.localStorage.setItem("ShopType", ChoseeType)
+                if (typeof window !== 'undefined') {
+                    await window.localStorage.setItem("ShopType", ChoseeType)
+                }
 
             } else {
-                console.log("doğru: ", shopType, ChoseeType);
                 if (shopType != ChoseeType) {
                     Swal.fire({
                         title: "Emin misiniz?",
                         text: "Sepetinizde farklı bir Spiariş türüne ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz",
                         icon: "warning",
                         showCancelButton: true,
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Okay"
+                        cancelButtonColor: "#AD3A41",
+                        confirmButtonColor: "#13B15C",
+                        confirmButtonText: "SEPETİ SİL VE DEVAM ET"
                     }).then(function () {
                         // Redirect the user
                         window.localStorage.removeItem("shop_cart")
@@ -69,9 +73,11 @@ const addRowShopCart = async (row) => {
 
             if (active_shop_card_account === accountId) {
                 new_card.push(row);
-                await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
-                // runInAction(() => {
-                await store.dispatch(cartActions.updateState({ shopCart: new_card }));
+                if (typeof window !== 'undefined') {
+                    await window.localStorage.setItem('shop_cart', JSON.stringify(new_card));
+                    // runInAction(() => {
+                    await store.dispatch(cartActions.updateState({ shopCart: new_card }));
+                }
                 shop_cart = JSON.stringify(new_card);
 
                 console.log("active_shop_card_account: ", active_shop_card_account);
@@ -79,22 +85,32 @@ const addRowShopCart = async (row) => {
             } else {
                 Swal.fire({
                     title: "Emin misiniz?",
-                    text: "Sepetinizde farklı bir Spiariş türüne ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz",
+                    text: "Sepetinizde farklı bir Sipariş türüne ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz",
                     icon: "warning",
                     showCancelButton: true,
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Okay"
+                    cancelButtonColor: "#AD3A41",
+                    confirmButtonColor: "#13B15C",
+                    confirmButtonText: "SEPETİ SİL VE DEVAM ET"
                 }).then(async (result) => {
                     // Redirect the user
                     if (result.isConfirmed) {
-                        // Onay işlemini gerçekleştir
-                        window.localStorage.removeItem("shop_cart")
-                        await window.localStorage.setItem('shop_cart', JSON.stringify([row]));
-                        Swal.fire(
-                            `Onaylandı!`,
-                            "Seçtiğiniz işlem başarıyla onaylandı.",
-                            "success"
-                        );
+                        if (typeof window !== 'undefined') {
+                            var accountIdL = window.localStorage.getItem('accountId');
+
+                            // Onay işlemini gerçekleştir
+                            window.localStorage.removeItem("shop_cart")
+                            await window.localStorage.setItem('shop_cart', JSON.stringify([row]));
+                            window.localStorage.setItem('active_shop_card_account', accountIdL);
+                        }
+                        const accountD = await getAccountDetail(accountIdL);
+                        await store.dispatch(restaurantsActions.updateState({ activeCardAccount: accountD?.message }));
+                        Swal.fire({
+                            title: `Onaylandı!`,
+                            text: "Yeni ürün sepete eklendi",
+                            icon: "success",
+                            confirmButtonColor: "#13B15C",
+                            confirmButtonText: "Tamam"
+                        });
                     }
                 });
                 // alert("YEMEKARENA", "Sepetinde farklı bir restorana ait ürün var. Sepeti sil butonu ile bu ürünleri silip yeni ürünleri ekleyebilirsiniz.", [

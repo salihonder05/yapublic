@@ -6,17 +6,19 @@ import OrderText from "@/components/siparisiTamamla/OrderText";
 import CompleteOrder from "@/components/siparisiTamamla/CompleteOrder";
 import { useEffect, useState } from "react";
 import CongratsModal from "@/components/CongratsModal";
+import { useSelector } from "react-redux";
+import Cart from "@/components/cart/Cart";
 
 const SiparisiTamamla = () => {
   const [address, setAddress] = useState();
   const [totalAmount, setTotalAmount] = useState(0);
   const [items, setItems] = useState([]);
+  const openCart = useSelector(({ cart }) => cart.openCart);
 
   const getCart = async (address) => {
     //await AsyncStorage.removeItem('shop_cart');
     //await AsyncStorage.getItem('shop_cart');
     let shop_cart = await JSON.parse(window.localStorage.getItem("shop_cart"));
-
     setItems(shop_cart);
 
     let totalAmount = 0;
@@ -80,6 +82,7 @@ const SiparisiTamamla = () => {
         </div>
       </main>
       {/* </div> */}
+      {openCart === true && <Cart />}
     </>
   );
 };

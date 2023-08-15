@@ -1,7 +1,7 @@
 "use client";
 
 import Cart from "@/components/cart/Cart";
-import { getCityRestaurants } from "@/components/data/query/query";
+import { getAccountDetail, getCityRestaurants } from "@/components/data/query/query";
 import AddressesBreadCrumps from "@/components/parts/addressesBreadCrumps/AddressesBreadCrumps";
 import NeighborhoodList from "@/components/parts/neighbourhoodsList/NeighborhoodList";
 import RestaurantsCard from "@/components/parts/RestaurantsCard";
@@ -10,6 +10,12 @@ import { useSelector } from "react-redux";
 
 import Lottie from "react-lottie";
 import animationData from "../components/lotties/catal-bicak-loading";
+import store from "./Redux/store";
+import { restaurantsActions } from "./Redux/features/restaurants-slice";
+
+
+
+
 export default function Home() {
   // const [restaurants, setRestaurants] = useState();
   const restaurants = useSelector(({ restaurants }) => restaurants.restaurants);
@@ -18,6 +24,9 @@ export default function Home() {
   if (typeof window !== 'undefined') {
     var localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity"));
   }
+  const activeCardAccount = useSelector(
+    ({ restaurants }) => restaurants.activeCardAccount
+  );
 
   useEffect(() => {
     // 2 saniye sonra yükleniyor durumunu kapat
@@ -27,6 +36,8 @@ export default function Home() {
 
     return () => clearTimeout(timeout);
   }, []);
+
+
 
   useEffect(() => {
     getCityRestaurants();
