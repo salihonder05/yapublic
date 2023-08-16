@@ -7,31 +7,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getAccountDetail } from "../data/query/query";
-import ButtonPrimary from "../parts/buttons/ButtonPrimary";
-import ButtonPrimaryIcon from "../parts/buttons/ButtonPrimaryIcon";
-import Logo from "../parts/Logo";
-
 import Lottie from "react-lottie";
 import animationData from "../../components/lotties/plate-animate";
-const profile = {
-  name: "Ricardo Cooper",
-  email: "ricardo.cooper@example.com",
-  avatar:
-    "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-  backgroundImage:
-    "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-  fields: [
-    ["Phone", "(555) 123-4567"],
-    ["Email", "ricardocooper@example.com"],
-    ["Title", "Senior Front-End Developer"],
-    ["Team", "Product Development"],
-    ["Location", "San Francisco"],
-    ["Sits", "Oasis, 4th floor"],
-    ["Salary", "$145,000"],
-    ["Birthday", "June 8, 1990"],
-  ],
-};
-
 const falseIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +53,6 @@ export default function RestaurantHeader() {
 
   const fetchAccountDetail = async (accountId) => {
     const accountD = await getAccountDetail(accountId);
-    console.log("accountDaccountD: ", accountD);
     await store.dispatch(
       restaurantsActions.updateState({
         singleAccount: accountD?.message,

@@ -1,12 +1,10 @@
 "use client";
-import Cart from "@/components/cart/Cart";
 import Restaurants from "@/components/mahalleRastaurantlarim/Restaurants";
 import { useSelector } from "react-redux";
 import Lottie from "react-lottie";
 import animationData from "../../components/lotties/catal-bicak-loading";
 import { useEffect, useState } from "react";
 const MahalleRastaurantlarim = () => {
-  const openCart = useSelector(({ cart }) => cart.openCart);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

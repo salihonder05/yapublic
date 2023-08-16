@@ -7,6 +7,7 @@ import YAModal from "@/components/Modal/YAModal";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import ButtonBlockPrimary from "../../buttons/ButtonBlockPrimary";
 import GrayView from "../../GrayView/GrayView";
 import CheckBoxButton from "../components/CheckBoxButton";
@@ -353,7 +354,15 @@ const ProductType3Modal = ({
       //     buttonText: 'Okay',
       //     duration:1000
       // })
-      Alert.alert("YEMEKARENA", selectEmptyText + " boş olamaz");
+      Swal.fire({
+        title: selectEmptyText + " boş olamaz.",
+        text: "Lütfen seçim yapınız",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonColor: "#AD3A41",
+        confirmButtonColor: "#13B15C",
+        confirmButtonText: "Tamam",
+      });
     }
   };
 

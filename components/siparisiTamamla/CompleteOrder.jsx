@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import CongratsModal from "../CongratsModal";
+import CongratsModal from "../Modal/CongratsModal";
 import { uploadShopCart } from "../parts/order/orderFunctions";
 
 const CompleteOrder = ({ address, getCart, totalAmount, items }) => {

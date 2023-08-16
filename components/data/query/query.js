@@ -6,7 +6,7 @@ import store from "@/app/Redux/store";
 
 
 
-const getCityRestaurants = async () => {
+const getCityRestaurants = async (selectedType) => {
     if (typeof window !== 'undefined') {
         var localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity"));
     }
@@ -16,7 +16,7 @@ const getCityRestaurants = async () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ cityId: localStorageCity?.id }),
+            body: JSON.stringify({ cityId: localStorageCity?.id, order_type: selectedType }),
         });
         const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
         if (response.ok) {
@@ -80,19 +80,12 @@ const getAccountDetail = async (accountId) => {
             body: JSON.stringify({ accountId: accountId }),
         });
         const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
-        return { success: true, message: data?.data?.data?.account };
 
-        // if (response.ok) {
-        //     // setAccount(data.data.data.account); 
-        //     if (type = "card") {
-        //         store.dispatch(restaurantsActions.updateState({ activeCardAccount: data?.data?.data?.account }))
-        //     } else if (type = "singleAccount") {
-        //         store.dispatch(restaurantsActions.updateState({ singleAccount: data?.data?.data?.account }))
-        //     }
-
-        //     // Auth();
-        //     // dispatch(authActions.updateState({ authModalOpen: false }));
-        // }
+        if (response.ok) {
+            return { success: true, message: data?.data?.data?.account };
+            // Auth();
+            // dispatch(authActions.updateState({ authModalOpen: false }));
+        }
     } catch (error) {
         console.error("Error fetching customer list:", error);
         return { success: false, message: error.response };

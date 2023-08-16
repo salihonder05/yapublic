@@ -44,7 +44,7 @@ export default function RestaurantsCard({ restaurant }) {
       <div className="mt-6">
         <Link
           href="/restaurant"
-          className="relative flex items-center justify-center px-8 py-2 text-sm font-medium text-gray-900 bg-gray-100 border border-transparent rounded-md hover:bg-gray-200"
+          className="relative flex items-center justify-center px-8 py-2 text-sm font-medium text-ya-white bg-ya-gray border border-transparent rounded-md hover:bg-ya-red"
           onClick={() => restaurantDetail(restaurant)}
         >
           Restaurant&apos;a git

@@ -19,6 +19,7 @@ import CheckBoxLineButton from "../components/CheckBoxLineButton";
 import Image from "next/image";
 import CloseHeader from "../components/CloseHeader";
 import { addRowShopCart, updateBadge } from "../orderFunctions";
+import Swal from "sweetalert2";
 
 export default function ProductModal({ open, setOpen, product }) {
   const [productCount, setProductCount] = useState(1);
@@ -552,7 +553,19 @@ export default function ProductModal({ open, setOpen, product }) {
       //     buttonText: 'Okay',
       //     duration:1000
       // })
-      alert("YEMEKARENA", selectEmptyText + " boş olamaz");
+      Swal.fire({
+        title: selectEmptyText + " boş olamaz.",
+        text: "Lütfen seçim yapınız",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonColor: "#AD3A41",
+        confirmButtonColor: "#13B15C",
+        confirmButtonText: "Tamam",
+      }).then(async (result) => {
+        // Redirect the user
+        if (result.isConfirmed) {
+        }
+      });
     }
     // await updateBadge(shopCart);
   };

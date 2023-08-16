@@ -1,10 +1,10 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import Logo from "./parts/Logo";
+import Logo from "../parts/Logo";
 
 import Lottie from "react-lottie";
-import animationData from "../components/lotties/order-success";
+import animationData from "../../components/lotties/order-success";
 const CongratsModal = ({ open, setOpen }) => {
   const defaultOptions = {
     loop: true,
@@ -54,7 +54,7 @@ const CongratsModal = ({ open, setOpen }) => {
                   <Logo />
                   <div className="flex items-center justify-center mx-auto my-16 bg-ya-green/20 rounded-2xl w-36 h-36">
                     <div>
-                      <Lottie options={defaultOptions} />
+                      <Lottie options={defaultOptions} width={100} height={100} />
                     </div>
                   </div>
                   <div className="mt-3 text-center sm:mt-5">

@@ -35,10 +35,8 @@ const KitchensCard = ({ kitchen, key }) => {
             <span aria-hidden="true" className="absolute inset-0" />
             {kitchen.name}
           </Link>
-        </h3>
-        {/* <p>{product.price}</p> */}
-      </div>
-      {/* <p className="mt-1 text-sm text-gray-500">{product.category}</p> */}
+        </h3> 
+      </div> 
     </div>
   );
 };

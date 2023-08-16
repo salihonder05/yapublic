@@ -60,16 +60,20 @@ const addRowShopCart = async (row) => {
                         confirmButtonText: "SEPETİ SİL VE DEVAM ET"
                     }).then(function () {
                         // Redirect the user
-                        window.localStorage.removeItem("shop_cart")
+                        if (typeof window !== "undefined") {
+                            window.localStorage.removeItem("shop_cart")
+                        }
                     });
                     // alert("YEMEKARENA", `Sepetinde farklı bir Spiariş türüne (${sipTypes(shopType)}) ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz.`);
                     return false;
                 }
             }
 
-            active_shop_card_account = await window.localStorage.getItem(
-                'active_shop_card_account',
-            );
+            if (typeof window !== "undefined") {
+                active_shop_card_account = await window.localStorage.getItem(
+                    'active_shop_card_account',
+                );
+            }
 
             if (active_shop_card_account === accountId) {
                 new_card.push(row);
@@ -288,13 +292,6 @@ const uploadShopCart = async (
 
     }
 
-    console.log("uploadShopCart cart: ", cart);
-    console.log("uploadShopCart totalAmount: ", totalAmount);
-    console.log("uploadShopCart address: ", addressId);
-    console.log("uploadShopCart orderType: ", orderType);
-    console.log("uploadShopCart orderPayRule: ", orderPayRule);
-    console.log("uploadShopCart current_account: ", current_account);
-
     try {
         //alert(current_account)
         let query = `
@@ -395,7 +392,17 @@ const getShopCartAccountInfo = async () => {
             },
         });
         if (data.errors) {
-            alert("YEMEKARENA", data.errors[0].message);
+            Swal.fire({
+                title: `YEMEKARENA`,
+                text: data.errors[0].message,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#A4DB86",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Tamam",
+                // cancelButtonText: "Vazgeç",
+            })
+            // alert("YEMEKARENA", data.errors[0].message);
         }
         //alert(JSON.stringify(data))
         // runInAction(() => {

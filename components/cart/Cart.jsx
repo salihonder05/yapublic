@@ -14,6 +14,7 @@ import Lottie from "react-lottie";
 import animationData from "../../components/lotties/empty-cart";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import Swal from "sweetalert2";
+import { restaurantsActions } from "@/app/Redux/features/restaurants-slice";
 const products = [
   {
     id: 1,
@@ -45,8 +46,6 @@ if (typeof window !== "undefined") {
   var cartProductsList = JSON.parse(
     window.localStorage.getItem("cartProducts")
   );
-  var shopCartL = JSON.parse(window.localStorage.getItem("shop_cart"));
-  var accountId = JSON.parse(window.localStorage.getItem("accountId"));
   var active_shop_account_id = JSON.parse(
     window.localStorage.getItem("active_shop_card_account")
   );
@@ -66,13 +65,22 @@ export default function Cart() {
     store.dispatch(cartActions.updateState({ openCart: false }));
   };
 
+  const fetchSingleAccount = async (active_shop_account_idL) => {
+    const accountD = await getAccountDetail(active_shop_account_idL);
+    await store.dispatch(
+      restaurantsActions.updateState({ activeCardAccount: accountD?.message })
+    );
+  };
   useEffect(() => {
     if (typeof window !== "undefined") {
-      var active_shop_account_idL = JSON.parse(
-        window.localStorage.getItem("active_shop_card_account")
-      );
-      setCartAccountId(active_shop_account_idL);
+      if (window.localStorage.getItem("active_shop_card_account")) {
+        var active_shop_account_idL = JSON.parse(
+          window.localStorage.getItem("active_shop_card_account")
+        );
+        fetchSingleAccount(active_shop_account_idL);
+      }
     }
+    setCartAccountId(active_shop_account_idL);
   }, []);
 
   useEffect(() => {
@@ -188,7 +196,13 @@ export default function Cart() {
                         </div>
                       </div>
                     ) : (
-                      <Lottie options={defaultOptions} />
+                      <div className="flex items-center flex-1 px-2 py-2 overflow-y-auto sm:px-6">
+                        <Lottie
+                          options={defaultOptions}
+                          width={500}
+                          height={500}
+                        />
+                      </div>
                     )}
                     <div className="px-4 py-6 border-t border-gray-200 sm:px-6">
                       <div className="flex justify-between p-2 text-base font-medium rounded-md text-ya-yellow bg-ya-soft-black">
@@ -207,17 +221,14 @@ export default function Cart() {
                         </Link>
                       </div>
                       <div className="flex justify-center mt-6 text-sm text-center text-gray-500">
-                        <p>
-                          ya da
-                          <button
-                            type="button"
-                            className="ml-1 font-medium text-ya-yellow hover:text-ya-dark-yellow"
-                            onClick={closeCartHandler}
-                          >
-                            alışverişe devam et
-                            <span aria-hidden="true"> &rarr;</span>
-                          </button>
-                        </p>
+                        ya da
+                        <button
+                          type="button"
+                          className="ml-1 font-medium text-ya-yellow hover:text-ya-dark-yellow"
+                          onClick={closeCartHandler}
+                        >
+                          alışverişe devam et
+                        </button>
                       </div>
                     </div>
                   </div>

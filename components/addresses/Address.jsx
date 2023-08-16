@@ -10,6 +10,8 @@ if (typeof window !== "undefined") {
     "selectedNeighbourhood"
   );
 }
+import Lottie from "react-lottie";
+import animationData from "../../components/lotties/location";
 const Address = () => {
   const user = useSelector(({ auth }) => auth.user);
   const userToken = useSelector(({ auth }) => auth.userToken);
@@ -18,7 +20,6 @@ const Address = () => {
   const [addAdress, setaddAdress] = useState(false);
   const openCart = useSelector(({ cart }) => cart.openCart);
   const [selectedAddressId, setSelectedAddressId] = useState("");
-
   async function fetchUserAddresses() {
     if (!user) return;
 
@@ -41,11 +42,7 @@ const Address = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setAddress(data.data.data.customer_addresses);
-        console.log(
-          "data.data.data.customer_addresses: ",
-          data.data.data.customer_addresses
-        );
+        setAddress(data?.data?.data?.customer_addresses);
       } else {
         console.error("Error fetching customer list:", response.status);
       }
@@ -55,7 +52,14 @@ const Address = () => {
       setLoading(false);
     }
   }
+  // useEffect(() => {
+  //   // 2 saniye sonra yükleniyor durumunu kapat
+  //   const timeout = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 1000);
 
+  //   return () => clearTimeout(timeout);
+  // }, []);
   const addAdressToUser = () => {
     setaddAdress(true);
   };
@@ -81,7 +85,14 @@ const Address = () => {
       );
     }
   };
-
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   useEffect(() => {
     if (user?.user?.id > 0) {
       fetchUserAddresses();
@@ -94,7 +105,11 @@ const Address = () => {
   }, [user, selectedAddressId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Lottie options={defaultOptions} height={400} width={400} />
+      </div>
+    );
   }
   return (
     <div className="bg-white">

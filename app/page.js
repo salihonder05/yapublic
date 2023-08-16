@@ -1,7 +1,7 @@
 "use client";
 
 import Cart from "@/components/cart/Cart";
-import { getAccountDetail, getCityRestaurants } from "@/components/data/query/query";
+import { getCityRestaurants } from "@/components/data/query/query";
 import AddressesBreadCrumps from "@/components/parts/addressesBreadCrumps/AddressesBreadCrumps";
 import NeighborhoodList from "@/components/parts/neighbourhoodsList/NeighborhoodList";
 import RestaurantsCard from "@/components/parts/RestaurantsCard";
@@ -10,14 +10,15 @@ import { useSelector } from "react-redux";
 
 import Lottie from "react-lottie";
 import animationData from "../components/lotties/catal-bicak-loading";
-import store from "./Redux/store";
-import { restaurantsActions } from "./Redux/features/restaurants-slice";
+import OrderTypeChoices from "@/components/parts/OrderTypeChoices";
 
 
 
 
 export default function Home() {
   // const [restaurants, setRestaurants] = useState();
+  const [selectedType, setselectedType] = useState(1);
+
   const restaurants = useSelector(({ restaurants }) => restaurants.restaurants);
   const [loading, setLoading] = useState(true);
   const openCart = useSelector(({ cart }) => cart.openCart);
@@ -40,8 +41,8 @@ export default function Home() {
 
 
   useEffect(() => {
-    getCityRestaurants();
-  }, []);
+    getCityRestaurants(selectedType);
+  }, [selectedType]);
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -57,6 +58,10 @@ export default function Home() {
           <div className="bg-white">
             <div className="max-w-2xl px-4 mx-auto sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8">
               <div className="max-w-full mx-auto lg:mx-0">
+                <OrderTypeChoices
+                  selectedType={selectedType}
+                  setselectedType={setselectedType}
+                />
                 <AddressesBreadCrumps />
                 <NeighborhoodList />
                 {/* Buraya mahalle gelebilir */}

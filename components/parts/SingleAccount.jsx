@@ -90,10 +90,8 @@ export default function SingleAccount() {
               <Link href="#">
                 <span aria-hidden="true" className="absolute inset-0" />
                 {singleAccount?.account_gsm_no}
-              </Link>
-              {/* <p>{product.price}</p> */}
-            </div>
-            {/* <p className="mt-1 text-sm text-gray-500">{product.category}</p> */}
+              </Link> 
+            </div> 
           </div>
         </div>
       </div>
