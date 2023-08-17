@@ -1,11 +1,5 @@
 "use client";
-
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  getNeighborhoodRestaurants,
-  getNeighbourhoods,
-} from "../data/query/query";
+ 
 import RestaurantsCard from "../parts/RestaurantsCard";
 import Lottie from "react-lottie";
 import animationData from "../../components/lotties/no-result";

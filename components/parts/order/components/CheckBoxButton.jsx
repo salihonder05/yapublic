@@ -9,7 +9,7 @@ const CheckBoxButton = ({ indexs, items, setAnswer, menu_name }) => {
   const [index, setindex] = useState(indexs);
   useEffect(() => {
     setcheckBoxData(items);
-  }, []);
+  }, [items]);
 
   const setQuestion = async (i, index) => {
     let dt = checkBox;
@@ -19,6 +19,9 @@ const CheckBoxButton = ({ indexs, items, setAnswer, menu_name }) => {
     let answerFnc = setAnswer;
     answerFnc(i, index);
   };
+
+
+  console.log("checkBoxDatacheckBoxDatacheckBoxData: " , checkBoxData);
 
   return (
     <div className="p-2 my-2 rounded-md bg-ya-dark-white-1">
@@ -37,22 +40,22 @@ const CheckBoxButton = ({ indexs, items, setAnswer, menu_name }) => {
                 aria-describedby="comments-description"
                 name="comments"
                 type="checkbox"
-                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
+                className="w-4 h-4 border-gray-300 rounded text-ya-green focus:ring-ya-dark-green"
               />
               <div className="ml-2 text-sm leading-6">
                 <label className="font-medium text-gray-900">{i?.text}</label>{" "}
               </div>
             </div>
-              <>
-                {i.textInfo && (
-                  <span
-                    id="comments-description"
-                    className="p-1 text-sm text-black rounded-md bg-ya-yellow"
-                  >
-                    {i.textInfo}
-                  </span>
-                )}
-              </>
+            <>
+              {i.textInfo && (
+                <span
+                  id="comments-description"
+                  className="p-1 text-sm text-black rounded-md bg-ya-yellow"
+                >
+                  {i.textInfo}
+                </span>
+              )}
+            </>
           </div>
         </li>
       ))}

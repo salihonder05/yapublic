@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const CheckBoxLineButton = ({ setAnswer, items }) => {
+const CheckBoxLineButton = ({ setAnswer, items, menu_name }) => {
   const [checkBox, setCheckBox] = useState({});
   const [checkBoxData, setCheckBoxData] = useState([]);
   const [selected_id, setSelected_id] = useState(0);
@@ -23,7 +23,7 @@ const CheckBoxLineButton = ({ setAnswer, items }) => {
 
   return (
     <div className="p-2 rounded-md bg-ya-dark-white-1">
-      <span>{items.text}</span>
+      <span>{menu_name}</span>
       {checkBoxData?.map((i, index) => (
         <div
           style={{ cursor: "pointer" }}

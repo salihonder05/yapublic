@@ -372,6 +372,7 @@ export default function ProductModal({ open, setOpen, product }) {
         setAnswer={(i, index) => {
           onValueChange2(i, index1);
         }}
+        menu_name={item?.menu_name}
         items={item.product_items.map((i, index) => {
           return {
             id: i.product.id,
@@ -392,7 +393,7 @@ export default function ProductModal({ open, setOpen, product }) {
           style={{ padding: 15 }}
           // color={picker[index] ? mainColors.third : mainColors.main}
           /*text={!picker[index]? item.menu_name : product.selected[index].selected.product.product_name}*/
-          menu_name={item.menu_name}
+          menu_name={item?.menu_name}
           text={
             !picker[index]
               ? item.menu_name
@@ -432,11 +433,12 @@ export default function ProductModal({ open, setOpen, product }) {
         setAnswer={(i, index) => {
           onValueChange2(i, index1);
         }}
+        menu_name={item?.menu_name}
         items={item.product_items.map((i, index) => {
           return {
             index: index,
             id: i.product.id,
-            text: i.product.product_name,
+            text: i?.product?.product_name,
             textInfo:
               i.item_price > 0 ? i.item_price.toFixed(2) + " TL " : null,
             backData: i, //{id:i.id,item_price:i.item_price,product:{id:i.product.id,product_number:i.product.product_number,product_name:i.product.product_name}}
@@ -449,7 +451,7 @@ export default function ProductModal({ open, setOpen, product }) {
   const pType5 = (item, index) => {
     return (
       <CustomPicker
-        menu_name={item.menu_name}
+        menu_name={item?.menu_name}
         text={
           !picker[index]
             ? item.menu_name

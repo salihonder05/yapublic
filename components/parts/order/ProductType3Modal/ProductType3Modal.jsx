@@ -235,7 +235,7 @@ const ProductType3Modal = ({
           setAnswer={(i, index) => {
             onValueChange2(i, index1);
           }}
-          menu_name={item.menu_name}
+          menu_name={item?.menu_name}
           items={item.product_items.map((i, index) => {
             return {
               id: i.product.id,
@@ -280,6 +280,7 @@ const ProductType3Modal = ({
         setAnswer={(i, index) => {
           onValueChange2(i, index1);
         }}
+        menu_name={item?.menu_name}
         items={item.product_items.map((i, index) => {
           return {
             id: i.product.id,

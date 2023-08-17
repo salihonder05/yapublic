@@ -22,7 +22,10 @@ const CustomPicker = ({
   return (
     <div className="p-2 my-4 rounded-md bg-ya-dark-white-1">
       <span className="text-sm font-semibold">{menu_name}</span>
-      <ButtonBlockPrimary className={"!mt-1"} handleOnClick={() => setOpen(true)}>
+      <ButtonBlockPrimary
+        className={`!mt-1 ${selectedText != menu_name && "!bg-ya-green"}`}
+        handleOnClick={() => setOpen(true)}
+      >
         {selectedText}
       </ButtonBlockPrimary>
       <YAModal open={open} setOpen={setOpen}>

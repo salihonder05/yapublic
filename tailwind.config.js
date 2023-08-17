@@ -22,14 +22,9 @@ module.exports = {
           "gray": "#7A7A7A",
           "dark-gray": "#646464",
           "black": "#1F1B1C",
-          "soft-black": "#2B2627",  
+          "soft-black": "#2B2627",
         }
       },
-      fontFamily: {
-        "yaText": {
-          'gB': ['g-b', 'Gilroy-Bold'], 
-        }
-      }
     },
   },
   plugins: [require("@tailwindcss/forms")],

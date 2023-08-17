@@ -49,7 +49,7 @@ export default function DistrictSelectMenu({ setDistrict, district, townId }) {
       <div className="relative mt-2">
         <Combobox.Input
           placeholder="Bir Semt giriniz"
-          className="ml-1 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  sm:text-sm sm:leading-6"
+          className="ml-1 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  sm:text-sm sm:leading-6 focus:ring-1 focus:ring-ya-green"
           onChange={(event) => setQuery(event.target.value)}
           displayValue={(person) => person?.name}
         />
@@ -78,7 +78,7 @@ export default function DistrictSelectMenu({ setDistrict, district, townId }) {
                     <span
                       className={classNames(
                         "block truncate",
-                        selected && "font-semibold"
+                        selected && "font-semibold text-ya-green"
                       )}
                     >
                       {person.name}
