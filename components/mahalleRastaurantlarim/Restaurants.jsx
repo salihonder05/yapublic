@@ -9,27 +9,16 @@ import {
 import RestaurantsCard from "../parts/RestaurantsCard";
 import Lottie from "react-lottie";
 import animationData from "../../components/lotties/no-result";
-if (typeof window !== "undefined") {
-  var selectedNeighbourhood = window.localStorage?.getItem(
-    "selectedNeighbourhood"
-  );
-}
-export default function Restaurants() {
-  const [loading, setLoading] = useState(true);
-  // const [restaurants, setRestaurants] = useState();
-  const restaurants = useSelector(({ restaurants }) => restaurants.restaurants);
-  const neighbourhoods = useSelector(
-    ({ restaurants }) => restaurants.neighbourhoods
-  );
-  useEffect(() => {
-    // 2 saniye sonra yükleniyor durumunu kapat
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+import OrderTypeChoices from "../parts/OrderTypeChoices";
+import AddressesBreadCrumps from "../parts/addressesBreadCrumps/AddressesBreadCrumps";
+import NeighborhoodList from "../parts/neighbourhoodsList/NeighborhoodList";
 
-    return () => clearTimeout(timeout);
-  }, []);
-
+export default function Restaurants({
+  selectedType,
+  setSelectedType,
+  restaurants,
+  noRestaurant,
+}) {
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -38,62 +27,17 @@ export default function Restaurants() {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  // console.log(
-  //   "selectedNeighbourhoodselectedNeighbourhood:",
-  //   selectedNeighbourhood.id
-  // );
-
-  // const getNeighborhoodRestaurants = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:3000/api/neighborhoodrestaurants",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ neighborhoodId: selectedNeighbourhood }),
-  //       }
-  //     );
-  //     const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
-  //     if (response.ok) {
-  //       const notNullNeighborhood =
-  //         await data.data.data.delivery_point_neighborhood.filter(
-  //           (neigh) => neigh.point_account !== null
-  //         );
-  //       store.dispatch(
-  //         restaurantsActions.updateState({ restaurants: notNullNeighborhood })
-  //       );
-  //       // console.log("notNullNeighborhood: ", notNullNeighborhood);
-
-  //       // Auth();
-  //       // dispatch(authActions.updateState({ authModalOpen: false }));
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching customer list:", error);
-  //   }
-  // };
-
-  useEffect(() => {
-    getNeighborhoodRestaurants(selectedNeighbourhood).finally(
-      setLoading(false)
-    );
-    getNeighbourhoods();
-  }, []);
-
-  console.log("restaurantsrestaurants:  ", restaurants);
-
   return (
     <>
-      {restaurants.length > 0 && !loading ? (
+      {!noRestaurant ? (
         <div className="bg-white">
           <div className="max-w-2xl px-4 mx-auto sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8">
-            {/* <OrderTypeChoices
-          selectedType={selectedType}
-          setselectedType={setselectedType}
-        /> */}
-            {/* <AddressesBreadCrumps /> */}
-            {/* <NeighborhoodList /> */}
+            <OrderTypeChoices
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <AddressesBreadCrumps />
+            <NeighborhoodList />
             <div className="grid grid-cols-1 mt-8 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
               {restaurants?.map((restaurant) => (
                 <RestaurantsCard restaurant={restaurant} key={restaurant?.id} />
@@ -105,14 +49,14 @@ export default function Restaurants() {
         <div className="bg-white">
           <div className="max-w-2xl px-4 mx-auto sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8">
             <Lottie options={defaultOptions} height={400} width={400} />
-            <div className="flex-col flex justify-center">
-              <label className="text-center font-semibold text-ya-red">
+            <div className="flex flex-col justify-center">
+              <label className="font-semibold text-center text-ya-red">
                 Hay aksi!
               </label>
-              <label className="text-center font-semibold text-ya-red">
-                Konumuna yakın bir restaurant olmadığını fark ettim.
+              <label className="font-semibold text-center text-ya-red">
+                Konumuna yakın bir aktif restaurant olmadığını fark ettik.
               </label>
-              <label className="text-center font-semibold text-ya-green">
+              <label className="font-semibold text-center text-ya-green">
                 Merak etme en yakın zamanda bulunduğun konumda bir restaurant
                 olması için elimizden geleni yapıyor olacağız.
               </label>

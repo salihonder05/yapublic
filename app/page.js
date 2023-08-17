@@ -17,7 +17,7 @@ import OrderTypeChoices from "@/components/parts/OrderTypeChoices";
 
 export default function Home() {
   // const [restaurants, setRestaurants] = useState();
-  const [selectedType, setselectedType] = useState(1);
+  const [selectedType, setSelectedType] = useState(1);
 
   const restaurants = useSelector(({ restaurants }) => restaurants.restaurants);
   const [loading, setLoading] = useState(true);
@@ -30,6 +30,9 @@ export default function Home() {
   );
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("ChoseeType", JSON.stringify(selectedType));
+    }
     // 2 saniye sonra yükleniyor durumunu kapat
     const timeout = setTimeout(() => {
       setLoading(false);
@@ -60,9 +63,9 @@ export default function Home() {
               <div className="max-w-full mx-auto lg:mx-0">
                 <OrderTypeChoices
                   selectedType={selectedType}
-                  setselectedType={setselectedType}
+                  setSelectedType={setSelectedType}
                 />
-                <AddressesBreadCrumps />
+                <AddressesBreadCrumps mainSelectedType={selectedType} />
                 <NeighborhoodList />
                 {/* Buraya mahalle gelebilir */}
               </div>

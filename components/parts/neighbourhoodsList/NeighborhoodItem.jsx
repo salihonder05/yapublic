@@ -12,12 +12,13 @@ let arr = ["bg-ya-red", "bg-ya-green", "bg-ya-yellow", "bg-ya-gray"];
 const NeighborhoodItem = ({ neighbourhood, key }) => {
   const changeNeighbourhood = () => {
     if (typeof window !== "undefined") {
+      var shopType = JSON.parse(window.localStorage.getItem("ChoseeType"));
       window.localStorage.setItem(
         "selectedNeighbourhood",
         JSON.stringify(neighbourhood?.id)
       );
     }
-    getNeighborhoodRestaurants(neighbourhood?.id);
+    getNeighborhoodRestaurants(neighbourhood?.id, shopType);
     // console.log("neighbourhood?.id: ", neighbourhood?.id);
   };
 

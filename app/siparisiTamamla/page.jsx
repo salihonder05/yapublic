@@ -8,12 +8,17 @@ import { useEffect, useState } from "react";
 import CongratsModal from "@/components/Modal/CongratsModal";
 import { useSelector } from "react-redux";
 import Cart from "@/components/cart/Cart";
+import store from "../Redux/store";
+import { cartActions } from "../Redux/features/cart-slice";
 
+import Lottie from "react-lottie";
+import animationData from "../../components/lotties/cartpage-loading";
 const SiparisiTamamla = () => {
   const [address, setAddress] = useState();
   const [totalAmount, setTotalAmount] = useState(0);
   const [items, setItems] = useState([]);
   const openCart = useSelector(({ cart }) => cart.openCart);
+  const [loading, setLoading] = useState(true);
 
   const getCart = async (address) => {
     if (typeof window !== "undefined") {
@@ -30,6 +35,18 @@ const SiparisiTamamla = () => {
     setTotalAmount(parseFloat(totalAmount));
   };
 
+  useEffect(() => {
+    //sayfa açıldığında sepet pop-up'ını kapatıyoruz
+    store.dispatch(cartActions.updateState({ openCart: false }));
+  }, []);
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   async function fetchUserAddress() {
     if (typeof window !== "undefined") {
       var addressId = window.localStorage.getItem("selectedAddressId");
@@ -55,7 +72,7 @@ const SiparisiTamamla = () => {
     } catch (error) {
       console.error("Error fetching customer list:", error);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   }
   useEffect(() => {
@@ -65,19 +82,25 @@ const SiparisiTamamla = () => {
   return (
     <>
       {/* <div className="min-h-full">   */}
-      <main>
-        <div className="flex flex-col max-w-3xl py-6 mx-auto sm:px-6 lg:px-8 gap-y-4">
-          <CartAddressCard address={address} />
-          <PaymentTypes />
-          <OrderText />
-          <CompleteOrder
-            address={address}
-            totalAmount={totalAmount}
-            items={items}
-            getCart={getCart}
-          />
+      {loading ? (
+        <div>
+          <Lottie options={defaultOptions} height={400} width={400} />
         </div>
-      </main>
+      ) : (
+        <main>
+          <div className="flex flex-col max-w-3xl py-6 mx-auto sm:px-6 lg:px-8 gap-y-4">
+            <CartAddressCard address={address} />
+            <PaymentTypes />
+            <OrderText />
+            <CompleteOrder
+              address={address}
+              totalAmount={totalAmount}
+              items={items}
+              getCart={getCart}
+            />
+          </div>
+        </main>
+      )}
       {/* </div> */}
       {openCart === true && <Cart />}
     </>

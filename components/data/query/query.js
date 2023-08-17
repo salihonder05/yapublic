@@ -191,7 +191,7 @@ const getUserOrders = async (customerId) => {
             store.dispatch(ordersActions.updateState({ orders: data.data.data.all_orders }))
             store.dispatch(ordersActions.updateState({ activeOrders: onlyActiveOrders }))
 
-
+            return true
             // Auth();
             // dispatch(authActions.updateState({ authModalOpen: false }));
         }
@@ -199,7 +199,7 @@ const getUserOrders = async (customerId) => {
         console.error("Error fetching customer list:", error);
     }
 };
-const getNeighborhoodRestaurants = async (selectedNeighbourhood) => {
+const getNeighborhoodRestaurants = async (selectedNeighbourhood, selectedType) => {
     try {
         const response = await fetch(
             "http://localhost:3000/api/neighborhoodrestaurants",
@@ -208,7 +208,7 @@ const getNeighborhoodRestaurants = async (selectedNeighbourhood) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ neighborhoodId: selectedNeighbourhood }),
+                body: JSON.stringify({ neighborhoodId: selectedNeighbourhood, orderType: selectedType }),
             }
         );
         const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın

@@ -16,11 +16,12 @@ const CongratsModal = ({ open, setOpen }) => {
   };
 
   const modalOkHandler = () => {
+    setOpen(false);
     if (typeof window !== "undefined") {
       window.localStorage.removeItem("shop_cart");
       window.localStorage.removeItem("active_shop_card_account");
+      window.location.href = "/";
     }
-    setOpen(false);
   };
 
   return (
@@ -54,7 +55,11 @@ const CongratsModal = ({ open, setOpen }) => {
                   <Logo />
                   <div className="flex items-center justify-center mx-auto my-16 bg-ya-green/20 rounded-2xl w-36 h-36">
                     <div>
-                      <Lottie options={defaultOptions} width={100} height={100} />
+                      <Lottie
+                        options={defaultOptions}
+                        width={100}
+                        height={100}
+                      />
                     </div>
                   </div>
                   <div className="mt-3 text-center sm:mt-5">

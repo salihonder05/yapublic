@@ -16,8 +16,8 @@ export default function RestaurantsCard({ restaurant }) {
         <div className="relative w-full overflow-hidden rounded-lg h-72">
           <Image
             src={restaurant?.point_account?.brand?.brand_banner}
-            width={100}
-            height={100}
+            width={1000}
+            height={1000}
             priority
             alt={restaurant?.point_account?.account_title}
             className="object-cover object-center w-full h-full"
@@ -44,7 +44,7 @@ export default function RestaurantsCard({ restaurant }) {
       <div className="mt-6">
         <Link
           href="/restaurant"
-          className="relative flex items-center justify-center px-8 py-2 text-sm font-medium text-ya-white bg-ya-gray border border-transparent rounded-md hover:bg-ya-red"
+          className="relative flex items-center justify-center px-8 py-2 text-sm font-medium border border-transparent rounded-md text-ya-white bg-ya-gray hover:bg-ya-red"
           onClick={() => restaurantDetail(restaurant)}
         >
           Restaurant&apos;a git

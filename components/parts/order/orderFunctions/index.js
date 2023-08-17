@@ -52,7 +52,7 @@ const addRowShopCart = async (row) => {
                 if (shopType != ChoseeType) {
                     Swal.fire({
                         title: "Emin misiniz?",
-                        text: "Sepetinizde farklı bir Spiariş türüne ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz",
+                        text: "Sepetinizde farklı bir Sipariş türüne ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz",
                         icon: "warning",
                         showCancelButton: true,
                         cancelButtonColor: "#AD3A41",

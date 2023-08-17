@@ -76,8 +76,8 @@ export default function CitiesSelectMenu({ setCity, city }) {
                 value={city}
                 className={({ active }) =>
                   classNames(
-                    "relative cursor-default select-none py-2 pl-3 pr-9",
-                    active ? "bg-indigo-600 text-white" : "text-gray-900"
+                    "relative  select-none py-2 pl-3 pr-9 cursor-pointer",
+                    active ? "bg-ya-green text-white" : "text-gray-900"
                   )
                 }
               >
@@ -96,7 +96,7 @@ export default function CitiesSelectMenu({ setCity, city }) {
                       <span
                         className={classNames(
                           "absolute inset-y-0 right-0 flex items-center pr-4",
-                          active ? "text-white" : "text-indigo-600"
+                          active ? "text-white" : "text-ya-green"
                         )}
                       >
                         <CheckIcon className="w-5 h-5" aria-hidden="true" />

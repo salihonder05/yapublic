@@ -96,8 +96,8 @@ export default function RestaurantHeader() {
             <div className="relative">
               {banner ? (
                 <Image
-                  width={100}
-                  height={100}
+                  width={1000}
+                  height={1000}
                   className="w-24 h-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
                   src={banner}
                   alt="brand_banner"
@@ -180,7 +180,7 @@ export default function RestaurantHeader() {
         </div>
       </div>
       <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
-        {stats.map((item) => (
+        {stats?.map((item) => (
           <div key={item.name} className="px-4 overflow-hidden bg-white ">
             <dt className="flex justify-center text-sm font-medium text-black truncate">
               {item.name}

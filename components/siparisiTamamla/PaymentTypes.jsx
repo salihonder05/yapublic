@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import Lottie from "react-lottie";
+import animationData from "../../components/lotties/list-loading";
 const PaymentTypes = () => {
   const [selectedPayment, setSelectedPayment] = useState();
   const [payments, setPayments] = useState([]);
@@ -45,14 +46,23 @@ const PaymentTypes = () => {
   useEffect(() => {
     fetchAccountPayments();
   }, []);
-
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   if (loading) {
     return (
       <div className="p-2 rounded-md bg-ya-dark-white-1">
         <label className="my-2 text-xs font-semibold text-start text-ya-gray">
           ÖDEME TİPİ
         </label>
-        <p>Loading...</p>
+        <div>
+          <Lottie options={defaultOptions} height={400} width={400} />
+        </div>
       </div>
     ); // Yüklenme durumu
   }

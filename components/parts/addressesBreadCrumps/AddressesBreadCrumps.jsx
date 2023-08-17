@@ -1,18 +1,39 @@
 "use client";
 import { getNeighborhoodRestaurants } from "@/components/data/query/query";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import CitiesSelectMenu from "./components/Cities";
 import DistrictSelectMenu from "./components/District";
 import NeighborhoodSelectMenu from "./components/Neighborhood";
 import TownsSelectMenu from "./components/Towns";
 
-const AddressesBreadCrumps = () => {
+const AddressesBreadCrumps = ({ mainSelectedType }) => {
   const [city, setCity] = useState();
   const [town, setTown] = useState();
   const [district, setDistrict] = useState();
   const [neighborhood, setNeighborhood] = useState();
+  const [selectedType, setselectedType] = useState(1);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      var localStorageShopType = JSON.parse(
+        window.localStorage.getItem("ChoseeType")
+      );
+      setselectedType(localStorageShopType);
+    }
+  }, []);
+  useEffect(() => {
+    setCity();
+    setTown();
+    setDistrict();
+    setNeighborhood();
+  }, [mainSelectedType]);
+  useEffect(() => {
+    if (neighborhood?.id && selectedType) {
+      getNeighborhoodRestaurants(neighborhood?.id, selectedType);
+    }
+  }, [neighborhood?.id, selectedType]);
 
   const selectTownHandler = (event) => {
     // setTownId(event?.id);
@@ -24,8 +45,7 @@ const AddressesBreadCrumps = () => {
         JSON.stringify(neighborhood?.id)
       );
     }
-    getNeighborhoodRestaurants(neighborhood?.id);
-    // window.location.href = "/mahalleRastaurantlarim";
+    getNeighborhoodRestaurants(neighborhood?.id, selectedType);
   };
 
   return (

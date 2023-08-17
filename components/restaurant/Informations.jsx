@@ -120,18 +120,18 @@ export default function Informations() {
                 <ul role="list" className="divide-y divide-gray-100">
                   {workHours?.map((day) => (
                     <li
-                      key={day.day}
+                      key={day?.day}
                       className="flex items-center justify-between py-1 gap-x-6"
                     >
                       <div className="flex gap-x-4">
                         <div className="flex items-center min-w-0">
                           <p className="text-xs font-semibold leading-6 text-gray-500">
-                            {day.day}
+                            {day?.day}
                           </p>
                         </div>
                       </div>
                       <span className="px-5 py-1 text-xs font-semibold text-black rounded-md shadow-sm bg-ya-dark-white-3 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                        {day.hours}
+                        {day?.hours}
                       </span>
                     </li>
                   ))}
