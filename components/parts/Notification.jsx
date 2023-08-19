@@ -15,7 +15,7 @@ export default function Notification() {
   };
 
   return (
-    <>
+    <div>
       {/* Global notification live region, render this permanently at the end of the document */}
       <div
         aria-live="assertive"
@@ -65,6 +65,6 @@ export default function Notification() {
           </Transition>
         </div>
       </div>
-    </>
+    </div>
   );
 }

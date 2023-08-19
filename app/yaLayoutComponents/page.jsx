@@ -14,7 +14,7 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 export default function Page() {
   return (
-    <main className="container gap-1 mx-auto max-w-7xl lg:px-8">
+    <div className="container gap-1 mx-auto max-w-7xl lg:px-8">
       <h1 className="mt-12 border-b border-b-black">Buttons</h1>
       <section className="flex items-center gap-2 pt-2 mb-2">
         <ButtonPrimary>SİPARİŞ VER</ButtonPrimary>
@@ -54,6 +54,6 @@ export default function Page() {
       <section className="flex items-center gap-2 pt-2 mb-2">
         <SingleAccount />
       </section>
-    </main>
+    </div>
   );
 }

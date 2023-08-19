@@ -52,7 +52,7 @@ export default function CitiesSelectMenu({ setCity, city }) {
   };
 
   return (
-    <Combobox as="div" value={city} onChange={setCity}>
+    <Combobox as="div" value={city ? city : null} onChange={setCity}>
       <div className="relative mt-2">
         <Combobox.Input
           placeholder={"Bir şehir giriniz"}

@@ -1,5 +1,5 @@
 "use client";
- 
+
 import RestaurantsCard from "../parts/RestaurantsCard";
 import Lottie from "react-lottie";
 import animationData from "../../components/lotties/no-result";
@@ -22,7 +22,7 @@ export default function Restaurants({
     },
   };
   return (
-    <>
+    <div>
       {!noRestaurant ? (
         <div className="bg-white">
           <div className="max-w-2xl px-4 mx-auto sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8">
@@ -58,6 +58,6 @@ export default function Restaurants({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

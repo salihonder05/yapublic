@@ -1,9 +1,11 @@
 import Content from "@/components/hesabim/Content";
 
- 
-
 const Accounts = () => {
-  return <Content />;
+  return (
+    <div>
+      <Content />
+    </div>
+  );
 };
 
 export default Accounts;

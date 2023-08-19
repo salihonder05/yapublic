@@ -80,7 +80,7 @@ const SiparisiTamamla = () => {
     getCart();
   }, []);
   return (
-    <>
+    <div>
       {/* <div className="min-h-full">   */}
       {loading ? (
         <div>
@@ -103,7 +103,7 @@ const SiparisiTamamla = () => {
       )}
       {/* </div> */}
       {openCart === true && <Cart />}
-    </>
+    </div>
   );
 };
 

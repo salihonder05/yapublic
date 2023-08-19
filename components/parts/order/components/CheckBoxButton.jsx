@@ -21,7 +21,6 @@ const CheckBoxButton = ({ indexs, items, setAnswer, menu_name }) => {
   };
 
 
-  console.log("checkBoxDatacheckBoxDatacheckBoxData: " , checkBoxData);
 
   return (
     <div className="p-2 my-2 rounded-md bg-ya-dark-white-1">

@@ -1,5 +1,5 @@
 const Kitchen = () => {
-  return "kitchen";
+  return <div>kitchen</div>;
 };
 
 export default Kitchen;

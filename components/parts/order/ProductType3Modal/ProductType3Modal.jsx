@@ -227,26 +227,22 @@ const ProductType3Modal = ({
     );
   };
   const pType2 = (item, index1) => {
-    console.log("skkdjklşjşklditem: ", item);
-
     return (
-      <>
-        <CheckBoxButton
-          setAnswer={(i, index) => {
-            onValueChange2(i, index1);
-          }}
-          menu_name={item?.menu_name}
-          items={item.product_items.map((i, index) => {
-            return {
-              id: i.product.id,
-              text: i?.product?.product_name,
-              textInfo:
-                i.item_price > 0 ? i.item_price.toFixed(2) + " TL " : null,
-              backData: i,
-            };
-          })}
-        />
-      </>
+      <CheckBoxButton
+        setAnswer={(i, index) => {
+          onValueChange2(i, index1);
+        }}
+        menu_name={item?.menu_name}
+        items={item.product_items.map((i, index) => {
+          return {
+            id: i.product.id,
+            text: i?.product?.product_name,
+            textInfo:
+              i.item_price > 0 ? i.item_price.toFixed(2) + " TL " : null,
+            backData: i,
+          };
+        })}
+      />
     );
   };
 
@@ -325,7 +321,6 @@ const ProductType3Modal = ({
 
   const type3ModalHandler = () => {
     setOpen(false);
-    console.log("productStateproductState: ", productState);
   };
 
   const addCart = () => {

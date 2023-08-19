@@ -1,7 +1,9 @@
 const AccountProducts = () => {
   // console.log("object");
 
-  return <>accountProducts</>;
+  return  (
+    <div>accountProducts</div>
+  );
 };
 
 export default AccountProducts;

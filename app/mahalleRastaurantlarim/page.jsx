@@ -47,7 +47,7 @@ const MahalleRastaurantlarim = () => {
     },
   };
   return (
-    <>
+    <div>
       {!loading ? (
         <Restaurants
           selectedType={selectedType}
@@ -61,7 +61,7 @@ const MahalleRastaurantlarim = () => {
           <Lottie options={defaultOptions} height={400} width={400} />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -53,7 +53,7 @@ const Restaurant = () => {
   const openCart = useSelector(({ cart }) => cart.openCart);
   const [currentTab, setCurrentTab] = useState("MENÜ");
   return (
-    <>
+    <div>
       {!loading ? (
         <div className="mx-auto overflow-hidden max-w-7xl sm:px-6 lg:px-8">
           <RestaurantHeader />
@@ -80,7 +80,7 @@ const Restaurant = () => {
           <Lottie options={defaultOptions} height={500} width={500} />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

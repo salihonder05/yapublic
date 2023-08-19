@@ -45,7 +45,7 @@ export default function TownsSelectMenu({ setTown, town, cityId }) {
   }, [cityId]);
 
   return (
-    <Combobox as="div" value={town} onChange={setTown}>
+    <Combobox as="div" value={town ? town : null} onChange={setTown}>
       <div className="relative mt-2">
         <Combobox.Input
           placeholder="Bir Semt giriniz"

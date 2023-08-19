@@ -27,7 +27,6 @@ const addRowShopCart = async (row) => {
     }
     if (typeof window !== 'undefined') {
         if (new_card.length === 0) {
-            console.log("new_card.length === 0:  ", new_card.length === 0);
             let ChoseeType = await window.localStorage.getItem("ChoseeType")
             await window.localStorage.setItem("ShopType", ChoseeType)
             await window.localStorage.setItem('active_shop_card_account', accountId);
@@ -84,7 +83,6 @@ const addRowShopCart = async (row) => {
                 }
                 shop_cart = JSON.stringify(new_card);
 
-                console.log("active_shop_card_account: ", active_shop_card_account);
                 // })
             } else {
                 Swal.fire({
@@ -207,7 +205,6 @@ const sipTypes = (id) => {
 }
 
 const updateBadge = async (shopCart) => {
-    console.log("updateBadgeshopCart: ", shopCart);
     // getShopCart(shopCart);
     // updateRowShopCart(shopCart);
     // let shop_cart = shopCart
@@ -314,7 +311,6 @@ const uploadShopCart = async (
                           }
                         }
                     `;
-        console.log(query)
         if (typeof window !== 'undefined') {
             var token = await window.localStorage.getItem('userToken');
         }
@@ -329,7 +325,6 @@ const uploadShopCart = async (
             },
         });
 
-        console.log("datadatadata: ", data);
 
 
 

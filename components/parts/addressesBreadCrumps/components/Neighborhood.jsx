@@ -57,16 +57,12 @@ export default function NeighborhoodSelectMenu({
     getNeighbourhoods(districtId);
   }, [districtId]);
 
-  const selectTownHandler = (event) => {
-    // setTownId(event?.id);
-    // setCities(event);
-    console.log("neighborhood?.id: ", neighborhood);
-    // localStorage.setItem("selectedNeighbourhood", JSON.stringify(neighborhood?.id));
-    // window.location.href = "/mahalleRastaurantlarim";
-  };
-
   return (
-    <Combobox as="div" value={neighborhood} onChange={setNeighborhood}>
+    <Combobox
+      as="div"
+      value={neighborhood ? neighborhood : null}
+      onChange={setNeighborhood}
+    >
       <div className="relative mt-2">
         <Combobox.Input
           placeholder="Bir Semt giriniz"

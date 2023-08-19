@@ -15,7 +15,6 @@ export default function OrderSelectionsModal({ open, setOpen, product }) {
   const [productCount, setProductCount] = useState(1);
   const [openSelectionList, setOpenSelectionList] = useState(false);
 
-  console.log("product: ", product);
 
   useEffect(() => {
     store.dispatch(

@@ -6,10 +6,7 @@ import { useState } from "react";
 import DeleteAddress from "./DeleteAddress";
 import EditAddress from "./editAddress/EditAddress"; 
 import Link from "next/link";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+ 
 
 const selectedAddresIcon = (
   <svg

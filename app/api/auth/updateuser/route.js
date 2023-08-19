@@ -1,11 +1,5 @@
 export async function POST(req) {
-    const { name, email, phone, password, token } = await req.json();
-    console.log("nameeeeeeeeeeeeeeeeee: ", {
-        name: name,
-        email: email,
-        phone: phone,
-        password: password,
-    });
+    const { name, email, phone, password, token } = await req.json(); 
     const API_URL = process.env.API_URL;
     // ${name ? 'name: "' + name + '"' : ''} 
     // ${email ? 'email: "' + email + '"' : ''} 

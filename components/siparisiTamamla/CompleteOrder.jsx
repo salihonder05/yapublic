@@ -8,7 +8,6 @@ const CompleteOrder = ({ address, getCart, totalAmount, items }) => {
   // const [totalAmount, setTotalAmount] = useState(0);
   // const [items, setItems] = useState([]);
   const [openCongrats, setOpenCongrats] = useState(false);
-  console.log("address1: ", address);
   const [addressPicker, setAddressPicker] = useState({
     addressPicker: address?.id,
     selectedAddressID: address?.id,

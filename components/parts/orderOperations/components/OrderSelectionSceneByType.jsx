@@ -9,7 +9,7 @@ const OrderSelectionSceneByType = ({
 }) => {
   const [orderType, setOrderType] = useState("Single");
   return (
-    <>
+    <div>
       {orderType === "Single" ? (
         <SingleSelection
           setOrderType={setOrderType}
@@ -23,7 +23,7 @@ const OrderSelectionSceneByType = ({
           openSelectionList={openSelectionList}
         />
       )}
-    </>
+    </div>
   );
 };
 

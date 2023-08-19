@@ -11,7 +11,6 @@ export default function MailCheckModal({
 }) {
   const passwordHandler = (e) => {
     e.preventDefault();
-    console.log("setPassword: ", e.target.value);
     setPassword(e?.target?.value);
   };
 

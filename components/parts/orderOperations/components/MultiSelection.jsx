@@ -1,5 +1,5 @@
 "use client";
- 
+
 import { useSelector } from "react-redux";
 import MultiSceneButtonList from "./MultiSceneButtonList";
 import OrderSelectionButtonList from "./OrderSelectionButtonList";
@@ -15,13 +15,13 @@ const MultiSelection = ({
     ({ orderSelection }) => orderSelection.orderedProduct
   );
   return (
-    <>
+    <div>
       <OrderSelectionProductHeader product={orderedProduct} />
       <MultiSceneButtonList />
       <OrderSelectionCheckboxList />
       <OrderSelectionCheckboxList />
       <OrderSelectionCheckboxList />
-    </>
+    </div>
   );
 };
 

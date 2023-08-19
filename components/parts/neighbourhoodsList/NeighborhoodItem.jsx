@@ -9,25 +9,9 @@ function classNames(...classes) {
 
 let arr = ["bg-ya-red", "bg-ya-green", "bg-ya-yellow", "bg-ya-gray"];
 
-const NeighborhoodItem = ({ neighbourhood, key }) => {
-  const changeNeighbourhood = () => {
-    if (typeof window !== "undefined") {
-      var shopType = JSON.parse(window.localStorage.getItem("ChoseeType"));
-      window.localStorage.setItem(
-        "selectedNeighbourhood",
-        JSON.stringify(neighbourhood?.id)
-      );
-    }
-    getNeighborhoodRestaurants(neighbourhood?.id, shopType);
-    // console.log("neighbourhood?.id: ", neighbourhood?.id);
-  };
-
+const NeighborhoodItem = ({ neighbourhood }) => {
   return (
-    <li
-      key={key}
-      className="flex col-span-1 rounded-md shadow-sm"
-      onClick={changeNeighbourhood}
-    >
+    <>
       <div
         className={classNames(
           arr[Math.floor(Math.random() * arr.length)],
@@ -57,7 +41,7 @@ const NeighborhoodItem = ({ neighbourhood, key }) => {
           </button>
         </div>
       </div>
-    </li>
+    </>
   );
 };
 

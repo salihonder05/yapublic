@@ -55,7 +55,7 @@ export default function Home() {
     },
   };
   return (
-    <>
+    <div>
       {!loading ? (
         <main>
           <div className="bg-white">
@@ -90,6 +90,6 @@ export default function Home() {
           <Lottie options={defaultOptions} height={400} width={400} />
         </div>
       )}
-    </>
+    </div>
   )
 }

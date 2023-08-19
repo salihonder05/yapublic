@@ -88,8 +88,8 @@ export default function RestaurantHeader() {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  return (
-    <>
+  return  (
+    <div>
       <div className="mt-10 md:flex md:items-center md:justify-between md:space-x-5">
         <div className="flex items-start space-x-5">
           <div className="flex-shrink-0">
@@ -191,7 +191,7 @@ export default function RestaurantHeader() {
           </div>
         ))}
       </dl>
-    </>
+    </div>
   );
 }
 //  <div className="my-5">

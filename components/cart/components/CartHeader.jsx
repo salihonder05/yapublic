@@ -3,7 +3,6 @@
 import Image from "next/image";
 
 const CartHeader = ({ account }) => {
-  console.log("accountaccount: ", account);
   return (
     <div className="flex flex-col justify-between p-2 rounded-md sm:flex-row bg-ya-soft-black">
       <div className="flex items-center justify-start sm:flex-col">

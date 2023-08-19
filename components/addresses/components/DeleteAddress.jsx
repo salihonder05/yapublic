@@ -1,15 +1,20 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"; 
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import ButtonSecondary from "@/components/parts/buttons/ButtonSecondary";
 
-export default function DeleteAddress({ open, setOpen, address, userToken,fetchUserAddresses }) {
+export default function DeleteAddress({
+  open,
+  setOpen,
+  address,
+  userToken,
+  fetchUserAddresses,
+}) {
   //   const [open, setOpen] = useState(true);
 
   const cancelButtonRef = useRef(null);
 
   async function deleteUserAddresses() {
-    // if (!user) return;
     const PROJECT_API_URL = process.env.PROJECT_API_URL;
 
     try {
@@ -26,7 +31,7 @@ export default function DeleteAddress({ open, setOpen, address, userToken,fetchU
 
       if (response.ok) {
         const data = await response.json();
-        fetchUserAddresses()
+        fetchUserAddresses();
         setOpen(false);
       } else {
         console.error("Error fetching customer list:", response.status);
@@ -90,7 +95,10 @@ export default function DeleteAddress({ open, setOpen, address, userToken,fetchU
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                  <ButtonSecondary handleOnClick={deleteUserAddresses} className="ml-2 px-7">
+                  <ButtonSecondary
+                    handleOnClick={deleteUserAddresses}
+                    className="ml-2 px-7"
+                  >
                     Sil
                   </ButtonSecondary>
                   <button

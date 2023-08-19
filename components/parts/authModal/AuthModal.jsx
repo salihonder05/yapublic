@@ -2,11 +2,8 @@
 
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "@/app/Redux/features/auth-slice";
-import ButtonBlockPrimary from "../buttons/ButtonBlockPrimary";
-import Logo from "../Logo";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 

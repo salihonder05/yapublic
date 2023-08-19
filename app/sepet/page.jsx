@@ -1,5 +1,5 @@
 const Sepet = () => {
-    return ( "Sepet" );
-}
- 
+  return <div>Sepet</div>;
+};
+
 export default Sepet;
