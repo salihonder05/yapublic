@@ -26,8 +26,8 @@ const ProductsItems = ({ product }) => {
       <div className="overflow-hidden bg-gray-200 rounded-lg aspect-h-1 aspect-w-1">
         {product && (
           <Image
-            width={100}
-            height={100}
+            width={1500}
+            height={1500}
             src={product?.img_url || ""}
             alt={product?.product_name || ""}
             priority
