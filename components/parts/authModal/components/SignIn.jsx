@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ButtonBlockPrimary from "../../buttons/ButtonBlockPrimary";
 import ButtonClose from "../../buttons/ButtonClose";
 import Logo from "../../Logo";
-
+const PROJECT_API_URL = process.env.PROJECT_API_URL;
 const SignIn = ({ openSignUpHandler, closeModal }) => {
   const [loginState, setLoginState] = useState({
     email: "",
@@ -29,7 +29,7 @@ const SignIn = ({ openSignUpHandler, closeModal }) => {
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch(PROJECT_API_URL + "auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

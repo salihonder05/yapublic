@@ -13,6 +13,9 @@ import { cartActions } from "../Redux/features/cart-slice";
 
 import Lottie from "react-lottie";
 import animationData from "../../components/lotties/cartpage-loading";
+
+const PROJECT_API_URL = process.env.PROJECT_API_URL;
+
 const SiparisiTamamla = () => {
   const [address, setAddress] = useState();
   const [totalAmount, setTotalAmount] = useState(0);
@@ -53,7 +56,7 @@ const SiparisiTamamla = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/singleAddress", {
+      const response = await fetch(PROJECT_API_URL + "singleAddress", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

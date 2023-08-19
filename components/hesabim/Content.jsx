@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import ButtonPrimary from "../parts/buttons/ButtonPrimary";
 import MailCheckModal from "./components/MailCheckModal";
-
-export default function Content() {
+const PROJECT_API_URL = process.env.PROJECT_API_URL;export default function Content() {
   const user = useSelector(({ auth }) => auth.user);
   const userToken = useSelector(({ auth }) => auth.userToken);
   const [mailCheck, setMailCheck] = useState();
@@ -45,7 +44,7 @@ export default function Content() {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/auth/updateuser",
+       PROJECT_API_URL + "auth/updateuser",
         {
           method: "POST",
           headers: {

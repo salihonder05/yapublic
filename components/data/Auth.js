@@ -3,11 +3,11 @@ import { authActions } from "@/app/Redux/features/auth-slice";
 import store from "@/app/Redux/store";
 
 
-
+const PROJECT_API_URL = process.env.PROJECT_API_URL;
 
 const fetchUser = async (token) => {
     //console.log("objectsssss: " , token);
-    const response = await fetch("http://localhost:3000/api/auth/tokencontrol", {
+    const response = await fetch(PROJECT_API_URL + "auth/tokencontrol", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

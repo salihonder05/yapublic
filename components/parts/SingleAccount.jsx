@@ -25,32 +25,7 @@ export default function SingleAccount() {
   // const [singleAccount, setAccount] = useState();
   const singleAccount = useSelector(
     ({ restaurants }) => restaurants.singleAccount
-  );
-
-  // const getAccountDetail = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:3000/api/singleaccount", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ accountId: 14 }),
-  //     });
-  //     const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
-  //     if (response.ok) {
-  //       setAccount(data.data.data.account);
-
-  //       // Auth();
-  //       // dispatch(authActions.updateState({ authModalOpen: false }));
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching customer list:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getAccountDetail(14);
-  // }, []);
+  ); 
 
   return (
     <div className="bg-white">

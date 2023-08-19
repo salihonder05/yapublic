@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import Lottie from "react-lottie";
 import animationData from "../../components/lotties/list-loading";
+const PROJECT_API_URL = process.env.PROJECT_API_URL;
 const PaymentTypes = () => {
   const [selectedPayment, setSelectedPayment] = useState();
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true); // Yeni durum: loading
-
   async function fetchAccountPayments() {
     if (typeof window !== "undefined") {
       var shopAccountId = window.localStorage.getItem(
@@ -16,19 +16,16 @@ const PaymentTypes = () => {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/accountpayrules",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            accountId: shopAccountId,
-            payruleTypeId: 2,
-          }),
-        }
-      );
+      const response = await fetch(PROJECT_API_URL + "accountpayrules", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          accountId: shopAccountId,
+          payruleTypeId: 2,
+        }),
+      });
 
       if (response.ok) {
         const data = await response.json();

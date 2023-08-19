@@ -10,6 +10,7 @@ if (typeof window !== "undefined") {
     "selectedNeighbourhood"
   );
 }
+const PROJECT_API_URL = process.env.PROJECT_API_URL;
 import Lottie from "react-lottie";
 import animationData from "../../components/lotties/location";
 const Address = () => {
@@ -27,7 +28,7 @@ const Address = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/user/useraddresses",
+        PROJECT_API_URL + "user/useraddresses",
         {
           method: "POST",
           headers: {

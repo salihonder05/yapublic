@@ -9,14 +9,14 @@ function classNames(...classes) {
 }
 
 var filteredAddresses = {};
-
+const PROJECT_API_URL = process.env.PROJECT_API_URL;
 export default function DistrictSelectMenu({ setDistrict, district, townId }) {
   const [districts, setDistricts] = useState();
   const [query, setQuery] = useState("");
 
   const getDistricts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/districtsx", {
+      const response = await fetch(PROJECT_API_URL + "districtsx", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

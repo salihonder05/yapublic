@@ -4,6 +4,7 @@ import { productActions } from "@/app/Redux/features/product-slice";
 import { restaurantsActions } from "@/app/Redux/features/restaurants-slice";
 import store from "@/app/Redux/store";
 
+const PROJECT_API_URL = process.env.PROJECT_API_URL;
 
 
 const getCityRestaurants = async (selectedType) => {
@@ -11,7 +12,7 @@ const getCityRestaurants = async (selectedType) => {
         var localStorageCity = JSON.parse(window.localStorage.getItem("selectedCity"));
     }
     try {
-        const response = await fetch("http://localhost:3000/api/cityrestaurant", {
+        const response = await fetch(PROJECT_API_URL + "cityrestaurant", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +35,7 @@ const getCityRestaurants = async (selectedType) => {
 const getRestaurantsProducts = async (accountId) => {
     try {
         const response = await fetch(
-            "http://localhost:3000/api/accountproducts",
+            PROJECT_API_URL + "accountproducts",
             {
                 method: "POST",
                 headers: {
@@ -72,7 +73,7 @@ const getRestaurantsProducts = async (accountId) => {
 
 const getAccountDetail = async (accountId) => {
     try {
-        const response = await fetch("http://localhost:3000/api/singleaccount", {
+        const response = await fetch(PROJECT_API_URL + "singleaccount", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -118,7 +119,7 @@ const getNeighbourhoods = async (districtId) => {
 const getSingleOrder = async (orderId) => {
     try {
         const response = await fetch(
-            "http://localhost:3000/api/order",
+            PROJECT_API_URL + "order",
             {
                 method: "POST",
                 headers: {
@@ -144,7 +145,7 @@ const getSingleOrder = async (orderId) => {
 const getProductMenus = async (productId, setProductStatesMenus) => {
     try {
         const response = await fetch(
-            "http://localhost:3000/api/productmenus",
+            PROJECT_API_URL + "productmenus",
             {
                 method: "POST",
                 headers: {
@@ -172,7 +173,7 @@ const getProductMenus = async (productId, setProductStatesMenus) => {
 const getUserOrders = async (customerId) => {
     try {
         const response = await fetch(
-            "http://localhost:3000/api/orders",
+            PROJECT_API_URL + "orders",
             {
                 method: "POST",
                 headers: {
@@ -202,7 +203,7 @@ const getUserOrders = async (customerId) => {
 const getNeighborhoodRestaurants = async (selectedNeighbourhood, selectedType) => {
     try {
         const response = await fetch(
-            "http://localhost:3000/api/neighborhoodrestaurants",
+            PROJECT_API_URL + "neighborhoodrestaurants",
             {
                 method: "POST",
                 headers: {
@@ -232,7 +233,7 @@ const getNeighborhoodRestaurants = async (selectedNeighbourhood, selectedType) =
 const getSingleProduct = async (productId, accountId, cartProducts) => {
     try {
         const response = await fetch(
-            "http://localhost:3000/api/singleproduct",
+            PROJECT_API_URL + "singleproduct",
             {
                 method: "POST",
                 headers: {

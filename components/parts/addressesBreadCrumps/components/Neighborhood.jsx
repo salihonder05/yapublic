@@ -1,10 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Combobox } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import store from "@/app/Redux/store";
-import { restaurantsActions } from "@/app/Redux/features/restaurants-slice";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"; 
 import { useSelector } from "react-redux";
 import { getNeighbourhoods } from "@/components/data/query/query";
 
@@ -23,27 +20,7 @@ export default function NeighborhoodSelectMenu({
   const [query, setQuery] = useState("");
   const neighbourhoodsx = useSelector(
     ({ restaurants }) => restaurants.neighbourhoodsx
-  );
-
-  // const getNeighbourhoods = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:3000/api/neighborhoodsx", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ districtId: districtId }),
-  //     });
-  //     const data = await response.json(); // response.json() işlemini await anahtar kelimesiyle kullanın
-  //     if (response.ok) {
-  //       setNeighborhoodsx(data.data.data.neighborhoodsx);
-  //       //mahalleleri listelediğimiz yerde kullanmak için redux'a kaydettim
-  //       localStorage.setItem("selectedDistrictId", districtId);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching customer list:", error);
-  //   }
-  // };
+  ); 
   filteredAddresses =
     query === ""
       ? neighbourhoodsx

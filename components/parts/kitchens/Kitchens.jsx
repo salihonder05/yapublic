@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import KitchensCard from "./components/KitchensCard";
-
+const PROJECT_API_URL = process.env.PROJECT_API_URL;
 const Kitchens = () => {
   const [kitchens, setKitchens] = useState();
 
   const getKitchens = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/kitchens", {
+      const response = await fetch(PROJECT_API_URL + "kitchens", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

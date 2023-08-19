@@ -18,13 +18,13 @@ const products = [
   },
   // More products...
 ];
-
+const PROJECT_API_URL = process.env.PROJECT_API_URL;
 export default function CityRestourantCard() {
   const [restaurants, setRestaurants] = useState();
 
   const getCitiesRestaurants = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/cityrestaurant", {
+      const response = await fetch(PROJECT_API_URL + "cityrestaurant", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
