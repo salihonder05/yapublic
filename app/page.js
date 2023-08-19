@@ -10,8 +10,7 @@ import { useSelector } from "react-redux";
 
 import Lottie from "react-lottie";
 import animationData from "../components/lotties/catal-bicak-loading";
-import OrderTypeChoices from "@/components/parts/OrderTypeChoices";
-
+import OrderTypeChoices from "@/components/parts/OrderTypeChoices"; 
 
 export default function Home() {
   // const [restaurants, setRestaurants] = useState();
