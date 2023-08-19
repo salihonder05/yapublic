@@ -121,14 +121,15 @@ const Address = () => {
         </div>
         <div className="mt-10 gap-x-8 gap-y-8 sm:gap-y-10">
           {address?.map((adr, index) => (
-            <AddressCard
-              lSelectedNeighbourhood={lSelectedNeighbourhood}
-              selectedAdressHandler={selectedAdressHandler}
-              fetchUserAddresses={fetchUserAddresses}
-              userToken={userToken}
-              address={adr}
-              key={index}
-            />
+           <AddressCard
+           lSelectedNeighbourhood={lSelectedNeighbourhood}
+           onSelectedAdressHandler={selectedAdressHandler}  
+           fetchUserAddresses={fetchUserAddresses}
+           userToken={userToken}
+           address={adr}
+           addressKey={index}  
+           key={index} 
+         />
           ))}
         </div>
       </div>

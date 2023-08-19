@@ -5,32 +5,29 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
 
 if (typeof window !== "undefined") {
   var cartProductsList = JSON.parse(window.localStorage.getItem("shop_cart"));
 }
 const CartItem = (product, key, index) => {
-  const openCart = useSelector(({ cart }) => cart.openCart);
   const cartProducts = useSelector(({ cart }) => cart.cartProducts);
-  const cartTotalPrice = useSelector(({ cart }) => cart.cartTotalPrice);
+  const memoizedCartProducts = useMemo(() => cartProducts, [cartProducts]);
   const [openDetail, setOpenDetail] = useState(false);
 
   useEffect(() => {
-    console.log("productproductproduct: ", product);
     if (typeof window !== "undefined") {
       cartProductsList = JSON.parse(window.localStorage.getItem("shop_cart"));
     }
-  }, [cartProducts]);
+  }, [memoizedCartProducts]);
 
   const changeTotalPrice = () => {
     let cartTotalPrice = 0;
     if (typeof window !== "undefined") {
-      var cartProductsList = JSON.parse(
-        window.localStorage.getItem("shop_cart")
-      );
+      cartProductsList = JSON.parse(window.localStorage.getItem("shop_cart"));
     }
-    for (let index = 0; index < cartProductsList?.length; index++) {
-      const element = cartProductsList[index];
+    for (let index = 0; index < memoizedCartProducts?.length; index++) {
+      const element = memoizedCartProducts[index];
       cartTotalPrice += element?.total_price * element.piece;
     }
     store.dispatch(cartActions.updateState({ cartTotalPrice: cartTotalPrice }));
@@ -65,9 +62,7 @@ const CartItem = (product, key, index) => {
 
   const changeCartProductCount = (productId, event) => {
     if (typeof window !== "undefined") {
-      var cartProductsList = JSON.parse(
-        window.localStorage.getItem("shop_cart")
-      );
+      cartProductsList = JSON.parse(window.localStorage.getItem("shop_cart"));
     }
     let newCart = [];
     let changedProd = [];
@@ -138,8 +133,9 @@ const CartItem = (product, key, index) => {
                 id={`quantity-${index}`}
                 name={`quantity-${index}`}
                 className="block max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-ya-yellow focus:outline-none focus:ring-1 focus:ring-ya-yellow sm:text-sm"
+                value={product?.product?.piece} // Bu satırı ekleyin
               >
-                <option value={product?.product?.piece} selected>
+                <option value={product?.product?.piece}>
                   {product?.product?.piece}
                 </option>
                 <option value={1}>1</option>
@@ -153,6 +149,7 @@ const CartItem = (product, key, index) => {
                 <option value={9}>9</option>
                 <option value={10}>10</option>
               </select>
+
               <button
                 type="button"
                 className="ml-8 font-medium text-ya-red hover:text-ya-dark-red"

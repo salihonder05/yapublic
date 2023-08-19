@@ -15,33 +15,8 @@ import animationData from "../../components/lotties/empty-cart";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import Swal from "sweetalert2";
 import { restaurantsActions } from "@/app/Redux/features/restaurants-slice";
-const products = [
-  {
-    id: 1,
-    name: "Çikolata Füzyonu",
-    href: "#",
-    color: "Salmon",
-    price: "₺120.00",
-    quantity: 1,
-    imageSrc:
-      "https://www.kikkoman.com.tr/fileadmin/_processed_/e/f/csm_WEB_Chocolate_soy_sauce_candy_1a77f2f5e2.jpg",
-    imageAlt:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Taze Deniz Ürünleri Salatası",
-    href: "#",
-    color: "Blue",
-    price: "₺110.00",
-    quantity: 1,
-    imageSrc:
-      "https://balikdunyasi.com.tr/wp-content/uploads/2021/06/deniz-urunleri-salatasi-2.jpg",
-    imageAlt:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
+import { useMemo } from "react";
+
 if (typeof window !== "undefined") {
   var cartProductsList = JSON.parse(
     window.localStorage.getItem("cartProducts")
@@ -54,8 +29,12 @@ if (typeof window !== "undefined") {
 export default function Cart() {
   const openCart = useSelector(({ cart }) => cart.openCart);
   const cartProducts = useSelector(({ cart }) => cart.cartProducts);
-  const cartTotalPrice = useSelector(({ cart }) => cart.cartTotalPrice);
-  const shopCart = useSelector(({ cart }) => cart.shopCart);
+  const cart = useSelector(({ cart }) => cart);
+  const cartTotalPrice = cart.cartTotalPrice;
+
+  // useMemo kullanarak cartProducts ve cartTotalPrice'ı bellekte saklama
+  const memoizedCartProducts = useMemo(() => cartProducts, [cartProducts]);
+
   const activeCardAccount = useSelector(
     ({ restaurants }) => restaurants.activeCardAccount
   );
@@ -90,20 +69,20 @@ export default function Cart() {
       );
     }
     changeTotalPrice();
-  }, [cartProducts]);
+  }, [memoizedCartProducts]);
 
   const changeTotalPrice = () => {
-    let cartTotalPrice = 0;
+    let cartTotalPriceS = 0;
     if (typeof window !== "undefined") {
-      var cartProductsList = JSON.parse(
-        window.localStorage.getItem("shop_cart")
-      );
+      cartProductsList = JSON.parse(window.localStorage.getItem("shop_cart"));
     }
     for (let index = 0; index < cartProductsList?.length; index++) {
       const element = cartProductsList[index];
-      cartTotalPrice += element?.total_price * element.piece;
+      cartTotalPriceS += element?.total_price * element.piece;
     }
-    store.dispatch(cartActions.updateState({ cartTotalPrice: cartTotalPrice }));
+    store.dispatch(
+      cartActions.updateState({ cartTotalPrice: cartTotalPriceS })
+    );
   };
   const defaultOptions = {
     loop: true,
@@ -184,7 +163,7 @@ export default function Cart() {
                               role="list"
                               className="divide-y divide-gray-200"
                             >
-                              {cartProducts?.map((product, index) => (
+                              {memoizedCartProducts?.map((product, index) => (
                                 <CartItem
                                   key={index}
                                   product={product}

@@ -4,9 +4,8 @@ import ButtonPrimary from "@/components/parts/buttons/ButtonPrimary";
 import ButtonSecondary from "@/components/parts/buttons/ButtonSecondary";
 import { useState } from "react";
 import DeleteAddress from "./DeleteAddress";
-import EditAddress from "./editAddress/EditAddress"; 
+import EditAddress from "./editAddress/EditAddress";
 import Link from "next/link";
- 
 
 const selectedAddresIcon = (
   <svg
@@ -26,12 +25,12 @@ const selectedAddresIcon = (
 );
 
 export default function AddressCard({
-  address,
-  key,
-  userToken,
-  fetchUserAddresses,
-  selectedAdressHandler,
   lSelectedNeighbourhood,
+  onSelectedAdressHandler,
+  fetchUserAddresses,
+  userToken,
+  address,
+  addressKey,
 }) {
   const [editAdress, seteditAdress] = useState(false);
   const [deleteAddress, setdeleteAddress] = useState(false);
@@ -45,7 +44,7 @@ export default function AddressCard({
 
   return (
     <div
-      key={key}
+      key={addressKey ? addressKey : null}
       className={`px-4 py-5 mt-5 ${
         parseInt(lSelectedNeighbourhood) === address?.neighborhood?.id
           ? "bg-ya-green text-white"
@@ -87,7 +86,7 @@ export default function AddressCard({
                 ? "text-white"
                 : "text-gray-500"
             } `}
-            onClick={() => selectedAdressHandler(address)}
+            onClick={() => handleAddressSelection(address)}
             style={{ cursor: "pointer" }}
           >
             <Link href="#" className="hover:underline">
