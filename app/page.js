@@ -13,8 +13,6 @@ import animationData from "../components/lotties/catal-bicak-loading";
 import OrderTypeChoices from "@/components/parts/OrderTypeChoices";
 
 
-
-
 export default function Home() {
   // const [restaurants, setRestaurants] = useState();
   const [selectedType, setSelectedType] = useState(1);
