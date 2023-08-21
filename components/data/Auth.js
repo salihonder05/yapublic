@@ -14,9 +14,14 @@ const fetchUser = async (token) => {
         },
         body: JSON.stringify({ userToken: token }),
     })
-    const responses = await response.json();
-    store.dispatch(authActions.updateState({ user: responses }));
-    return responses;
+    try {
+        const responses = await response.json();
+        store.dispatch(authActions.updateState({ user: responses }));
+        return responses;
+    } catch (error) {
+        console.error("JSON Dönüşüm Hatası:", error);
+        // Hata durumuyla nasıl başa çıkmanız gerektiğine karar verin
+    }
 }
 
 

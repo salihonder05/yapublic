@@ -24,6 +24,9 @@ import Swal from "sweetalert2";
 export default function ProductModal({ open, setOpen, product }) {
   const [productCount, setProductCount] = useState(1);
   const [piece, setPiece] = useState(1);
+  const [lastTotalPrice, setLastTotalPrice] = useState(
+    product?.product_price?.price_value
+  );
   const [picker, setPicker] = useState([]);
   const [productStatesMenus, setProductStatesMenus] = useState([]);
   const [showToast, setShowToast] = useState(false);
@@ -32,6 +35,7 @@ export default function ProductModal({ open, setOpen, product }) {
   const [menu_in_menu, setMenu_in_menu] = useState([]);
   const [last_products, setLast_products] = useState([]);
   const [type3ModalStates, setType3ModalStates] = useState();
+  console.log("productproductproductproductproduct: ", product);
   const [productState, setProductState] = useState({
     id: 0,
     product_name: "",
@@ -96,6 +100,10 @@ export default function ProductModal({ open, setOpen, product }) {
   }, []);
 
   useEffect(() => {
+    setLastTotalPrice(product?.product_price?.price_value);
+  }, []);
+
+  useEffect(() => {
     // orderedProduct'ı Redux store'a göndererek güncelle
     store.dispatch(
       orderSelectionActions.updateState({ orderedProduct: product })
@@ -115,6 +123,7 @@ export default function ProductModal({ open, setOpen, product }) {
     // menu_type 1 ve 3 de selected.item_price diye kontrol edilecek
     // menu_type 2 de selected' i döngüye sokup her item price ı toplayıp alacağız.
     let prod = productState;
+    console.log("productSproductSproductS: ", productState);
     let total_price = 0.0;
 
     prod?.selected?.map((item, index) => {
@@ -134,6 +143,7 @@ export default function ProductModal({ open, setOpen, product }) {
     });
     total_price += parseFloat(prod.product_price);
     prod.total_price = total_price * piece; //.toFixed(2);
+    setLastTotalPrice(prod.total_price);
 
     setProductState(prod);
   };
@@ -153,10 +163,7 @@ export default function ProductModal({ open, setOpen, product }) {
     pickerState[index] = product.selected[index].selected.product.id;
     setPicker(pickerState);
     setProductState(product);
-    // this.setState({
-    //   picker,
-    //   productState,
-    // });
+
     await totalPrice();
   };
 
@@ -169,8 +176,8 @@ export default function ProductModal({ open, setOpen, product }) {
         pieceS--;
       }
     }
-    await setPiece(pieceS);
     totalPrice();
+    await setPiece(pieceS);
   };
 
   const onValueChange2 = async (i, index) => {
@@ -191,12 +198,13 @@ export default function ProductModal({ open, setOpen, product }) {
       : product.selected[index].selected.push(i);
     //is_set > -1 ?  product.total_price= (parseFloat(product.total_price) - parseFloat(i.item_price)).toFixed(2) : product.total_price= (parseFloat(product.total_price) + parseFloat(i.item_price)).toFixed(2);
     setProductState(product);
+    console.log("productSproductSproductS2: ", product);
 
     setCheckBox(dt);
-    await totalPrice();
+    totalPrice();
   };
 
-  const onValueChange3 = async (index, value, price = 0, type = 3) => {
+  const onValueChange3 = async (index, value, price, type = 3) => {
     try {
       if (typeof window !== "undefined") {
         var productx = await getSingleProduct(
@@ -205,9 +213,7 @@ export default function ProductModal({ open, setOpen, product }) {
           // Burada cartProducts parametresini de ekleyebilirsiniz, gerekirse.
         );
       }
-
       let productS = productState;
-
       // Artık "getSingleProduct" fonksiyonu tamamlandı ve productx güncel verileri içeriyor.
       for (
         let i = 0;
@@ -215,19 +221,20 @@ export default function ProductModal({ open, setOpen, product }) {
         i++
       ) {
         if (
-          productS?.product_menus[index]?.product_items[i]?.product?.id ===
-          value
+          productS.product_menus[index].product_items[i].product.id === value
         ) {
           productS.selected[index].selected =
-            productS?.product_menus[index]?.product_items[i];
+            productS.product_menus[index].product_items[i];
         }
       }
 
       let pick = picker;
       pick[index] = productS?.selected[index].selected.product.id;
+      console.log("productSproductSproductS: ", productS);
       setPicker(pick);
       setProductState(productS);
       setOpenType3Modal(true);
+      totalPrice();
       setType3ModalStates({
         p_type_3: productx,
         price,
@@ -455,7 +462,7 @@ export default function ProductModal({ open, setOpen, product }) {
         text={
           !picker[index]
             ? item.menu_name
-            : productState.selected[index].selected.product.product_name
+            : productState?.selected[index]?.selected?.product?.product_name
         }
         onChange={(id, value, price, type) => {
           if (type == 2) {
@@ -542,6 +549,8 @@ export default function ProductModal({ open, setOpen, product }) {
       product_price: productState.product_price,
       total: productState.total_price,
       total_price: productState.total_price / piece,
+      extra_price:
+        productState.total_price / piece - product?.product_price?.price_value,
       selected: productState.selected,
       img_url: productState.img_url,
     };
@@ -703,7 +712,7 @@ export default function ProductModal({ open, setOpen, product }) {
                     </div>
                     <div>
                       <span className="text-ya-white">
-                        {parseFloat(productState.total_price).toFixed(2)} ₺
+                        {parseFloat(lastTotalPrice).toFixed(2)} ₺
                       </span>
                     </div>
                   </div>

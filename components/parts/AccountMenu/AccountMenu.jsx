@@ -8,6 +8,8 @@ import { authActions } from "@/app/Redux/features/auth-slice";
 import AuthModal from "../authModal/AuthModal";
 import Link from "next/link";
 
+import Lottie from "react-lottie";
+import animationData from "../../../components/lotties/header-account-loading";
 const account = [
   { name: "Hesabım", href: "/hesabim" },
   { name: "Adresler", href: "/adresler" },
@@ -25,9 +27,30 @@ const AccountMenu = ({ className }) => {
   const authModalOpen = useSelector(({ auth }) => auth.authModalOpen);
   const [isLogged, setIsLogged] = useState(false);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setIsLogged(isLoggedIn);
+    // 2 saniye sonra yükleniyor durumunu kapat
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLogged(isLoggedIn);
+    }, 1000);
   }, [isLoggedIn]);
 
   const openAuthModal = () => {
@@ -81,6 +104,10 @@ const AccountMenu = ({ className }) => {
             </Popover.Panel>
           </Transition>
         </Popover>
+      ) : loading ? (
+        <div>
+          <Lottie options={defaultOptions} height={35} width={70} />
+        </div>
       ) : (
         <button onClick={openAuthModal}>Giriş</button>
       )}

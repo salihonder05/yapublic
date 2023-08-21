@@ -1,42 +1,20 @@
-"use client";
-import { useState } from "react";
+"use client"; 
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import Logo from "@/components/parts/Logo";
 import ButtonSecondaryIcon from "@/components/parts/buttons/ButtonSecondaryIcon";
 import AccountMenu from "@/components/parts/AccountMenu/AccountMenu";
 
-import { Fragment } from "react";
-import { Menu, Popover, Transition } from "@headlessui/react";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import TownsSelectMenu from "../../parts/addressesBreadCrumps/components/Towns";
+import { Popover } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { cartActions } from "@/app/Redux/features/cart-slice";
 import store from "@/app/Redux/store";
 import Link from "next/link";
-import Image from "next/image";
-
-const user = {
-  name: "Chelsea Hagon",
-  email: "chelsea.hagon@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Calendar", href: "#", current: false },
-  { name: "Teams", href: "#", current: false },
-  { name: "Directory", href: "#", current: false },
-];
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default function Header() {
+  
   const openCartHandler = () => {
     let cartTotalPrice = 0;
 
@@ -55,8 +33,9 @@ export default function Header() {
     store.dispatch(cartActions.updateState({ cartTotalPrice: cartTotalPrice }));
   };
 
+
   return (
-    <div>
+    <nav className="sticky top-0 z-10">
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
       <Popover
         as="header"
@@ -179,6 +158,6 @@ export default function Header() {
           </>
         )}
       </Popover>
-    </div>
+    </nav>
   );
 }

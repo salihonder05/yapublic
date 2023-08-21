@@ -118,7 +118,7 @@ export default function Cart() {
 
   return (
     <Transition.Root show={openCart} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeCartHandler}>
+      <Dialog as="div" className="relative z-20" onClose={closeCartHandler}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -147,7 +147,10 @@ export default function Cart() {
                     {cartAccountId ? (
                       <div className="flex-1 px-2 py-2 overflow-y-auto sm:px-6">
                         <div className="flex items-center justify-center p-2 my-2 rounded-md bg-ya-red hover:bg-ya-dark-red">
-                          <TrashIcon className="w-5 h-5 text-white" />
+                          <TrashIcon
+                            className="w-5 h-5 text-white cursor-pointer"
+                            onClick={() => removeCart()}
+                          />
                           <button
                             onClick={() => removeCart()}
                             className="p-2 text-white rounded-md"

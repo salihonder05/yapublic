@@ -115,8 +115,8 @@ const ProductType3Modal = ({
         });
       }
     });
-    total_price += parseFloat(prod.product_price);
-    prod.total_price = total_price * piece; //.toFixed(2);
+    total_price += parseFloat(prod.item_price);
+    prod.total_price = total_price; //.toFixed(2);
 
     setProductState(prod);
   };
