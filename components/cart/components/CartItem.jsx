@@ -28,7 +28,7 @@ const CartItem = ({ product, key, index }) => {
     }
     for (let index = 0; index < memorizedCartProducts?.length; index++) {
       const element = memorizedCartProducts[index];
-      console.log("memorizedCartProducts: ", element); 
+      console.log("memorizedCartProducts: ", element);
       cartTotalPrice += element?.product_price * element.piece;
     }
     store.dispatch(cartActions.updateState({ cartTotalPrice: cartTotalPrice }));
@@ -118,7 +118,7 @@ const CartItem = ({ product, key, index }) => {
             <div className="flex items-end justify-between flex-1 text-sm text-gray-500">
               <p>
                 Total Ücret:{" "}
-                {(product?.product_price * product?.piece + product?.extra_price).toFixed(2)}
+                {(product?.total_price * product?.piece).toFixed(2)}
               </p>
             </div>
           </div>
@@ -133,7 +133,7 @@ const CartItem = ({ product, key, index }) => {
                 id={`quantity-${index}`}
                 name={`quantity-${index}`}
                 className="block max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-ya-yellow focus:outline-none focus:ring-1 focus:ring-ya-yellow sm:text-sm"
-                value={product?.piece} // Bu satırı ekleyin
+                value={product?.piece}
               >
                 <option value={product?.piece}>{product?.piece}</option>
                 <option value={1}>1</option>

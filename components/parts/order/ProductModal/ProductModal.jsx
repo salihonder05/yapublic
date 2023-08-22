@@ -93,7 +93,7 @@ export default function ProductModal({ open, setOpen, product }) {
   // totalPrice fonksiyonunu çağıralım
   useEffect(() => {
     totalPrice();
-  }, [productState, productCount]);
+  }, [productState, productCount, piece]);
   useEffect(() => {
     // getProductMenus ile productStatesMenus verilerini çek ve güncelle
     getProductMenus(product?.id, setProductStatesMenus);
@@ -123,10 +123,10 @@ export default function ProductModal({ open, setOpen, product }) {
     // menu_type 1 ve 3 de selected.item_price diye kontrol edilecek
     // menu_type 2 de selected' i döngüye sokup her item price ı toplayıp alacağız.
     let prod = productState;
-    console.log("productSproductSproductS: ", productState);
     let total_price = 0.0;
 
-    prod?.selected?.map((item, index) => {
+    prod.selected.map((item, index) => {
+      //console.log(item)
       if (
         item.menu_type === 1 ||
         item.menu_type === 3 ||
@@ -135,6 +135,7 @@ export default function ProductModal({ open, setOpen, product }) {
         if (item.selected)
           if (item.selected.item_price)
             total_price += parseFloat(item.selected.item_price);
+        //if(item.selected) if(item.selected.item_price) console.log(item.selected.item_price)
       } else {
         item.selected.map((item2, index2) => {
           if (item2.item_price) total_price += parseFloat(item2.item_price);
@@ -176,7 +177,6 @@ export default function ProductModal({ open, setOpen, product }) {
         pieceS--;
       }
     }
-    totalPrice();
     await setPiece(pieceS);
   };
 
@@ -549,8 +549,6 @@ export default function ProductModal({ open, setOpen, product }) {
       product_price: productState.product_price,
       total: productState.total_price,
       total_price: productState.total_price / piece,
-      extra_price:
-        productState.total_price / piece - product?.product_price?.price_value,
       selected: productState.selected,
       img_url: productState.img_url,
     };

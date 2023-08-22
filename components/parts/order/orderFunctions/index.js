@@ -49,7 +49,7 @@ const addRowShopCart = async (row) => {
 
             } else {
                 if (shopType != ChoseeType) {
-                    Swal.fire({
+                    await Swal.fire({
                         title: "Emin misiniz?",
                         text: "Sepetinizde farklı bir Sipariş türüne ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz",
                         icon: "warning",
@@ -85,7 +85,7 @@ const addRowShopCart = async (row) => {
 
                 // })
             } else {
-                Swal.fire({
+                await Swal.fire({
                     title: "Emin misiniz?",
                     text: "Sepetinizde farklı bir Sipariş türüne ait ürün(ler) var. Devam edebilmek için önce sepetinizi silmelisiniz",
                     icon: "warning",

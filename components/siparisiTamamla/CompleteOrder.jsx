@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import CongratsModal from "../Modal/CongratsModal";
 import { uploadShopCart } from "../parts/order/orderFunctions";
 
@@ -8,6 +9,9 @@ const CompleteOrder = ({ address, getCart, totalAmount, items }) => {
   // const [totalAmount, setTotalAmount] = useState(0);
   // const [items, setItems] = useState([]);
   const [openCongrats, setOpenCongrats] = useState(false);
+  const cart = useSelector(({ cart }) => cart);
+  const cartTotalPrice = cart.cartTotalPrice;
+
   const [addressPicker, setAddressPicker] = useState({
     addressPicker: address?.id,
     selectedAddressID: address?.id,
@@ -37,7 +41,7 @@ const CompleteOrder = ({ address, getCart, totalAmount, items }) => {
   useEffect(() => {
     getCart();
     // return (cleanUp = () => {});
-  }, []);
+  }, [cartTotalPrice]);
 
   const uploadeOrder = async () => {
     const deneme = await uploadShopCart(
@@ -56,7 +60,7 @@ const CompleteOrder = ({ address, getCart, totalAmount, items }) => {
     <div className="flex sm:gap-y-4">
       <div className="flex flex-col items-center justify-center p-1 rounded-l-md text-ya-yellow bg-ya-soft-black basis-1/2">
         <label className="text-xs text-ya-white">TOPLAM TUTAR</label>
-        <label className="text-2xl">{totalAmount.toFixed(2)} TL</label>
+        <label className="text-2xl">{cartTotalPrice.toFixed(2)} TL</label>
       </div>
       <button
         type="button"
