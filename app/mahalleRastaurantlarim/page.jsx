@@ -31,7 +31,7 @@ const MahalleRastaurantlarim = () => {
 
   useEffect(() => {
     getNeighborhoodRestaurants(selectedNeighbourhood, selectedType);
-    getNeighbourhoods();
+    getNeighbourhoods(selectedNeighbourhood);
   }, [selectedType]);
   useEffect(() => {
     if (restaurants.length > 0) {

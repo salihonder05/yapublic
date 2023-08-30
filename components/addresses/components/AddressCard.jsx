@@ -86,7 +86,7 @@ export default function AddressCard({
                 ? "text-white"
                 : "text-gray-500"
             } `}
-            onClick={() => handleAddressSelection(address)}
+            onClick={() => onSelectedAdressHandler(address)}
             style={{ cursor: "pointer" }}
           >
             <Link href="#" className="hover:underline">

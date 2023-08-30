@@ -94,8 +94,7 @@ const getAccountDetail = async (accountId) => {
 };
 const getNeighbourhoods = async (districtId) => {
 
-    const PROJECT_API_URL = process.env.PROJECT_API_URL;
-    // console.log("districtId");
+    const PROJECT_API_URL = process.env.PROJECT_API_URL; 
     try {
         const response = await fetch(PROJECT_API_URL + "neighborhoodsx", {
             method: "POST",
